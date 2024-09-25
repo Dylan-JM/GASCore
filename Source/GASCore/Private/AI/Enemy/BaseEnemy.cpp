@@ -6,7 +6,7 @@
 #include "AbilitySystem/MyAbilitySystemComponent.h"
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "PlayerCharacter/BaseCharacter.h"
+#include "Player/BaseCharacter.h"
 #include "UI/Widget/MainWidget.h"
 
 

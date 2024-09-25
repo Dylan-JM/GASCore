@@ -1,7 +1,7 @@
 
-#include "PlayerCharacter/PlayerAnimInstance.h"
+#include "Player/PlayerAnimInstance.h"
 #include "KismetAnimationLibrary.h"
-#include "PlayerCharacter/BaseCharacter.h"
+#include "Player/BaseCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 

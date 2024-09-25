@@ -5,8 +5,8 @@
 #include "AbilitySystem/MyAttributeSet.h"
 #include "AbilitySystem/Data/AbilityInfo.h"
 #include "AbilitySystem/MyAbilitySystemComponent.h"
-#include "PlayerController/BasePlayerController.h"
-#include "PlayerState/BasePlayerState.h"
+#include "Player/BasePlayerController.h"
+#include "Player/BasePlayerState.h"
 
 void UWidgetController::SetWidgetControllerParams(const FWidgetControllerParams& WCParams)
 {

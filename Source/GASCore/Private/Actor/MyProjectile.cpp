@@ -13,7 +13,7 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Perception/AISense_Damage.h"
-#include "PlayerCharacter/PlayerCharacter.h"
+#include "Player/PlayerCharacter.h"
 
 AMyProjectile::AMyProjectile()
 {

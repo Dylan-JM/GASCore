@@ -5,7 +5,7 @@
 #include "AbilitySystemComponent.h"
 #include "EnhancedInputComponent.h"
 #include "GameFramework/Character.h"
-#include "PlayerCharacter/PlayerCharacter.h"
+#include "Player/PlayerCharacter.h"
 
 UMyGameplayAbility::UMyGameplayAbility()
 {

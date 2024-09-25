@@ -5,8 +5,8 @@
 #include "AbilitySystemComponent.h"
 #include "Actor/MyProjectile.h"
 #include "Engine/SkeletalMeshSocket.h"
-#include "PlayerCharacter/PlayerCharacter.h"
-#include "PlayerController/BasePlayerController.h"
+#include "Player/PlayerCharacter.h"
+#include "Player/BasePlayerController.h"
 
 void UProjectileAbility::SpawnProjectile()
 {

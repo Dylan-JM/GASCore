@@ -6,10 +6,10 @@
 #include "AbilitySystem/Data/MyAbilityTypes.h"
 #include "AbilitySystem/MyGameplayTags.h"
 #include "Interface/CombatInterface.h"
-#include "PlayerState/BasePlayerState.h"
+#include "Player/BasePlayerState.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/OverlapResult.h"
-#include "PlayerCharacter/BaseCharacter.h"
+#include "Player/BaseCharacter.h"
 #include "UI/BaseHUD.h"
 #include "UI/WidgetController/WidgetController.h"
 

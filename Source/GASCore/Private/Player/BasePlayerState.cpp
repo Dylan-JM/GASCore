@@ -1,8 +1,8 @@
 
-#include "PlayerState/BasePlayerState.h"
+#include "Player/BasePlayerState.h"
 #include "AbilitySystem/MyAttributeSet.h"
 #include "AbilitySystem/MyAbilitySystemComponent.h"
-#include "PlayerCharacter/PlayerCharacter.h"
+#include "Player/PlayerCharacter.h"
 #include "Net/UnrealNetwork.h"
 
 ABasePlayerState::ABasePlayerState()

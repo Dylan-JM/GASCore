@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "PlayerCharacter/PlayerCharacter.h"
+#include "Player/PlayerCharacter.h"
 #include "AbilitySystem/MyGameplayTags.h"
 #include "NiagaraComponent.h"
 #include "Camera/CameraComponent.h"
@@ -9,9 +9,9 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "AbilitySystem/MyAbilitySystemComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "PlayerController/BasePlayerController.h"
+#include "Player/BasePlayerController.h"
 #include "Net/UnrealNetwork.h"
-#include "PlayerState/BasePlayerState.h"
+#include "Player/BasePlayerState.h"
 #include "UI/BaseHUD.h"
 
 

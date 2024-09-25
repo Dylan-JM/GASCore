@@ -2,7 +2,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "PlayerCharacter/BaseCharacter.h"
+#include "Player/BaseCharacter.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
 #include "BaseEnemy.generated.h"
 

@@ -1,6 +1,6 @@
 
 
-#include "PlayerController/BasePlayerController.h"
+#include "Player/BasePlayerController.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
 #include "EnhancedInputComponent.h"
@@ -8,8 +8,8 @@
 #include "AbilitySystem/MyGameplayTags.h"
 #include "InputActionValue.h"
 #include "AbilitySystem/MyAbilitySystemComponent.h"
-#include "PlayerCharacter/PlayerCharacter.h"
-#include "PlayerState/BasePlayerState.h"
+#include "Player/PlayerCharacter.h"
+#include "Player/BasePlayerState.h"
 #include "UI/BaseHUD.h"
 #include "UI/Widget/DamageTextComponent.h"
 #include "UserSettings/EnhancedInputUserSettings.h"

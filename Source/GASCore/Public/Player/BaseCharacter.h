@@ -3,7 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
-#include "PlayerState/BasePlayerState.h"
+#include "Player/BasePlayerState.h"
 #include "GameplayTagContainer.h"
 #include "GameFramework/Character.h"
 #include "Interface/CombatInterface.h"

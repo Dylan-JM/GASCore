@@ -9,9 +9,9 @@
 #include "AbilitySystem/MyAbilitySystemLibrary.h"
 #include "AbilitySystem/MyAbilitySystemComponent.h"
 #include "GameplayEffectComponents/TargetTagsGameplayEffectComponent.h"
-#include "PlayerCharacter/BaseCharacter.h"
+#include "Player/BaseCharacter.h"
 #include "Net/UnrealNetwork.h"
-#include "PlayerController/BasePlayerController.h"
+#include "Player/BasePlayerController.h"
 
 UMyAttributeSet::UMyAttributeSet()
 {
