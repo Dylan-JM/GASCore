@@ -4,7 +4,7 @@
 #include "AbilitySystem/Debuffs/DebuffNiagaraComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
-#include "Interfaces/CombatInterface.h"
+#include "Interface/CombatInterface.h"
 
 UDebuffNiagaraComponent::UDebuffNiagaraComponent()
 {

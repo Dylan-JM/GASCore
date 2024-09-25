@@ -8,10 +8,10 @@
 #include "AbilitySystem/MyGameplayTags.h"
 #include "InputActionValue.h"
 #include "AbilitySystem/MyAbilitySystemComponent.h"
-#include "HUD/BaseHUD.h"
-#include "HUD/Widget/DamageTextComponent.h"
 #include "PlayerCharacter/PlayerCharacter.h"
 #include "PlayerState/BasePlayerState.h"
+#include "UI/BaseHUD.h"
+#include "UI/Widget/DamageTextComponent.h"
 #include "UserSettings/EnhancedInputUserSettings.h"
 
 ABasePlayerController::ABasePlayerController()

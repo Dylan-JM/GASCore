@@ -6,8 +6,8 @@
 #include "AbilitySystem/MyAbilitySystemComponent.h"
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "HUD/Widget/MainWidget.h"
 #include "PlayerCharacter/BaseCharacter.h"
+#include "UI/Widget/MainWidget.h"
 
 
 ABaseEnemy::ABaseEnemy(const class FObjectInitializer& ObjectInitializer) : ABaseCharacter(ObjectInitializer)

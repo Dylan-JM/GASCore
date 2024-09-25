@@ -2,8 +2,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "HUD/WidgetController/OverlayWidgetController.h"
 #include "PlayerCharacter/BaseCharacter.h"
+#include "UI/WidgetController/OverlayWidgetController.h"
 #include "BaseEnemy.generated.h"
 
 

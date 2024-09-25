@@ -5,7 +5,7 @@
 
 #include "CoreMinimal.h"
 #include "BaseCharacter.h"
-#include "Interfaces/PlayerInterface.h"
+#include "Interface/PlayerInterface.h"
 #include "PlayerCharacter.generated.h"
 
 class AHealthCharacter;

@@ -6,7 +6,7 @@
 #include "PlayerState/BasePlayerState.h"
 #include "GameplayTagContainer.h"
 #include "GameFramework/Character.h"
-#include "Interfaces/CombatInterface.h"
+#include "Interface/CombatInterface.h"
 #include "BaseCharacter.generated.h"
 
 

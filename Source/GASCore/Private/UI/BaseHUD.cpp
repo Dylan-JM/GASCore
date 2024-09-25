@@ -1,9 +1,9 @@
 
 
-#include "HUD/BaseHUD.h"
-#include "HUD/Widget/MainWidget.h"
-#include "HUD/WidgetController/OverlayWidgetController.h"
+#include "UI/BaseHUD.h"
 #include "Blueprint/UserWidget.h"
+#include "UI/Widget/MainWidget.h"
+#include "UI/WidgetController/OverlayWidgetController.h"
 
 void ABaseHUD::DrawHUD()
 {

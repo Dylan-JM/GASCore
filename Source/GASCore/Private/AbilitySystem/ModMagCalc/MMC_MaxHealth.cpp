@@ -2,7 +2,7 @@
 
 #include "AbilitySystem/ModMagCalc/MMC_MaxHealth.h"
 #include "AbilitySystem/MyAttributeSet.h"
-#include "Interfaces/CombatInterface.h"
+#include "Interface/CombatInterface.h"
 
 UMMC_MaxHealth::UMMC_MaxHealth()
 {

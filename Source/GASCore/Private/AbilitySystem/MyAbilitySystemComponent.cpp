@@ -5,7 +5,7 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystem/MyGameplayTags.h"
 #include "AbilitySystem/Abilities/MyGameplayAbility.h"
-#include "Interfaces/PlayerInterface.h"
+#include "Interface/PlayerInterface.h"
 
 void UMyAbilitySystemComponent::AbilityActorInfoSet()
 {

@@ -5,14 +5,13 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystem/Data/MyAbilityTypes.h"
 #include "AbilitySystem/MyGameplayTags.h"
-#include "GASCoreGameMode.h"
-#include "HUD/BaseHUD.h"
-#include "HUD/WidgetController/WidgetController.h"
-#include "Interfaces/CombatInterface.h"
+#include "Interface/CombatInterface.h"
 #include "PlayerState/BasePlayerState.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/OverlapResult.h"
 #include "PlayerCharacter/BaseCharacter.h"
+#include "UI/BaseHUD.h"
+#include "UI/WidgetController/WidgetController.h"
 
 bool UMyAbilitySystemLibrary::MakeWidgetControllerParams(const UObject* WorldContextObject, FWidgetControllerParams& OutWCParams, ABaseHUD*& OutBaseHUD)
 {

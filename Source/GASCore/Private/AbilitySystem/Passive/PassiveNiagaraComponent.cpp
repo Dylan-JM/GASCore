@@ -5,7 +5,7 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystem/MyGameplayTags.h"
 #include "AbilitySystem/MyAbilitySystemComponent.h"
-#include "Interfaces/CombatInterface.h"
+#include "Interface/CombatInterface.h"
 
 UPassiveNiagaraComponent::UPassiveNiagaraComponent()
 {

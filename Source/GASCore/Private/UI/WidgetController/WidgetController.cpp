@@ -1,7 +1,7 @@
 // Copyright DM
 
 
-#include "HUD/WidgetController/WidgetController.h"
+#include "UI/WidgetController/WidgetController.h"
 #include "AbilitySystem/MyAttributeSet.h"
 #include "AbilitySystem/Data/AbilityInfo.h"
 #include "AbilitySystem/MyAbilitySystemComponent.h"
