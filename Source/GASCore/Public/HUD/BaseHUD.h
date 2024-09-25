@@ -1,0 +1,48 @@
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/HUD.h"
+#include "BaseHUD.generated.h"
+
+
+class UAttributeSet;
+class UAbilitySystemComponent;
+struct FWidgetControllerParams;
+class UOverlayWidgetController;
+class UMainWidget;
+
+UCLASS()
+class GASCORE_API ABaseHUD : public AHUD
+{
+	GENERATED_BODY()
+
+
+public:
+
+	
+	virtual void DrawHUD() override;
+
+	/* Player Overlay */
+	void AddMainHUD();
+	void InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);
+	
+	UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
+	
+protected:
+
+
+private:
+	UPROPERTY()
+	TObjectPtr<UMainWidget> MainHUDWidget;
+	
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UUserWidget> MainHUDClass;
+	
+	UPROPERTY()
+	TObjectPtr<UOverlayWidgetController> OverlayWidgetController;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UOverlayWidgetController> OverlayWidgetControllerClass;
+	
+};
