@@ -3,7 +3,7 @@
 
 #include "AbilitySystem/Abilities/PassiveAbility.h"
 #include "AbilitySystemBlueprintLibrary.h"
-#include "Components/MyAbilitySystemComponent.h"
+#include "AbilitySystem/MyAbilitySystemComponent.h"
 
 void UPassiveAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
                                         const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo,

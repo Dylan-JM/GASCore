@@ -3,7 +3,7 @@
 #include "AbilitySystem/MyGameplayTags.h"
 #include "AbilitySystem/MyAbilitySystemLibrary.h"
 #include "AbilitySystem/MyAttributeSet.h"
-#include "Components/MyAbilitySystemComponent.h"
+#include "AbilitySystem/MyAbilitySystemComponent.h"
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "HUD/Widget/MainWidget.h"

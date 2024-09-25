@@ -7,7 +7,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Components/MyAbilitySystemComponent.h"
+#include "AbilitySystem/MyAbilitySystemComponent.h"
 #include "HUD/BaseHUD.h"
 #include "Kismet/GameplayStatics.h"
 #include "PlayerController/BasePlayerController.h"

@@ -1,7 +1,7 @@
 
 #include "PlayerState/BasePlayerState.h"
 #include "AbilitySystem/MyAttributeSet.h"
-#include "Components/MyAbilitySystemComponent.h"
+#include "AbilitySystem/MyAbilitySystemComponent.h"
 #include "PlayerCharacter/PlayerCharacter.h"
 #include "Net/UnrealNetwork.h"
 

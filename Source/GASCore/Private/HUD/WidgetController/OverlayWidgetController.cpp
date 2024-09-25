@@ -6,7 +6,7 @@
 #include "AbilitySystem/MyAttributeSet.h"
 #include "AbilitySystem/Data/AbilityInfo.h"
 #include "AbilitySystem/Data/LevelUpInfo.h"
-#include "Components/MyAbilitySystemComponent.h"
+#include "AbilitySystem/MyAbilitySystemComponent.h"
 #include "PlayerState/BasePlayerState.h"
 
 void UOverlayWidgetController::BroadcastInitialValues()

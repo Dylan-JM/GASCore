@@ -4,7 +4,7 @@
 #include "HUD/WidgetController/WidgetController.h"
 #include "AbilitySystem/MyAttributeSet.h"
 #include "AbilitySystem/Data/AbilityInfo.h"
-#include "Components/MyAbilitySystemComponent.h"
+#include "AbilitySystem/MyAbilitySystemComponent.h"
 #include "PlayerController/BasePlayerController.h"
 #include "PlayerState/BasePlayerState.h"
 

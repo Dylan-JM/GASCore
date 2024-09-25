@@ -6,7 +6,7 @@
 #include "AbilitySystem/Data/StartupAbilities.h"
 #include "AbilitySystem/Debuffs/DebuffNiagaraComponent.h"
 #include "AbilitySystem/Passive/PassiveNiagaraComponent.h"
-#include "Components/MyAbilitySystemComponent.h"
+#include "AbilitySystem/MyAbilitySystemComponent.h"
 #include "Enemy/BaseEnemy.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GASCore/GASCore.h"

@@ -4,7 +4,7 @@
 #include "AbilitySystem/Passive/PassiveNiagaraComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystem/MyGameplayTags.h"
-#include "Components/MyAbilitySystemComponent.h"
+#include "AbilitySystem/MyAbilitySystemComponent.h"
 #include "Interfaces/CombatInterface.h"
 
 UPassiveNiagaraComponent::UPassiveNiagaraComponent()

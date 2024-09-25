@@ -7,7 +7,7 @@
 #include "AbilitySystem/Data/MyAbilityTypes.h"
 #include "AbilitySystem/MyGameplayTags.h"
 #include "AbilitySystem/MyAbilitySystemLibrary.h"
-#include "Components/MyAbilitySystemComponent.h"
+#include "AbilitySystem/MyAbilitySystemComponent.h"
 #include "GameplayEffectComponents/TargetTagsGameplayEffectComponent.h"
 #include "PlayerCharacter/BaseCharacter.h"
 #include "Net/UnrealNetwork.h"

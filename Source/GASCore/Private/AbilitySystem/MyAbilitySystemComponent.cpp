@@ -1,7 +1,7 @@
 // Copyright DM
 
 
-#include "Components/MyAbilitySystemComponent.h"
+#include "AbilitySystem/MyAbilitySystemComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystem/MyGameplayTags.h"
 #include "AbilitySystem/Abilities/MyGameplayAbility.h"
