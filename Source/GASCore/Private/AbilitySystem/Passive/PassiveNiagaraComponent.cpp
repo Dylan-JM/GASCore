@@ -3,7 +3,7 @@
 
 #include "AbilitySystem/Passive/PassiveNiagaraComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
-#include "MyGameplayTags.h"
+#include "AbilitySystem/MyGameplayTags.h"
 #include "Components/MyAbilitySystemComponent.h"
 #include "Interfaces/CombatInterface.h"
 

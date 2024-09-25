@@ -1,6 +1,6 @@
 
 #include "Enemy/BaseEnemy.h"
-#include "MyGameplayTags.h"
+#include "AbilitySystem/MyGameplayTags.h"
 #include "AbilitySystem/MyAbilitySystemLibrary.h"
 #include "AbilitySystem/MyAttributeSet.h"
 #include "Components/MyAbilitySystemComponent.h"

@@ -3,7 +3,7 @@
 
 #include "Components/MyAbilitySystemComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
-#include "MyGameplayTags.h"
+#include "AbilitySystem/MyGameplayTags.h"
 #include "AbilitySystem/Abilities/MyGameplayAbility.h"
 #include "Interfaces/PlayerInterface.h"
 

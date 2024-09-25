@@ -2,7 +2,7 @@
 #include "PlayerCharacter/BaseCharacter.h"
 #include "Engine.h"
 #include "AbilitySystemBlueprintLibrary.h"
-#include "MyGameplayTags.h"
+#include "AbilitySystem/MyGameplayTags.h"
 #include "AbilitySystem/Data/StartupAbilities.h"
 #include "AbilitySystem/Debuffs/DebuffNiagaraComponent.h"
 #include "AbilitySystem/Passive/PassiveNiagaraComponent.h"

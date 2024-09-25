@@ -4,7 +4,7 @@
 #include "AbilitySystem/MyAbilitySystemLibrary.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "MyAbilityTypes.h"
-#include "MyGameplayTags.h"
+#include "AbilitySystem/MyGameplayTags.h"
 #include "GASCoreGameMode.h"
 #include "HUD/BaseHUD.h"
 #include "HUD/WidgetController/WidgetController.h"
