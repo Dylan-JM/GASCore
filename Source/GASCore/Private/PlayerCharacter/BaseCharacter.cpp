@@ -7,7 +7,7 @@
 #include "AbilitySystem/Debuffs/DebuffNiagaraComponent.h"
 #include "AbilitySystem/Passive/PassiveNiagaraComponent.h"
 #include "AbilitySystem/MyAbilitySystemComponent.h"
-#include "Enemy/BaseEnemy.h"
+#include "AI/Enemy/BaseEnemy.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GASCore/GASCore.h"
 #include "Net/UnrealNetwork.h"
