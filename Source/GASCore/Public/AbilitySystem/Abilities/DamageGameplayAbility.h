@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "MyAbilityTypes.h"
-#include "AbilitySystem/MyGameplayAbility.h"
+#include "MyGameplayAbility.h"
 #include "Interfaces/CombatInterface.h"
 #include "DamageGameplayAbility.generated.h"
 

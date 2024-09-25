@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AbilitySystem/MyGameplayAbility.h"
+#include "AbilitySystem/Abilities/MyGameplayAbility.h"
 #include "PassiveAbility.generated.h"
 
 /**
