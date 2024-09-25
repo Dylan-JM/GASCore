@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "MyAbilityTypes.h"
+#include "AbilitySystem/Data/MyAbilityTypes.h"
 #include "MyGameplayAbility.h"
 #include "Interfaces/CombatInterface.h"
 #include "DamageGameplayAbility.generated.h"

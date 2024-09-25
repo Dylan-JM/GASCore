@@ -3,7 +3,7 @@
 
 #include "AbilitySystem/MyAbilitySystemLibrary.h"
 #include "AbilitySystemBlueprintLibrary.h"
-#include "MyAbilityTypes.h"
+#include "AbilitySystem/Data/MyAbilityTypes.h"
 #include "AbilitySystem/MyGameplayTags.h"
 #include "GASCoreGameMode.h"
 #include "HUD/BaseHUD.h"

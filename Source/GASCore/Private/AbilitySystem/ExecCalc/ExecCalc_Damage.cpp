@@ -3,7 +3,7 @@
 
 #include "AbilitySystem/ExecCalc/ExecCalc_Damage.h"
 #include "AbilitySystemComponent.h"
-#include "MyAbilityTypes.h"
+#include "AbilitySystem/Data/MyAbilityTypes.h"
 #include "AbilitySystem/MyGameplayTags.h"
 #include "AbilitySystem/MyAbilitySystemLibrary.h"
 #include "AbilitySystem/MyAttributeSet.h"

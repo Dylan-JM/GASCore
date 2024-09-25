@@ -4,7 +4,7 @@
 #include "AbilitySystem/MyAttributeSet.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "GameplayEffectExtension.h"
-#include "MyAbilityTypes.h"
+#include "AbilitySystem/Data/MyAbilityTypes.h"
 #include "AbilitySystem/MyGameplayTags.h"
 #include "AbilitySystem/MyAbilitySystemLibrary.h"
 #include "Components/MyAbilitySystemComponent.h"

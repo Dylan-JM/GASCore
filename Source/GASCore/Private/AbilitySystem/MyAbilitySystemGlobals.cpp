@@ -2,7 +2,7 @@
 
 
 #include "AbilitySystem/MyAbilitySystemGlobals.h"
-#include "MyAbilityTypes.h"
+#include "AbilitySystem/Data/MyAbilityTypes.h"
 
 FGameplayEffectContext* UMyAbilitySystemGlobals::AllocGameplayEffectContext() const
 {
