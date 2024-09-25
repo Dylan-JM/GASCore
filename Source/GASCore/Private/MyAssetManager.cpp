@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "AbilitySystem/MyAssetManager.h"
+#include "MyAssetManager.h"
 #include "AbilitySystemGlobals.h"
 
 UMyAssetManager& UMyAssetManager::Get()
