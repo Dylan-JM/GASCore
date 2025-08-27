@@ -92,13 +92,10 @@ protected:
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 	UPROPERTY()
-	TObjectPtr<class UAttributeSet> AttributeSetBase;
+	TObjectPtr<UAttributeSet> AttributeSetBase;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FText ActorName;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "Animations")
-	TObjectPtr<UAnimMontage> DeathMontage;
 	
 	friend UMyAttributeSet;
 	
@@ -110,6 +107,8 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void DeathMontageEnded();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "Animations")
+	TObjectPtr<UAnimMontage> DeathMontage;
 	/* End Death */
 	
 	UPROPERTY(BlueprintReadOnly, Category="Combat")
