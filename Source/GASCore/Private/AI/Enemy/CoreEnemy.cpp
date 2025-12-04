@@ -1,3 +1,4 @@
+// Copyright (c) 2025 Dylan Marley, Dylan-JM @ GitHub
 
 #include "AI/Enemy/CoreEnemy.h"
 #include "AbilitySystem/CoreGameplayTags.h"

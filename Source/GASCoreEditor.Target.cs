@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright (c) 2025 Dylan Marley, Dylan-JM @ GitHub
 
 using UnrealBuildTool;
 using System.Collections.Generic;
@@ -8,8 +8,8 @@ public class GASCoreEditorTarget : TargetRules
 	public GASCoreEditorTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
-		DefaultBuildSettings = BuildSettingsVersion.V5;
-		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_4;
+		DefaultBuildSettings = BuildSettingsVersion.Latest;
+		IncludeOrderVersion = EngineIncludeOrderVersion.Latest;
 		ExtraModuleNames.Add("GASCore");
 	}
 }
