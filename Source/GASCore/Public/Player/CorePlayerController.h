@@ -3,24 +3,24 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "BasePlayerController.generated.h"
+#include "CorePlayerController.generated.h"
 
 class APlayerCharacter;
 class UDamageTextComponent;
-class ABaseHUD;
+class ACoreHUD;
 struct FInputActionValue;
 class UInputAction;
 class UInputMappingContext;
-class UMyAbilitySystemComponent;
+class UCoreAbilitySystemComponent;
 
 UCLASS()
-class GASCORE_API ABasePlayerController : public APlayerController
+class GASCORE_API ACorePlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
 
 public:
-	ABasePlayerController();
+	ACorePlayerController();
 	/* Player Input */
 	virtual void SetupInputComponent() override;
 	void Move(const FInputActionValue& Value);
@@ -45,7 +45,7 @@ protected:
 
 private:
 	UPROPERTY()
-	TObjectPtr<ABaseHUD> BaseHUD;
+	TObjectPtr<ACoreHUD> BaseHUD;
 	
 	/* Player Input */
 	
@@ -60,10 +60,10 @@ private:
 	UPROPERTY(EditAnywhere, Category = Input)
 	TObjectPtr<UInputAction> JumpAction;
 
-	UMyAbilitySystemComponent* GetASC();
+	UCoreAbilitySystemComponent* GetASC();
 	
 	UPROPERTY()
-	TObjectPtr<UMyAbilitySystemComponent> HDAbilitySystemComponent;
+	TObjectPtr<UCoreAbilitySystemComponent> HDAbilitySystemComponent;
 	
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UDamageTextComponent> DamageTextComponentClass;

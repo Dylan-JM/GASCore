@@ -1,7 +1,7 @@
 
 #include "Player/PlayerAnimInstance.h"
 #include "KismetAnimationLibrary.h"
-#include "Player/BaseCharacter.h"
+#include "Player/CoreCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 
@@ -9,7 +9,7 @@
 void UPlayerAnimInstance::NativeInitializeAnimation()
 {
 	Super::NativeInitializeAnimation();
-	BaseCharacter = Cast<ABaseCharacter>(TryGetPawnOwner());
+	BaseCharacter = Cast<ACoreCharacter>(TryGetPawnOwner());
 }
 
 void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaSeconds)

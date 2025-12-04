@@ -5,7 +5,7 @@
 #include "AIController.h"
 #include "EnemyAIController.generated.h"
 
-class ABaseEnemy;
+class ACoreEnemy;
 class UBehaviorTreeComponent;
 class UAISenseConfig_Sight;
 class UAISenseConfig_Hearing;

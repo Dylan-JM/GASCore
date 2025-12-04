@@ -2,17 +2,17 @@
 
 
 #include "Player/PlayerCharacter.h"
-#include "AbilitySystem/MyGameplayTags.h"
+#include "AbilitySystem/CoreGameplayTags.h"
 #include "NiagaraComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "AbilitySystem/MyAbilitySystemComponent.h"
+#include "AbilitySystem/CoreAbilitySystemComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "Player/BasePlayerController.h"
+#include "Player/CorePlayerController.h"
 #include "Net/UnrealNetwork.h"
-#include "Player/BasePlayerState.h"
-#include "UI/BaseHUD.h"
+#include "Player/CorePlayerState.h"
+#include "UI/CoreHUD.h"
 
 
 APlayerCharacter::APlayerCharacter(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
@@ -57,14 +57,14 @@ void APlayerCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	PlayerCharacterController = Cast<ABasePlayerController>(GetController());
+	PlayerCharacterController = Cast<ACorePlayerController>(GetController());
 	GetCharacterMovement()->MaxWalkSpeed = BaseWalkSpeed;
 }
 
 void APlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-	if (PlayerCharacterController == nullptr) PlayerCharacterController = Cast<ABasePlayerController>(NewController);
+	if (PlayerCharacterController == nullptr) PlayerCharacterController = Cast<ACorePlayerController>(NewController);
 	
 	// Init ability actor info for the Server
 	InitAbilityActorInfo();
@@ -84,21 +84,21 @@ void APlayerCharacter::OnRep_PlayerState()
 
 void APlayerCharacter::InitAbilityActorInfo()
 {
-	ABasePlayerState* PS = GetPlayerState<ABasePlayerState>();
+	ACorePlayerState* PS = GetPlayerState<ACorePlayerState>();
 	if (!IsValid(PS))
 	{
 		GEngine->AddOnScreenDebugMessage(-1,5.f,FColor::Red,"Player state is not valid");
 		return;
 	}
 	PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS, this);
-	Cast<UMyAbilitySystemComponent>(PS->GetAbilitySystemComponent())->AbilityActorInfoSet();
+	Cast<UCoreAbilitySystemComponent>(PS->GetAbilitySystemComponent())->AbilityActorInfoSet();
 	AbilitySystemComponent = PS->GetAbilitySystemComponent();
 	AttributeSetBase = PS->GetAttributeSetBase();
 	OnAscRegistered.Broadcast(AbilitySystemComponent);
 	
-	if (ABasePlayerController* PlayerController = Cast<ABasePlayerController>(GetController()))
+	if (ACorePlayerController* PlayerController = Cast<ACorePlayerController>(GetController()))
 	{
-		if (ABaseHUD* BaseHUD = Cast<ABaseHUD>(PlayerController->GetHUD()))
+		if (ACoreHUD* BaseHUD = Cast<ACoreHUD>(PlayerController->GetHUD()))
 		{
 			BaseHUD->InitOverlay(PlayerController, PS, AbilitySystemComponent, AttributeSetBase);
 		}

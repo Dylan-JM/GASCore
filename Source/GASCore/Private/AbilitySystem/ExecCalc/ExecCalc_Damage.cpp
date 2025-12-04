@@ -4,9 +4,9 @@
 #include "AbilitySystem/ExecCalc/ExecCalc_Damage.h"
 #include "AbilitySystemComponent.h"
 #include "AbilitySystem/Data/MyAbilityTypes.h"
-#include "AbilitySystem/MyGameplayTags.h"
-#include "AbilitySystem/MyAbilitySystemLibrary.h"
-#include "AbilitySystem/MyAttributeSet.h"
+#include "AbilitySystem/CoreGameplayTags.h"
+#include "AbilitySystem/CoreAbilitySystemLibrary.h"
+#include "AbilitySystem/CoreAttributeSet.h"
 #include "Interface/CombatInterface.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -27,18 +27,18 @@ struct HDDamageStatics
 	
 	HDDamageStatics()
 	{
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UMyAttributeSet, Armor, Target, false);
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UMyAttributeSet, ArmorPenetration, Source, false);
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UMyAttributeSet, BlockChance, Target, false);
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UMyAttributeSet, CriticalHitChance, Source, false);
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UMyAttributeSet, CriticalHitResistance, Target, false);
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UMyAttributeSet, CriticalHitDamage, Source, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UCoreAttributeSet, Armor, Target, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UCoreAttributeSet, ArmorPenetration, Source, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UCoreAttributeSet, BlockChance, Target, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UCoreAttributeSet, CriticalHitChance, Source, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UCoreAttributeSet, CriticalHitResistance, Target, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UCoreAttributeSet, CriticalHitDamage, Source, false);
 
 		
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UMyAttributeSet, FireResistance, Target, false);
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UMyAttributeSet, LightningResistance, Target, false);
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UMyAttributeSet, ArcaneResistance, Target, false);
-		DEFINE_ATTRIBUTE_CAPTUREDEF(UMyAttributeSet, PhysicalResistance, Target, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UCoreAttributeSet, FireResistance, Target, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UCoreAttributeSet, LightningResistance, Target, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UCoreAttributeSet, ArcaneResistance, Target, false);
+		DEFINE_ATTRIBUTE_CAPTUREDEF(UCoreAttributeSet, PhysicalResistance, Target, false);
 		
 	}
 };
@@ -89,15 +89,15 @@ void UExecCalc_Damage::DetermineDebuff(const FGameplayEffectCustomExecutionParam
 			if (bDebuff)
 			{
 				FGameplayEffectContextHandle ContextHandle = Spec.GetContext();
-				UMyAbilitySystemLibrary::SetIsSuccessfulDebuff(ContextHandle, true);
-				UMyAbilitySystemLibrary::SetDamageType(ContextHandle, DamageType);
+				UCoreAbilitySystemLibrary::SetIsSuccessfulDebuff(ContextHandle, true);
+				UCoreAbilitySystemLibrary::SetDamageType(ContextHandle, DamageType);
 			
 				const float DebuffDamage = Spec.GetSetByCallerMagnitude(GasTag::Debuff_Damage, false, -1.f);
 				const float DebuffDuration = Spec.GetSetByCallerMagnitude(GasTag::Debuff_Duration, false, -1.f);
 				const float DebuffFrequency = Spec.GetSetByCallerMagnitude(GasTag::Debuff_Frequency, false, -1.f);
-				UMyAbilitySystemLibrary::SetDebuffDamage(ContextHandle, DebuffDamage);
-				UMyAbilitySystemLibrary::SetDebuffDuration(ContextHandle, DebuffDuration);
-				UMyAbilitySystemLibrary::SetDebuffFrequency(ContextHandle, DebuffFrequency);
+				UCoreAbilitySystemLibrary::SetDebuffDamage(ContextHandle, DebuffDamage);
+				UCoreAbilitySystemLibrary::SetDebuffDuration(ContextHandle, DebuffDuration);
+				UCoreAbilitySystemLibrary::SetDebuffFrequency(ContextHandle, DebuffFrequency);
 			}
 		}
 	}
@@ -174,7 +174,7 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 
 		DamageTypeValue *= (100.f - Resistance) / 100.f;
 		
-		if (UMyAbilitySystemLibrary::IsRadialDamage(EffectContextHandle))
+		if (UCoreAbilitySystemLibrary::IsRadialDamage(EffectContextHandle))
 		{
 			if(ICombatInterface* CombatInterface = Cast<ICombatInterface>(TargetAvatar))
 			{
@@ -187,9 +187,9 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 				TargetAvatar,
 				DamageTypeValue,
 				0.f,
-				UMyAbilitySystemLibrary::GetRadialDamageOrigin(EffectContextHandle),
-				UMyAbilitySystemLibrary::GetRadialDamageInnerRadius(EffectContextHandle),
-				UMyAbilitySystemLibrary::GetRadialDamageOuterRadius(EffectContextHandle),
+				UCoreAbilitySystemLibrary::GetRadialDamageOrigin(EffectContextHandle),
+				UCoreAbilitySystemLibrary::GetRadialDamageInnerRadius(EffectContextHandle),
+				UCoreAbilitySystemLibrary::GetRadialDamageOuterRadius(EffectContextHandle),
 				1.f,
 				UDamageType::StaticClass(),
 				TArray<AActor*>(),
@@ -209,7 +209,7 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 
 	
 	bool bBlocked;
-	if (UMyAbilitySystemLibrary::IsBlockable(EffectContextHandle))
+	if (UCoreAbilitySystemLibrary::IsBlockable(EffectContextHandle))
 	{
 		 bBlocked = FMath::RandRange(1, 100) < TargetBlockChance;
 	}
@@ -218,7 +218,7 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 		bBlocked = 0;
 	}
 	
-	UMyAbilitySystemLibrary::SetIsBlockedHit(EffectContextHandle, bBlocked);
+	UCoreAbilitySystemLibrary::SetIsBlockedHit(EffectContextHandle, bBlocked);
 
 	float DamageConsumption = 2.f;
 	
@@ -234,8 +234,8 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().ArmorPenetrationDef, EvaluationParameters, SourceArmorPenetration);
 	SourceArmorPenetration = FMath::Max<float>(SourceArmorPenetration, 0.f);
 
-	const UCurveTable* SourceDamageCalcCoefficients = UMyAbilitySystemLibrary::GetDamageCalculationCoefficients(SourceAvatar);
-	const UCurveTable* TargetDamageCalcCoefficients = UMyAbilitySystemLibrary::GetDamageCalculationCoefficients(TargetAvatar);
+	const UCurveTable* SourceDamageCalcCoefficients = UCoreAbilitySystemLibrary::GetDamageCalculationCoefficients(SourceAvatar);
+	const UCurveTable* TargetDamageCalcCoefficients = UCoreAbilitySystemLibrary::GetDamageCalculationCoefficients(TargetAvatar);
 	const FRealCurve* ArmorPenetrationCurve = SourceDamageCalcCoefficients->FindCurve(FName("ArmorPenetration"), FString());
 	const float ArmorPenetrationCoefficient = ArmorPenetrationCurve->Eval(SourcePlayerLevel);
 
@@ -265,11 +265,11 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	const float EffectiveCriticalHitChance = SourceCriticalHitChance - TargetCriticalHitResistance * CriticalHitResistanceCoefficient;
 	const bool bCriticalHit = FMath::RandRange(1,100) < EffectiveCriticalHitChance;
 
-	UMyAbilitySystemLibrary::SetIsCriticalHit(EffectContextHandle, bCriticalHit);
+	UCoreAbilitySystemLibrary::SetIsCriticalHit(EffectContextHandle, bCriticalHit);
 	
 	// Double damage plus a bonus if critical hit
 	Damage = bCriticalHit ? 2.f * Damage + SourceCriticalHitDamage : Damage;
 	
-	const FGameplayModifierEvaluatedData EvaluatedData(UMyAttributeSet::GetIncomingDamageAttribute(), EGameplayModOp::Additive, Damage);
+	const FGameplayModifierEvaluatedData EvaluatedData(UCoreAttributeSet::GetIncomingDamageAttribute(), EGameplayModOp::Additive, Damage);
 	OutExecutionOutput.AddOutputModifier(EvaluatedData);
 }

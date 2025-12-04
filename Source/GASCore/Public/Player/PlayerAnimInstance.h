@@ -7,7 +7,7 @@
 
 
 enum class ECombatStyle : uint8;
-class ABaseCharacter;
+class ACoreCharacter;
 
 UCLASS()
 class GASCORE_API UPlayerAnimInstance : public UAnimInstance
@@ -23,7 +23,7 @@ private:
 	TObjectPtr<ACharacter> Character;
 
 	UPROPERTY(BlueprintReadOnly, Category = Character, meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<ABaseCharacter> BaseCharacter;
+	TObjectPtr<ACoreCharacter> BaseCharacter;
 	
 	UPROPERTY(BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
 	float Speed;

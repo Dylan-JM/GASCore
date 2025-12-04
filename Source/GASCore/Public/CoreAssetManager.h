@@ -4,18 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "Engine/AssetManager.h"
-#include "MyAssetManager.generated.h"
+#include "CoreAssetManager.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class GASCORE_API UMyAssetManager : public UAssetManager
+class GASCORE_API UCoreAssetManager : public UAssetManager
 {
 	GENERATED_BODY()
 
 public:
-	static UMyAssetManager& Get();
+	static UCoreAssetManager& Get();
 
 protected:
 	virtual void StartInitialLoading() override;

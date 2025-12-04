@@ -2,12 +2,12 @@
 
 
 #include "UI/WidgetController/OverlayWidgetController.h"
-#include "AbilitySystem/MyGameplayTags.h"
-#include "AbilitySystem/MyAttributeSet.h"
+#include "AbilitySystem/CoreGameplayTags.h"
+#include "AbilitySystem/CoreAttributeSet.h"
 #include "AbilitySystem/Data/AbilityInfo.h"
 #include "AbilitySystem/Data/LevelUpInfo.h"
-#include "AbilitySystem/MyAbilitySystemComponent.h"
-#include "Player/BasePlayerState.h"
+#include "AbilitySystem/CoreAbilitySystemComponent.h"
+#include "Player/CorePlayerState.h"
 
 void UOverlayWidgetController::BroadcastInitialValues()
 {

@@ -3,11 +3,11 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
-#include "Player/BasePlayerState.h"
+#include "Player/CorePlayerState.h"
 #include "GameplayTagContainer.h"
 #include "GameFramework/Character.h"
 #include "Interface/CombatInterface.h"
-#include "BaseCharacter.generated.h"
+#include "CoreCharacter.generated.h"
 
 
 class UPassiveNiagaraComponent;
@@ -16,21 +16,21 @@ class UNiagaraSystem;
 class UAnimMontage;
 class UGameplayEffect;
 class UGameplayAbility;
-class UMyAbilitySystemComponent;
-class UMyAttributeSet;
+class UCoreAbilitySystemComponent;
+class UCoreAttributeSet;
 class UStartupAbilities;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCharacterDiedDelegate, ABaseCharacter*, Character);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCharacterDiedDelegate, ACoreCharacter*, Character);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAbilityFinished);
 
 
 UCLASS()
-class GASCORE_API ABaseCharacter : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
+class GASCORE_API ACoreCharacter : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
 {
 	GENERATED_BODY()
 
 public:
-	ABaseCharacter(const class FObjectInitializer& ObjectInitializer);
+	ACoreCharacter(const class FObjectInitializer& ObjectInitializer);
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
@@ -97,7 +97,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FText ActorName;
 	
-	friend UMyAttributeSet;
+	friend UCoreAttributeSet;
 	
 	/* Death */
 	

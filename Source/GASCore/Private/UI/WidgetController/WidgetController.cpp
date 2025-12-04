@@ -2,11 +2,11 @@
 
 
 #include "UI/WidgetController/WidgetController.h"
-#include "AbilitySystem/MyAttributeSet.h"
+#include "AbilitySystem/CoreAttributeSet.h"
 #include "AbilitySystem/Data/AbilityInfo.h"
-#include "AbilitySystem/MyAbilitySystemComponent.h"
-#include "Player/BasePlayerController.h"
-#include "Player/BasePlayerState.h"
+#include "AbilitySystem/CoreAbilitySystemComponent.h"
+#include "Player/CorePlayerController.h"
+#include "Player/CorePlayerState.h"
 
 void UWidgetController::SetWidgetControllerParams(const FWidgetControllerParams& WCParams)
 {
@@ -39,38 +39,38 @@ void UWidgetController::BroadcastAbilityInfo()
 	GetHDASC()->ForEachAbility(BroadcastDelegate);
 }
 
-ABasePlayerController* UWidgetController::GetBasePC()
+ACorePlayerController* UWidgetController::GetBasePC()
 {
 	if (BasePlayerController == nullptr)
 	{
-		BasePlayerController = Cast<ABasePlayerController>(PlayerController);
+		BasePlayerController = Cast<ACorePlayerController>(PlayerController);
 	}
 	return BasePlayerController;
 }
 
-ABasePlayerState* UWidgetController::GetBasePS()
+ACorePlayerState* UWidgetController::GetBasePS()
 {
 	if (BasePlayerState == nullptr)
 	{
-		BasePlayerState = Cast<ABasePlayerState>(PlayerState);
+		BasePlayerState = Cast<ACorePlayerState>(PlayerState);
 	}
 	return BasePlayerState;
 }
 
-UMyAbilitySystemComponent* UWidgetController::GetHDASC()
+UCoreAbilitySystemComponent* UWidgetController::GetHDASC()
 {
 	if (HDAbilitySystemComponent == nullptr)
 	{
-		HDAbilitySystemComponent = Cast<UMyAbilitySystemComponent>(AbilitySystemComponent);
+		HDAbilitySystemComponent = Cast<UCoreAbilitySystemComponent>(AbilitySystemComponent);
 	}
 	return HDAbilitySystemComponent;
 }
 
-UMyAttributeSet* UWidgetController::GetHDAttributeSet()
+UCoreAttributeSet* UWidgetController::GetHDAttributeSet()
 {
 	if (HDAttributeSet == nullptr)
 	{
-		HDAttributeSet = Cast<UMyAttributeSet>(AttributeSet);
+		HDAttributeSet = Cast<UCoreAttributeSet>(AttributeSet);
 	}
 	return HDAttributeSet;
 }

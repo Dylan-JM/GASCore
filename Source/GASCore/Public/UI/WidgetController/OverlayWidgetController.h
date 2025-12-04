@@ -28,7 +28,7 @@ struct FUIWidgetRow : public FTableRowBase
 };
 
 class UMainWidget;
-class UMyAbilitySystemComponent;
+class UCoreAbilitySystemComponent;
 class UAbilityInfo;
 
 

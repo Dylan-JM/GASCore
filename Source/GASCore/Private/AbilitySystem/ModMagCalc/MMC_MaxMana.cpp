@@ -2,12 +2,12 @@
 
 
 #include "AbilitySystem/ModMagCalc/MMC_MaxMana.h"
-#include "AbilitySystem/MyAttributeSet.h"
+#include "AbilitySystem/CoreAttributeSet.h"
 #include "Interface/CombatInterface.h"
 
 UMMC_MaxMana::UMMC_MaxMana()
 {
-	IntDef.AttributeToCapture = UMyAttributeSet::GetIntelligenceAttribute();
+	IntDef.AttributeToCapture = UCoreAttributeSet::GetIntelligenceAttribute();
 	IntDef.AttributeSource = EGameplayEffectAttributeCaptureSource::Target;
 	IntDef.bSnapshot = false;
 

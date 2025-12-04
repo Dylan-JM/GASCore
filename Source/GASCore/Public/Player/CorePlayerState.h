@@ -5,7 +5,7 @@
 #include "GameFramework/PlayerState.h"
 #include "AbilitySystemInterface.h"
 #include "GameplayEffectTypes.h"
-#include "BasePlayerState.generated.h"
+#include "CorePlayerState.generated.h"
 
 
 class ULevelUpInfo;
@@ -16,12 +16,12 @@ DECLARE_MULTICAST_DELEGATE_OneParam(FOnPlayerStateChanged, int32 /*StatValue*/);
 DECLARE_MULTICAST_DELEGATE_TwoParams(FOnLevelChanged, int32 /*StatValue*/, bool /* bLevelUp */);
 
 UCLASS()
-class GASCORE_API ABasePlayerState : public APlayerState, public IAbilitySystemInterface
+class GASCORE_API ACorePlayerState : public APlayerState, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
 public:
-	ABasePlayerState();
+	ACorePlayerState();
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 

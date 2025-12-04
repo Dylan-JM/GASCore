@@ -1,12 +1,12 @@
 // Copyright DM
 
 #include "AbilitySystem/ModMagCalc/MMC_MaxHealth.h"
-#include "AbilitySystem/MyAttributeSet.h"
+#include "AbilitySystem/CoreAttributeSet.h"
 #include "Interface/CombatInterface.h"
 
 UMMC_MaxHealth::UMMC_MaxHealth()
 {
-	VigorDef.AttributeToCapture = UMyAttributeSet::GetVigorAttribute();
+	VigorDef.AttributeToCapture = UCoreAttributeSet::GetVigorAttribute();
 	VigorDef.AttributeSource = EGameplayEffectAttributeCaptureSource::Target;
 	VigorDef.bSnapshot = false;
 

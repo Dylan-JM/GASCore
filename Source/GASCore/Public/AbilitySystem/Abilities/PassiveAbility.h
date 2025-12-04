@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AbilitySystem/Abilities/MyGameplayAbility.h"
+#include "AbilitySystem/Abilities/CoreGameplayAbility.h"
 #include "PassiveAbility.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class GASCORE_API UPassiveAbility : public UMyGameplayAbility
+class GASCORE_API UPassiveAbility : public UCoreGameplayAbility
 {
 	GENERATED_BODY()
 

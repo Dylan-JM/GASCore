@@ -7,7 +7,7 @@
 #include "UObject/Interface.h"
 #include "CombatInterface.generated.h"
 
-class ABaseCharacter;
+class ACoreCharacter;
 class UAbilitySystemComponent;
 
 DECLARE_MULTICAST_DELEGATE_OneParam(FOnASCRegistered, UAbilitySystemComponent*);

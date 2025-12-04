@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
 #include "AttributeSet.h"
-#include "MyAttributeSet.generated.h"
+#include "CoreAttributeSet.generated.h"
 
 // Use macros from attributes.h
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
@@ -14,7 +14,7 @@
 	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
-class ABaseCharacter;
+class ACoreCharacter;
 
 USTRUCT()
 struct FEffectProperties
@@ -49,12 +49,12 @@ template<class T>
 using TStaticFuncPtr = typename TBaseStaticDelegateInstance<T, FDefaultDelegateUserPolicy>::FFuncPtr;
 
 UCLASS()
-class GASCORE_API UMyAttributeSet : public UAttributeSet
+class GASCORE_API UCoreAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
 
 public:
-	UMyAttributeSet();
+	UCoreAttributeSet();
 	
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
@@ -69,70 +69,70 @@ public:
 	
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing= OnRep_Strength, Category= "Primary Attributes")
 	FGameplayAttributeData Strength;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, Strength);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, Strength);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing= OnRep_Intelligence, Category= "Primary Attributes")
 	FGameplayAttributeData Intelligence;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, Intelligence);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, Intelligence);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing= OnRep_Resilience, Category= "Primary Attributes")
 	FGameplayAttributeData Resilience;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, Resilience);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, Resilience);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing= OnRep_Vigor, Category= "Primary Attributes")
 	FGameplayAttributeData Vigor;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, Vigor);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, Vigor);
 	
 	/* Secondary Attributes */
 	
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Armor, Category = "Secondary Attributes")
 	FGameplayAttributeData Armor;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, Armor);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, Armor);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_ArmorPenetration, Category = "Secondary Attributes")
 	FGameplayAttributeData ArmorPenetration;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, ArmorPenetration);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, ArmorPenetration);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_BlockChance, Category = "Secondary Attributes")
 	FGameplayAttributeData BlockChance;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, BlockChance);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, BlockChance);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_CriticalHitChance, Category = "Secondary Attributes")
 	FGameplayAttributeData CriticalHitChance;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, CriticalHitChance);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, CriticalHitChance);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_CriticalHitDamage, Category = "Secondary Attributes")
 	FGameplayAttributeData CriticalHitDamage;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, CriticalHitDamage);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, CriticalHitDamage);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_CriticalHitResistance, Category = "Secondary Attributes")
 	FGameplayAttributeData CriticalHitResistance;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, CriticalHitResistance);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, CriticalHitResistance);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_HealthRegeneration, Category = "Secondary Attributes")
 	FGameplayAttributeData HealthRegeneration;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, HealthRegeneration);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, HealthRegeneration);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_ManaRegeneration, Category = "Secondary Attributes")
 	FGameplayAttributeData ManaRegeneration;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, ManaRegeneration);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, ManaRegeneration);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_StaminaRegeneration, Category = "Secondary Attributes")
 	FGameplayAttributeData StaminaRegeneration;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, StaminaRegeneration);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, StaminaRegeneration);
 
 	
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing= OnRep_MaxHealth, Category= "Vital Attributes")
 	FGameplayAttributeData MaxHealth;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, MaxHealth);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, MaxHealth);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing= OnRep_MaxMana, Category= "Vital Attributes")
 	FGameplayAttributeData MaxMana;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, MaxMana);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, MaxMana);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing= OnRep_MaxStamina, Category= "Vital Attributes")
 	FGameplayAttributeData MaxStamina;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, MaxStamina);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, MaxStamina);
 	
 	/*
  * Resistance Attributes
@@ -140,39 +140,39 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_FireResistance, Category = "Resistance Attributes")
 	FGameplayAttributeData FireResistance;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, FireResistance);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, FireResistance);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_LightningResistance, Category = "Resistance Attributes")
 	FGameplayAttributeData LightningResistance;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, LightningResistance);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, LightningResistance);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_ArcaneResistance, Category = "Resistance Attributes")
 	FGameplayAttributeData ArcaneResistance;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, ArcaneResistance);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, ArcaneResistance);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_PhysicalResistance, Category = "Resistance Attributes")
 	FGameplayAttributeData PhysicalResistance;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, PhysicalResistance);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, PhysicalResistance);
 	
 	/* Vital Attributes */
 	
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing= OnRep_Health, Category= "Vital Attributes")
 	FGameplayAttributeData Health;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, Health);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, Health);
 	
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing= OnRep_Mana, Category= "Vital Attributes")
 	FGameplayAttributeData Mana;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, Mana);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, Mana);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing= OnRep_Stamina, Category= "Vital Attributes")
 	FGameplayAttributeData Stamina;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, Stamina);
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, Stamina);
 
 	// Damage is a meta attribute by the DamageExecution to calculate final damage
 	// Temporary value that only exists on the server. Not replicated.
 	UPROPERTY(BlueprintReadOnly, Category= "Meta Attributes")
 	FGameplayAttributeData IncomingDamage;
-	ATTRIBUTE_ACCESSORS(UMyAttributeSet, IncomingDamage)
+	ATTRIBUTE_ACCESSORS(UCoreAttributeSet, IncomingDamage)
 	
 	UFUNCTION()
 	void OnRep_Strength(const FGameplayAttributeData& OldStrength);

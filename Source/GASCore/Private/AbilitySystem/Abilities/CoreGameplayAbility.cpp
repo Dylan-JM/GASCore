@@ -1,19 +1,19 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "AbilitySystem/Abilities/MyGameplayAbility.h"
+#include "AbilitySystem/Abilities/CoreGameplayAbility.h"
 #include "AbilitySystemComponent.h"
 #include "EnhancedInputComponent.h"
 #include "GameFramework/Character.h"
 #include "Player/PlayerCharacter.h"
 
-UMyGameplayAbility::UMyGameplayAbility()
+UCoreGameplayAbility::UCoreGameplayAbility()
 {
 	InstancingPolicy = EGameplayAbilityInstancingPolicy::InstancedPerActor;
 	
 }
 
-void UMyGameplayAbility::StoreOwnerVariables()
+void UCoreGameplayAbility::StoreOwnerVariables()
 {
 	if (CurrentActorInfo)
 	{
@@ -22,7 +22,7 @@ void UMyGameplayAbility::StoreOwnerVariables()
 	}
 }
 
-void UMyGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
+void UCoreGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
 	Super::OnAvatarSet(ActorInfo, Spec);
 
@@ -39,7 +39,7 @@ void UMyGameplayAbility::OnAvatarSet(const FGameplayAbilityActorInfo* ActorInfo,
 	}
 }
 
-void UMyGameplayAbility::SetupEnhancedInputBindings(const FGameplayAbilityActorInfo* ActorInfo,
+void UCoreGameplayAbility::SetupEnhancedInputBindings(const FGameplayAbilityActorInfo* ActorInfo,
 	const FGameplayAbilitySpec& Spec)
 {
 	if (IsValid(ActorInfo->AvatarActor.Get()))
@@ -50,7 +50,7 @@ void UMyGameplayAbility::SetupEnhancedInputBindings(const FGameplayAbilityActorI
 			{
 				if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PawnController->InputComponent.Get()))
 				{
-					if (UMyGameplayAbility* AbilityInstance = Cast<UMyGameplayAbility>(Spec.Ability.Get()))
+					if (UCoreGameplayAbility* AbilityInstance = Cast<UCoreGameplayAbility>(Spec.Ability.Get()))
 					{
 						// Check to see if the "Activation Input Action" is valid.
 						if (IsValid(AbilityInstance->ActivationInputAction))
@@ -74,7 +74,7 @@ void UMyGameplayAbility::SetupEnhancedInputBindings(const FGameplayAbilityActorI
 	}
 }
 
-void UMyGameplayAbility::HandleInputPressedEvent(const FGameplayAbilityActorInfo* ActorInfo,
+void UCoreGameplayAbility::HandleInputPressedEvent(const FGameplayAbilityActorInfo* ActorInfo,
 	const FGameplayAbilitySpecHandle SpecHandle)
 {
 	// Find the Ability Spec based on the passed in information and set a reference.
@@ -105,7 +105,7 @@ void UMyGameplayAbility::HandleInputPressedEvent(const FGameplayAbilityActorInfo
 	}
 }
 
-void UMyGameplayAbility::HandleInputReleasedEvent(const FGameplayAbilityActorInfo* ActorInfo,
+void UCoreGameplayAbility::HandleInputReleasedEvent(const FGameplayAbilityActorInfo* ActorInfo,
 	const FGameplayAbilitySpecHandle SpecHandle)
 {
 	// Find the Ability Spec based on the passed in information and set a reference.
@@ -131,7 +131,7 @@ void UMyGameplayAbility::HandleInputReleasedEvent(const FGameplayAbilityActorInf
 	}
 }
 
-void UMyGameplayAbility::OnRemoveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
+void UCoreGameplayAbility::OnRemoveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
 	if (IsValid(ActorInfo->AvatarActor.Get()))
 	{

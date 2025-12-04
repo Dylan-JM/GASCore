@@ -3,7 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
-#include "BaseHUD.generated.h"
+#include "CoreHUD.generated.h"
 
 
 class UAttributeSet;
@@ -13,7 +13,7 @@ class UOverlayWidgetController;
 class UMainWidget;
 
 UCLASS()
-class GASCORE_API ABaseHUD : public AHUD
+class GASCORE_API ACoreHUD : public AHUD
 {
 	GENERATED_BODY()
 

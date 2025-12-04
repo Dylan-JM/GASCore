@@ -10,10 +10,10 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayerStateChangedSignature, int32, NewValue);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAbilityInfoSignature, const FHDAbilityInfo&, Info);
 
-class UMyAttributeSet;
-class UMyAbilitySystemComponent;
-class ABasePlayerState;
-class ABasePlayerController;
+class UCoreAttributeSet;
+class UCoreAbilitySystemComponent;
+class ACorePlayerState;
+class ACorePlayerController;
 class UAttributeSet;
 class UAbilitySystemComponent;
 class UAbilityInfo;
@@ -76,19 +76,19 @@ protected:
 	TObjectPtr<UAttributeSet> AttributeSet;
 
 	UPROPERTY(BlueprintReadOnly, Category="WidgetController")
-	TObjectPtr<ABasePlayerController> BasePlayerController;
+	TObjectPtr<ACorePlayerController> BasePlayerController;
 	
 	UPROPERTY(BlueprintReadOnly, Category="WidgetController")
-	TObjectPtr<ABasePlayerState> BasePlayerState;
+	TObjectPtr<ACorePlayerState> BasePlayerState;
 	
 	UPROPERTY(BlueprintReadOnly, Category="WidgetController")
-	TObjectPtr<UMyAbilitySystemComponent> HDAbilitySystemComponent;
+	TObjectPtr<UCoreAbilitySystemComponent> HDAbilitySystemComponent;
 	
 	UPROPERTY(BlueprintReadOnly, Category="WidgetController")
-	TObjectPtr<UMyAttributeSet> HDAttributeSet;
+	TObjectPtr<UCoreAttributeSet> HDAttributeSet;
 
-	ABasePlayerController* GetBasePC();
-	ABasePlayerState* GetBasePS();
-	UMyAbilitySystemComponent* GetHDASC();
-	UMyAttributeSet* GetHDAttributeSet();
+	ACorePlayerController* GetBasePC();
+	ACorePlayerState* GetBasePS();
+	UCoreAbilitySystemComponent* GetHDASC();
+	UCoreAttributeSet* GetHDAttributeSet();
 };

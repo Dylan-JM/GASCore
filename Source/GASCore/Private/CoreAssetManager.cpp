@@ -1,17 +1,17 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MyAssetManager.h"
+#include "CoreAssetManager.h"
 #include "AbilitySystemGlobals.h"
 
-UMyAssetManager& UMyAssetManager::Get()
+UCoreAssetManager& UCoreAssetManager::Get()
 {
 	check(GEngine);
-	UMyAssetManager* HDAssetManager = Cast<UMyAssetManager>(GEngine->AssetManager);
+	UCoreAssetManager* HDAssetManager = Cast<UCoreAssetManager>(GEngine->AssetManager);
 	return *HDAssetManager;
 }
 
-void UMyAssetManager::StartInitialLoading()
+void UCoreAssetManager::StartInitialLoading()
 {
 	Super::StartInitialLoading();
 	

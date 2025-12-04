@@ -1,13 +1,13 @@
 // Copyright DM
 
 
-#include "Actor/MyProjectile.h"
+#include "Actor/Projectile.h"
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
 #include "GASCore/GASCore.h"
 #include "NiagaraFunctionLibrary.h"
-#include "AbilitySystem/MyAbilitySystemLibrary.h"
+#include "AbilitySystem/CoreAbilitySystemLibrary.h"
 #include "Components/AudioComponent.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
@@ -15,7 +15,7 @@
 #include "Perception/AISense_Damage.h"
 #include "Player/PlayerCharacter.h"
 
-AMyProjectile::AMyProjectile()
+AProjectile::AProjectile()
 {
 	PrimaryActorTick.bCanEverTick = false;
 	bReplicates = true;
@@ -35,15 +35,15 @@ AMyProjectile::AMyProjectile()
 	ProjectileMovement->ProjectileGravityScale = 0.f;
 }
 
-void AMyProjectile::BeginPlay()
+void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 	SetLifeSpan(LifeSpan);
-	Sphere->OnComponentBeginOverlap.AddDynamic(this,&AMyProjectile::OnSphereOverlap);
+	Sphere->OnComponentBeginOverlap.AddDynamic(this,&AProjectile::OnSphereOverlap);
 	LoopingSoundComponent = UGameplayStatics::SpawnSoundAttached(LoopingSound, GetRootComponent());
 }
 
-void AMyProjectile::OnHit()
+void AProjectile::OnHit()
 {
 	UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
@@ -56,7 +56,7 @@ void AMyProjectile::OnHit()
 	bHit = true;
 }
 
-void AMyProjectile::Destroyed()
+void AProjectile::Destroyed()
 {
 	if (LoopingSoundComponent)
 	{
@@ -67,7 +67,7 @@ void AMyProjectile::Destroyed()
 	Super::Destroyed();
 }
 
-void AMyProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+void AProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
                                     UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& HitResult)
 {
 	if (!IsValidOverlap(OtherActor)) return;
@@ -91,14 +91,14 @@ void AMyProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AA
 			}
 			DamageEffectParams.TargetAbilitySystemComponent = TargetASC;
 			UAISense_Damage::ReportDamageEvent(this, OtherActor, GetOwner(), DamageEffectParams.BaseDamage, GetOwner()->GetActorLocation(), OtherActor->GetActorLocation());
-			UMyAbilitySystemLibrary::ApplyDamageEffect(DamageEffectParams);
+			UCoreAbilitySystemLibrary::ApplyDamageEffect(DamageEffectParams);
 		}
 		Destroy();
 	}
 	else bHit = true;
 }
 
-bool AMyProjectile::IsValidOverlap(AActor* OtherActor)
+bool AProjectile::IsValidOverlap(AActor* OtherActor)
 {
 	if (DamageEffectParams.SourceAbilitySystemComponent == nullptr) return false;
 	AActor* SourceAvatarActor = DamageEffectParams.SourceAbilitySystemComponent->GetAvatarActor();

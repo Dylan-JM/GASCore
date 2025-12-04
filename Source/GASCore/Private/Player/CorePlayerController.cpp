@@ -1,25 +1,25 @@
 
 
-#include "Player/BasePlayerController.h"
+#include "Player/CorePlayerController.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "AbilitySystem/MyGameplayTags.h"
+#include "AbilitySystem/CoreGameplayTags.h"
 #include "InputActionValue.h"
-#include "AbilitySystem/MyAbilitySystemComponent.h"
+#include "AbilitySystem/CoreAbilitySystemComponent.h"
 #include "Player/PlayerCharacter.h"
-#include "Player/BasePlayerState.h"
-#include "UI/BaseHUD.h"
+#include "Player/CorePlayerState.h"
+#include "UI/CoreHUD.h"
 #include "UI/Widget/DamageTextComponent.h"
 #include "UserSettings/EnhancedInputUserSettings.h"
 
-ABasePlayerController::ABasePlayerController()
+ACorePlayerController::ACorePlayerController()
 {
 	bReplicates = true;
 }
 
-void ABasePlayerController::BeginPlay()
+void ACorePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	check(PlayerMappingContext);
@@ -32,13 +32,13 @@ void ABasePlayerController::BeginPlay()
 			Subsystem->GetUserSettings()->RegisterInputMappingContext(PlayerMappingContext);
 		}
 	}
-	BaseHUD = Cast<ABaseHUD>(GetHUD());
+	BaseHUD = Cast<ACoreHUD>(GetHUD());
 }
 
-void ABasePlayerController::OnPossess(APawn* InPawn)
+void ACorePlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
-	ABasePlayerState* PS = GetPlayerState<ABasePlayerState>();
+	ACorePlayerState* PS = GetPlayerState<ACorePlayerState>();
 	if (PS)
 	{
 		// Init ASC with PS (Owner) and our new Pawn (AvatarActor)
@@ -46,17 +46,17 @@ void ABasePlayerController::OnPossess(APawn* InPawn)
 	}
 }
 
-void ABasePlayerController::SetupInputComponent()
+void ACorePlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 	
 	UEnhancedInputComponent* HDInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
-	HDInputComponent->BindAction(MovementAction, ETriggerEvent::Triggered, this, &ABasePlayerController::Move);
-	HDInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ABasePlayerController::Look);
+	HDInputComponent->BindAction(MovementAction, ETriggerEvent::Triggered, this, &ACorePlayerController::Move);
+	HDInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ACorePlayerController::Look);
 	
 }
 
-void ABasePlayerController::Move(const FInputActionValue& Value)
+void ACorePlayerController::Move(const FInputActionValue& Value)
 {
 	if (PlayerCharacter && PlayerCharacter->bDead) return;
 	if (GetASC() && GetASC()->HasMatchingGameplayTag(GasTag::Player_Block_InputPressed))
@@ -79,7 +79,7 @@ void ABasePlayerController::Move(const FInputActionValue& Value)
 	}
 }
 
-void ABasePlayerController::Look(const FInputActionValue& Value)
+void ACorePlayerController::Look(const FInputActionValue& Value)
 {
 	const FVector2D LookAxisVector = Value.Get<FVector2D>();
 	if (PlayerCharacter)
@@ -89,7 +89,7 @@ void ABasePlayerController::Look(const FInputActionValue& Value)
 	}
 }
 
-void ABasePlayerController::SprintButtonPressed()
+void ACorePlayerController::SprintButtonPressed()
 {
 	if (PlayerCharacter && PlayerCharacter->bDead) return;
 	if (PlayerCharacter)
@@ -102,7 +102,7 @@ void ABasePlayerController::SprintButtonPressed()
 	}
 }
 
-void ABasePlayerController::SprintButtonReleased()
+void ACorePlayerController::SprintButtonReleased()
 {
 	if (PlayerCharacter)
 	{
@@ -110,7 +110,7 @@ void ABasePlayerController::SprintButtonReleased()
 	}
 }
 
-void ABasePlayerController::ShowDamageNumber_Implementation(float DamageAmount, ACharacter* TargetCharacter, bool bBlockedHit, bool bCriticalHit)
+void ACorePlayerController::ShowDamageNumber_Implementation(float DamageAmount, ACharacter* TargetCharacter, bool bBlockedHit, bool bCriticalHit)
 {
 	if (IsValid(TargetCharacter) && DamageTextComponentClass && IsLocalController())
 	{
@@ -122,11 +122,11 @@ void ABasePlayerController::ShowDamageNumber_Implementation(float DamageAmount, 
 	}
 }
 
-UMyAbilitySystemComponent* ABasePlayerController::GetASC()
+UCoreAbilitySystemComponent* ACorePlayerController::GetASC()
 {
 	if (HDAbilitySystemComponent == nullptr)
 	{
-		HDAbilitySystemComponent = Cast<UMyAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
+		HDAbilitySystemComponent = Cast<UCoreAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
 	}
 	return HDAbilitySystemComponent;
 }

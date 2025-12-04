@@ -1,26 +1,26 @@
 // Copyright DM
 
 
-#include "AbilitySystem/MyAbilitySystemLibrary.h"
+#include "AbilitySystem/CoreAbilitySystemLibrary.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystem/Data/MyAbilityTypes.h"
-#include "AbilitySystem/MyGameplayTags.h"
+#include "AbilitySystem/CoreGameplayTags.h"
 #include "Interface/CombatInterface.h"
-#include "Player/BasePlayerState.h"
+#include "Player/CorePlayerState.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/OverlapResult.h"
-#include "Player/BaseCharacter.h"
-#include "UI/BaseHUD.h"
+#include "Player/CoreCharacter.h"
+#include "UI/CoreHUD.h"
 #include "UI/WidgetController/WidgetController.h"
 
-bool UMyAbilitySystemLibrary::MakeWidgetControllerParams(const UObject* WorldContextObject, FWidgetControllerParams& OutWCParams, ABaseHUD*& OutBaseHUD)
+bool UCoreAbilitySystemLibrary::MakeWidgetControllerParams(const UObject* WorldContextObject, FWidgetControllerParams& OutWCParams, ACoreHUD*& OutBaseHUD)
 {
 	if (APlayerController* PC = UGameplayStatics::GetPlayerController(WorldContextObject, 0))
 	{
-		OutBaseHUD = Cast<ABaseHUD>(PC->GetHUD());
+		OutBaseHUD = Cast<ACoreHUD>(PC->GetHUD());
 		if (OutBaseHUD)
 		{
-			ABasePlayerState* PS = PC->GetPlayerState<ABasePlayerState>();
+			ACorePlayerState* PS = PC->GetPlayerState<ACorePlayerState>();
 			UAbilitySystemComponent* ASC = PS->GetAbilitySystemComponent();
 			UAttributeSet* AS = PS->GetAttributeSetBase();
 			OutWCParams.AttributeSet = AS;
@@ -33,10 +33,10 @@ bool UMyAbilitySystemLibrary::MakeWidgetControllerParams(const UObject* WorldCon
 	return false;
 }
 
-UOverlayWidgetController* UMyAbilitySystemLibrary::GetOverlayWidgetController(const UObject* WorldContextObject)
+UOverlayWidgetController* UCoreAbilitySystemLibrary::GetOverlayWidgetController(const UObject* WorldContextObject)
 {
 	FWidgetControllerParams WCParams;
-	ABaseHUD* BaseHUD = nullptr;
+	ACoreHUD* BaseHUD = nullptr;
 
 	if (MakeWidgetControllerParams(WorldContextObject, WCParams, BaseHUD))
 	{
@@ -46,10 +46,10 @@ UOverlayWidgetController* UMyAbilitySystemLibrary::GetOverlayWidgetController(co
 	return nullptr;
 }
 
-void UMyAbilitySystemLibrary::InitializeDefaultAttributes(const UObject* WorldContextObject, float Level,
+void UCoreAbilitySystemLibrary::InitializeDefaultAttributes(const UObject* WorldContextObject, float Level,
 	UAbilitySystemComponent* ASC)
 {
-	ABaseCharacter* AvatarActor = Cast<ABaseCharacter>(ASC->GetAvatarActor());
+	ACoreCharacter* AvatarActor = Cast<ACoreCharacter>(ASC->GetAvatarActor());
 	
 	FGameplayEffectContextHandle PrimaryAttributesContextHandle = ASC->MakeEffectContext();
 	PrimaryAttributesContextHandle.AddSourceObject(AvatarActor);
@@ -67,7 +67,7 @@ void UMyAbilitySystemLibrary::InitializeDefaultAttributes(const UObject* WorldCo
 	ASC->ApplyGameplayEffectSpecToSelf(*VitalAttributesSpecHandle.Data.Get());
 }
 
-void UMyAbilitySystemLibrary::SetIsRadialDamageEffectParam(FDamageEffectParams& DamageEffectParams, bool bIsRadial, float InnerRadius, float OuterRadius, FVector Origin)
+void UCoreAbilitySystemLibrary::SetIsRadialDamageEffectParam(FDamageEffectParams& DamageEffectParams, bool bIsRadial, float InnerRadius, float OuterRadius, FVector Origin)
 {
 	DamageEffectParams.bIsRadialDamage = bIsRadial;
 	DamageEffectParams.RadialDamageInnerRadius = InnerRadius;
@@ -75,7 +75,7 @@ void UMyAbilitySystemLibrary::SetIsRadialDamageEffectParam(FDamageEffectParams& 
 	DamageEffectParams.RadialDamageOrigin = Origin;
 }
 
-void UMyAbilitySystemLibrary::SetKnockbackDirection(FDamageEffectParams& DamageEffectParams, FVector KnockbackDirection, float Magnitude)
+void UCoreAbilitySystemLibrary::SetKnockbackDirection(FDamageEffectParams& DamageEffectParams, FVector KnockbackDirection, float Magnitude)
 {
 	KnockbackDirection.Normalize();
 	if (Magnitude == 0.f)
@@ -89,7 +89,7 @@ void UMyAbilitySystemLibrary::SetKnockbackDirection(FDamageEffectParams& DamageE
 	
 }
 
-void UMyAbilitySystemLibrary::SetDeathImpulseDirection(FDamageEffectParams& DamageEffectParams, FVector ImpulseDirection, float Magnitude)
+void UCoreAbilitySystemLibrary::SetDeathImpulseDirection(FDamageEffectParams& DamageEffectParams, FVector ImpulseDirection, float Magnitude)
 {
 	ImpulseDirection.Normalize();
 	if (Magnitude == 0.f)
@@ -103,12 +103,12 @@ void UMyAbilitySystemLibrary::SetDeathImpulseDirection(FDamageEffectParams& Dama
 	
 }
 
-void UMyAbilitySystemLibrary::SetTargetEffectParamsASC(FDamageEffectParams& DamageEffectParams, UAbilitySystemComponent* InASC)
+void UCoreAbilitySystemLibrary::SetTargetEffectParamsASC(FDamageEffectParams& DamageEffectParams, UAbilitySystemComponent* InASC)
 {
 	DamageEffectParams.TargetAbilitySystemComponent = InASC;
 }
 
-bool UMyAbilitySystemLibrary::IsBlockedHit(const FGameplayEffectContextHandle& EffectContextHandle)
+bool UCoreAbilitySystemLibrary::IsBlockedHit(const FGameplayEffectContextHandle& EffectContextHandle)
 {
 	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -117,7 +117,7 @@ bool UMyAbilitySystemLibrary::IsBlockedHit(const FGameplayEffectContextHandle& E
 	return false;
 }
 
-bool UMyAbilitySystemLibrary::IsCriticalHit(const FGameplayEffectContextHandle& EffectContextHandle)
+bool UCoreAbilitySystemLibrary::IsCriticalHit(const FGameplayEffectContextHandle& EffectContextHandle)
 {
 	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -126,7 +126,7 @@ bool UMyAbilitySystemLibrary::IsCriticalHit(const FGameplayEffectContextHandle& 
 	return false;
 }
 
-bool UMyAbilitySystemLibrary::IsSuccessfulDebuff(const FGameplayEffectContextHandle& EffectContextHandle)
+bool UCoreAbilitySystemLibrary::IsSuccessfulDebuff(const FGameplayEffectContextHandle& EffectContextHandle)
 {
 	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -135,7 +135,7 @@ bool UMyAbilitySystemLibrary::IsSuccessfulDebuff(const FGameplayEffectContextHan
 	return false;
 }
 
-float UMyAbilitySystemLibrary::GetDebuffDamage(const FGameplayEffectContextHandle& EffectContextHandle)
+float UCoreAbilitySystemLibrary::GetDebuffDamage(const FGameplayEffectContextHandle& EffectContextHandle)
 {
 	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -144,7 +144,7 @@ float UMyAbilitySystemLibrary::GetDebuffDamage(const FGameplayEffectContextHandl
 	return 0.f;
 }
 
-float UMyAbilitySystemLibrary::GetDebuffDuration(const FGameplayEffectContextHandle& EffectContextHandle)
+float UCoreAbilitySystemLibrary::GetDebuffDuration(const FGameplayEffectContextHandle& EffectContextHandle)
 {
 	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -153,7 +153,7 @@ float UMyAbilitySystemLibrary::GetDebuffDuration(const FGameplayEffectContextHan
 	return 0.f;
 }
 
-float UMyAbilitySystemLibrary::GetDebuffFrequency(const FGameplayEffectContextHandle& EffectContextHandle)
+float UCoreAbilitySystemLibrary::GetDebuffFrequency(const FGameplayEffectContextHandle& EffectContextHandle)
 {
 	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -162,7 +162,7 @@ float UMyAbilitySystemLibrary::GetDebuffFrequency(const FGameplayEffectContextHa
 	return 0.f;
 }
 
-FGameplayTag UMyAbilitySystemLibrary::GetDamageType(const FGameplayEffectContextHandle& EffectContextHandle)
+FGameplayTag UCoreAbilitySystemLibrary::GetDamageType(const FGameplayEffectContextHandle& EffectContextHandle)
 {
 	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -174,7 +174,7 @@ FGameplayTag UMyAbilitySystemLibrary::GetDamageType(const FGameplayEffectContext
 	return FGameplayTag();
 }
 
-FVector UMyAbilitySystemLibrary::GetDeathImpulse(const FGameplayEffectContextHandle& EffectContextHandle)
+FVector UCoreAbilitySystemLibrary::GetDeathImpulse(const FGameplayEffectContextHandle& EffectContextHandle)
 {
 	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -183,7 +183,7 @@ FVector UMyAbilitySystemLibrary::GetDeathImpulse(const FGameplayEffectContextHan
 	return FVector::ZeroVector;
 }
 
-FVector UMyAbilitySystemLibrary::GetKnockbackForce(const FGameplayEffectContextHandle& EffectContextHandle)
+FVector UCoreAbilitySystemLibrary::GetKnockbackForce(const FGameplayEffectContextHandle& EffectContextHandle)
 {
 	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -192,7 +192,7 @@ FVector UMyAbilitySystemLibrary::GetKnockbackForce(const FGameplayEffectContextH
 	return FVector::ZeroVector;
 }
 
-bool UMyAbilitySystemLibrary::IsRadialDamage(const FGameplayEffectContextHandle& EffectContextHandle)
+bool UCoreAbilitySystemLibrary::IsRadialDamage(const FGameplayEffectContextHandle& EffectContextHandle)
 {
 	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -201,7 +201,7 @@ bool UMyAbilitySystemLibrary::IsRadialDamage(const FGameplayEffectContextHandle&
 	return false;
 }
 
-float UMyAbilitySystemLibrary::GetRadialDamageInnerRadius(const FGameplayEffectContextHandle& EffectContextHandle)
+float UCoreAbilitySystemLibrary::GetRadialDamageInnerRadius(const FGameplayEffectContextHandle& EffectContextHandle)
 {
 	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -210,7 +210,7 @@ float UMyAbilitySystemLibrary::GetRadialDamageInnerRadius(const FGameplayEffectC
 	return 0.f;
 }
 
-float UMyAbilitySystemLibrary::GetRadialDamageOuterRadius(const FGameplayEffectContextHandle& EffectContextHandle)
+float UCoreAbilitySystemLibrary::GetRadialDamageOuterRadius(const FGameplayEffectContextHandle& EffectContextHandle)
 {
 	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -219,7 +219,7 @@ float UMyAbilitySystemLibrary::GetRadialDamageOuterRadius(const FGameplayEffectC
 	return 0.f;
 }
 
-FVector UMyAbilitySystemLibrary::GetRadialDamageOrigin(const FGameplayEffectContextHandle& EffectContextHandle)
+FVector UCoreAbilitySystemLibrary::GetRadialDamageOrigin(const FGameplayEffectContextHandle& EffectContextHandle)
 {
 	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -228,7 +228,7 @@ FVector UMyAbilitySystemLibrary::GetRadialDamageOrigin(const FGameplayEffectCont
 	return FVector::ZeroVector;
 }
 
-bool UMyAbilitySystemLibrary::IsBlockable(const FGameplayEffectContextHandle& EffectContextHandle)
+bool UCoreAbilitySystemLibrary::IsBlockable(const FGameplayEffectContextHandle& EffectContextHandle)
 {
 	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -237,13 +237,13 @@ bool UMyAbilitySystemLibrary::IsBlockable(const FGameplayEffectContextHandle& Ef
 	return false;
 }
 
-UCurveTable* UMyAbilitySystemLibrary::GetDamageCalculationCoefficients(AActor* TargetActor)
+UCurveTable* UCoreAbilitySystemLibrary::GetDamageCalculationCoefficients(AActor* TargetActor)
 {
-	ABaseCharacter* BaseCharacter = Cast<ABaseCharacter>(TargetActor);
+	ACoreCharacter* BaseCharacter = Cast<ACoreCharacter>(TargetActor);
 	return BaseCharacter->DamageCalculationCoefficients;
 }
 
-void UMyAbilitySystemLibrary::SetIsBlockedHit(FGameplayEffectContextHandle& EffectContextHandle, bool bInIsBlockedHit)
+void UCoreAbilitySystemLibrary::SetIsBlockedHit(FGameplayEffectContextHandle& EffectContextHandle, bool bInIsBlockedHit)
 {
 	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -251,7 +251,7 @@ void UMyAbilitySystemLibrary::SetIsBlockedHit(FGameplayEffectContextHandle& Effe
 	}
 }
 
-void UMyAbilitySystemLibrary::SetIsCriticalHit(FGameplayEffectContextHandle& EffectContextHandle, bool bInIsCriticalHit)
+void UCoreAbilitySystemLibrary::SetIsCriticalHit(FGameplayEffectContextHandle& EffectContextHandle, bool bInIsCriticalHit)
 {
 	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -259,7 +259,7 @@ void UMyAbilitySystemLibrary::SetIsCriticalHit(FGameplayEffectContextHandle& Eff
 	}
 }
 
-void UMyAbilitySystemLibrary::SetIsSuccessfulDebuff(FGameplayEffectContextHandle& EffectContextHandle,
+void UCoreAbilitySystemLibrary::SetIsSuccessfulDebuff(FGameplayEffectContextHandle& EffectContextHandle,
 	bool bInSuccessfulDebuff)
 {
 	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
@@ -268,7 +268,7 @@ void UMyAbilitySystemLibrary::SetIsSuccessfulDebuff(FGameplayEffectContextHandle
 	}
 }
 
-void UMyAbilitySystemLibrary::SetDebuffDamage(FGameplayEffectContextHandle& EffectContextHandle, float bInDamage)
+void UCoreAbilitySystemLibrary::SetDebuffDamage(FGameplayEffectContextHandle& EffectContextHandle, float bInDamage)
 {
 	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -276,7 +276,7 @@ void UMyAbilitySystemLibrary::SetDebuffDamage(FGameplayEffectContextHandle& Effe
 	}
 }
 
-void UMyAbilitySystemLibrary::SetDebuffDuration(FGameplayEffectContextHandle& EffectContextHandle, float bInDuration)
+void UCoreAbilitySystemLibrary::SetDebuffDuration(FGameplayEffectContextHandle& EffectContextHandle, float bInDuration)
 {
 	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -284,7 +284,7 @@ void UMyAbilitySystemLibrary::SetDebuffDuration(FGameplayEffectContextHandle& Ef
 	}
 }
 
-void UMyAbilitySystemLibrary::SetDebuffFrequency(FGameplayEffectContextHandle& EffectContextHandle, float bInFrequency)
+void UCoreAbilitySystemLibrary::SetDebuffFrequency(FGameplayEffectContextHandle& EffectContextHandle, float bInFrequency)
 {
 	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
@@ -292,7 +292,7 @@ void UMyAbilitySystemLibrary::SetDebuffFrequency(FGameplayEffectContextHandle& E
 	}
 }
 
-void UMyAbilitySystemLibrary::SetDamageType(FGameplayEffectContextHandle& EffectContextHandle,
+void UCoreAbilitySystemLibrary::SetDamageType(FGameplayEffectContextHandle& EffectContextHandle,
 	const FGameplayTag& InDamageType)
 {
 	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
@@ -302,7 +302,7 @@ void UMyAbilitySystemLibrary::SetDamageType(FGameplayEffectContextHandle& Effect
 	}
 }
 
-void UMyAbilitySystemLibrary::SetDeathImpulse(FGameplayEffectContextHandle& EffectContextHandle,
+void UCoreAbilitySystemLibrary::SetDeathImpulse(FGameplayEffectContextHandle& EffectContextHandle,
 	const FVector& InImpulse)
 {
 	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
@@ -311,7 +311,7 @@ void UMyAbilitySystemLibrary::SetDeathImpulse(FGameplayEffectContextHandle& Effe
 	}
 }
 
-void UMyAbilitySystemLibrary::SetKnockbackForce(FGameplayEffectContextHandle& EffectContextHandle,
+void UCoreAbilitySystemLibrary::SetKnockbackForce(FGameplayEffectContextHandle& EffectContextHandle,
 	const FVector& InForce)
 {
 	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
@@ -320,7 +320,7 @@ void UMyAbilitySystemLibrary::SetKnockbackForce(FGameplayEffectContextHandle& Ef
 	}
 }
 
-void UMyAbilitySystemLibrary::SetIsRadialDamage(FGameplayEffectContextHandle& EffectContextHandle,
+void UCoreAbilitySystemLibrary::SetIsRadialDamage(FGameplayEffectContextHandle& EffectContextHandle,
 	bool bInIsRadialDamage)
 {
 	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
@@ -329,7 +329,7 @@ void UMyAbilitySystemLibrary::SetIsRadialDamage(FGameplayEffectContextHandle& Ef
 	}
 }
 
-void UMyAbilitySystemLibrary::SetRadialDamageInnerRadius(FGameplayEffectContextHandle& EffectContextHandle,
+void UCoreAbilitySystemLibrary::SetRadialDamageInnerRadius(FGameplayEffectContextHandle& EffectContextHandle,
 	float InInnerRadius)
 {
 	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
@@ -338,7 +338,7 @@ void UMyAbilitySystemLibrary::SetRadialDamageInnerRadius(FGameplayEffectContextH
 	}
 }
 
-void UMyAbilitySystemLibrary::SetRadialDamageOuterRadius(FGameplayEffectContextHandle& EffectContextHandle,
+void UCoreAbilitySystemLibrary::SetRadialDamageOuterRadius(FGameplayEffectContextHandle& EffectContextHandle,
 	float InOuterRadius)
 {
 	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
@@ -347,7 +347,7 @@ void UMyAbilitySystemLibrary::SetRadialDamageOuterRadius(FGameplayEffectContextH
 	}
 }
 
-void UMyAbilitySystemLibrary::SetRadialDamageOrigin(FGameplayEffectContextHandle& EffectContextHandle,
+void UCoreAbilitySystemLibrary::SetRadialDamageOrigin(FGameplayEffectContextHandle& EffectContextHandle,
 	const FVector& InOrigin)
 {
 	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
@@ -356,7 +356,7 @@ void UMyAbilitySystemLibrary::SetRadialDamageOrigin(FGameplayEffectContextHandle
 	}
 }
 
-void UMyAbilitySystemLibrary::SetIsBlockable(FGameplayEffectContextHandle& EffectContextHandle,
+void UCoreAbilitySystemLibrary::SetIsBlockable(FGameplayEffectContextHandle& EffectContextHandle,
 	bool bInIsBlockable)
 {
 	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
@@ -365,7 +365,7 @@ void UMyAbilitySystemLibrary::SetIsBlockable(FGameplayEffectContextHandle& Effec
 	}
 }
 
-void UMyAbilitySystemLibrary::GetLivePlayersWithinRadius(const UObject* WorldContextObject,
+void UCoreAbilitySystemLibrary::GetLivePlayersWithinRadius(const UObject* WorldContextObject,
                                                          TArray<AActor*>& OutOverlappingActors, const TArray<AActor*> ActorsToIgnore, float Radius,
                                                          const FVector& SphereOrigin)
 {
@@ -386,7 +386,7 @@ void UMyAbilitySystemLibrary::GetLivePlayersWithinRadius(const UObject* WorldCon
 	}
 }
 
-void UMyAbilitySystemLibrary::GetClosestTargets(int32 MaxTargets, const TArray<AActor*>& Actors,
+void UCoreAbilitySystemLibrary::GetClosestTargets(int32 MaxTargets, const TArray<AActor*>& Actors,
 	TArray<AActor*>& OutClosestTargets, const FVector& Origin)
 {
 	if (Actors.Num() <= MaxTargets)
@@ -418,7 +418,7 @@ void UMyAbilitySystemLibrary::GetClosestTargets(int32 MaxTargets, const TArray<A
 	}
 }
 
-bool UMyAbilitySystemLibrary::IsNotFriend(AActor* FirstActor, AActor* SecondActor)
+bool UCoreAbilitySystemLibrary::IsNotFriend(AActor* FirstActor, AActor* SecondActor)
 {
 	const bool bBothArePlayers = FirstActor->ActorHasTag(FName("Player")) && SecondActor->ActorHasTag(FName("Player"));
 	const bool bBothAreEnemies = FirstActor->ActorHasTag(FName("Enemy")) && SecondActor->ActorHasTag(FName("Enemy"));
@@ -426,7 +426,7 @@ bool UMyAbilitySystemLibrary::IsNotFriend(AActor* FirstActor, AActor* SecondActo
 	return !bFriends;
 }
 
-FGameplayEffectContextHandle UMyAbilitySystemLibrary::ApplyDamageEffect(const FDamageEffectParams& DamageEffectParams)
+FGameplayEffectContextHandle UCoreAbilitySystemLibrary::ApplyDamageEffect(const FDamageEffectParams& DamageEffectParams)
 {
 	const AActor* SourceAvatarActor = DamageEffectParams.SourceAbilitySystemComponent->GetAvatarActor();
 	
@@ -454,7 +454,7 @@ FGameplayEffectContextHandle UMyAbilitySystemLibrary::ApplyDamageEffect(const FD
 	
 }
 
-TArray<FRotator> UMyAbilitySystemLibrary::EvenlySpacedRotators(const FVector& Forward, const FVector& Axis, float Spread, int32 NumRotators)
+TArray<FRotator> UCoreAbilitySystemLibrary::EvenlySpacedRotators(const FVector& Forward, const FVector& Axis, float Spread, int32 NumRotators)
 {
 	TArray<FRotator> Rotators;
 	
@@ -475,7 +475,7 @@ TArray<FRotator> UMyAbilitySystemLibrary::EvenlySpacedRotators(const FVector& Fo
 	return Rotators;
 }
 
-TArray<FVector> UMyAbilitySystemLibrary::EvenlyRotatedVectors(const FVector& Forward, const FVector& Axis, float Spread, int32 NumVectors)
+TArray<FVector> UCoreAbilitySystemLibrary::EvenlyRotatedVectors(const FVector& Forward, const FVector& Axis, float Spread, int32 NumVectors)
 {
 	TArray<FVector> Vectors;
 	
@@ -496,7 +496,7 @@ TArray<FVector> UMyAbilitySystemLibrary::EvenlyRotatedVectors(const FVector& For
 	return Vectors;
 }
 
-TArray<FVector> UMyAbilitySystemLibrary::EvenlySpacedVectors(const FVector& Start, const FVector& End, float Spread,
+TArray<FVector> UCoreAbilitySystemLibrary::EvenlySpacedVectors(const FVector& Start, const FVector& End, float Spread,
 	int32 NumVectors)
 {
 	TArray<FVector> Vectors;

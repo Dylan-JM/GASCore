@@ -1,16 +1,16 @@
 
 
-#include "UI/BaseHUD.h"
+#include "UI/CoreHUD.h"
 #include "Blueprint/UserWidget.h"
 #include "UI/Widget/MainWidget.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
 
-void ABaseHUD::DrawHUD()
+void ACoreHUD::DrawHUD()
 {
 	Super::DrawHUD();
 }
 
-void ABaseHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
+void ACoreHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
 {
 	checkf(MainHUDClass, TEXT("MainHUD uninitialized, please fill out BP_BaseHUD"));
 	checkf(OverlayWidgetControllerClass, TEXT("Overlay widget controller class uninitialized, please filll out bp_basehud"));
@@ -26,7 +26,7 @@ void ABaseHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySyst
 	Widget->AddToViewport();
 }
 
-void ABaseHUD::AddMainHUD()
+void ACoreHUD::AddMainHUD()
 {
 	APlayerController* PlayerController = GetOwningPlayerController();
 	if (PlayerController && MainHUDClass)
@@ -36,7 +36,7 @@ void ABaseHUD::AddMainHUD()
 	}
 }
 
-UOverlayWidgetController* ABaseHUD::GetOverlayWidgetController(const FWidgetControllerParams& WCParams)
+UOverlayWidgetController* ACoreHUD::GetOverlayWidgetController(const FWidgetControllerParams& WCParams)
 {
 	if (OverlayWidgetController == nullptr)
 	{

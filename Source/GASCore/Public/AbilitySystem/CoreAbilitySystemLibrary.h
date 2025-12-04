@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
-#include "MyAbilitySystemLibrary.generated.h"
+#include "CoreAbilitySystemLibrary.generated.h"
 
 
 class UStartupAbilities;
@@ -18,7 +18,7 @@ class UOverlayWidgetController;
 struct FWidgetControllerParams;
 
 UCLASS()
-class GASCORE_API UMyAbilitySystemLibrary : public UBlueprintFunctionLibrary
+class GASCORE_API UCoreAbilitySystemLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 
@@ -27,7 +27,7 @@ public:
 	/* Widget Controller */
 	
 	UFUNCTION(BlueprintPure, Category= "MyAbilitySystemLibrary|WidgetController", meta = (DefaultToSelf = "WorldContextObject"))
-	static bool MakeWidgetControllerParams(const UObject* WorldContextObject, FWidgetControllerParams& OutWCParams, ABaseHUD*& OutBaseHUD);
+	static bool MakeWidgetControllerParams(const UObject* WorldContextObject, FWidgetControllerParams& OutWCParams, ACoreHUD*& OutBaseHUD);
 	
 	UFUNCTION(BlueprintPure, Category= "MyAbilitySystemLibrary|WidgetController", meta = (DefaultToSelf = "WorldContextObject"))
 	static UOverlayWidgetController* GetOverlayWidgetController(const UObject* WorldContextObject);

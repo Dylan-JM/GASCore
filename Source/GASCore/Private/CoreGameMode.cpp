@@ -1,9 +1,9 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "GASCoreGameMode.h"
+#include "CoreGameMode.h"
 #include "UObject/ConstructorHelpers.h"
 
 
-AGASCoreGameMode::AGASCoreGameMode()
+ACoreGameMode::ACoreGameMode()
 {
 }

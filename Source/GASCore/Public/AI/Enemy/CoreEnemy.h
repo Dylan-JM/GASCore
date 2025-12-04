@@ -2,9 +2,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Player/BaseCharacter.h"
+#include "Player/CoreCharacter.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
-#include "BaseEnemy.generated.h"
+#include "CoreEnemy.generated.h"
 
 
 class UBehaviorTree;
@@ -13,12 +13,12 @@ class UWidgetComponent;
 class ABaseWeapon;
 
 UCLASS()
-class GASCORE_API ABaseEnemy : public ABaseCharacter
+class GASCORE_API ACoreEnemy : public ACoreCharacter
 {
 	GENERATED_BODY()
 
 public:
-	ABaseEnemy(const class FObjectInitializer& ObjectInitializer);
+	ACoreEnemy(const class FObjectInitializer& ObjectInitializer);
 	virtual void Tick(float DeltaTime) override;
 	
 	UPROPERTY(BlueprintAssignable)

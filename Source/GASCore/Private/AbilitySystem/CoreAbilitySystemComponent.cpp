@@ -1,24 +1,24 @@
 // Copyright DM
 
 
-#include "AbilitySystem/MyAbilitySystemComponent.h"
+#include "AbilitySystem/CoreAbilitySystemComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
-#include "AbilitySystem/MyGameplayTags.h"
-#include "AbilitySystem/Abilities/MyGameplayAbility.h"
+#include "AbilitySystem/CoreGameplayTags.h"
+#include "AbilitySystem/Abilities/CoreGameplayAbility.h"
 #include "Interface/PlayerInterface.h"
 
-void UMyAbilitySystemComponent::AbilityActorInfoSet()
+void UCoreAbilitySystemComponent::AbilityActorInfoSet()
 {
-	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UMyAbilitySystemComponent::ClientEffectApplied);
+	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UCoreAbilitySystemComponent::ClientEffectApplied);
 }
 
-void UMyAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities)
+void UCoreAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities)
 {
 	for (const TSubclassOf<UGameplayAbility> AbilityClass : StartupAbilities)
 	{
 		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
 		
-		if (const UMyGameplayAbility* GameplayAbility = Cast<UMyGameplayAbility>(AbilitySpec.Ability))
+		if (const UCoreGameplayAbility* GameplayAbility = Cast<UCoreGameplayAbility>(AbilitySpec.Ability))
 		{
 			//AbilitySpec.DynamicAbilityTags.AddTag(FHDGameplayTags::Get().Abilities_Status_Equipped);
 			GiveAbility(AbilitySpec);
@@ -28,7 +28,7 @@ void UMyAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<U
 	AbilitiesGivenDelegate.Broadcast();
 }
 
-void UMyAbilitySystemComponent::AddCharacterPassiveAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupPassiveAbilities)
+void UCoreAbilitySystemComponent::AddCharacterPassiveAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupPassiveAbilities)
 {
 	for (const TSubclassOf<UGameplayAbility> AbilityClass : StartupPassiveAbilities)
 	{
@@ -38,17 +38,17 @@ void UMyAbilitySystemComponent::AddCharacterPassiveAbilities(const TArray<TSubcl
 	}
 }
 
-void UMyAbilitySystemComponent::AddCharacterAbility(const TSubclassOf<UGameplayAbility>& AbilityToAdd)
+void UCoreAbilitySystemComponent::AddCharacterAbility(const TSubclassOf<UGameplayAbility>& AbilityToAdd)
 {
 	FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityToAdd, 1);
-	if (const UMyGameplayAbility* HDAbility = Cast<UMyGameplayAbility>(AbilitySpec.Ability))
+	if (const UCoreGameplayAbility* HDAbility = Cast<UCoreGameplayAbility>(AbilitySpec.Ability))
 	{
 		AbilitySpec.DynamicAbilityTags.AddTag(GasTag::Abilities_Status_Equipped);
 		GiveAbility(AbilitySpec);
 	}
 }
 
-void UMyAbilitySystemComponent::ForEachAbility(const FForEachAbility& Delegate)
+void UCoreAbilitySystemComponent::ForEachAbility(const FForEachAbility& Delegate)
 {
 	FScopedAbilityListLock ActiveScopeLock(*this);
 	for (const FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
@@ -60,7 +60,7 @@ void UMyAbilitySystemComponent::ForEachAbility(const FForEachAbility& Delegate)
 	}
 }
 
-FGameplayTag UMyAbilitySystemComponent::GetAbilityTagFromSpec(const FGameplayAbilitySpec& AbilitySpec)
+FGameplayTag UCoreAbilitySystemComponent::GetAbilityTagFromSpec(const FGameplayAbilitySpec& AbilitySpec)
 {
 	if (AbilitySpec.Ability)
 	{
@@ -75,7 +75,7 @@ FGameplayTag UMyAbilitySystemComponent::GetAbilityTagFromSpec(const FGameplayAbi
 	return FGameplayTag();
 }
 
-FGameplayTag UMyAbilitySystemComponent::GetStatusFromSpec(const FGameplayAbilitySpec& AbilitySpec)
+FGameplayTag UCoreAbilitySystemComponent::GetStatusFromSpec(const FGameplayAbilitySpec& AbilitySpec)
 {
 	for (FGameplayTag StatusTag : AbilitySpec.DynamicAbilityTags)
 	{
@@ -87,7 +87,7 @@ FGameplayTag UMyAbilitySystemComponent::GetStatusFromSpec(const FGameplayAbility
 	return FGameplayTag();
 }
 
-FGameplayTag UMyAbilitySystemComponent::GetStatusFromAbilityTag(const FGameplayTag& AbilityTag)
+FGameplayTag UCoreAbilitySystemComponent::GetStatusFromAbilityTag(const FGameplayTag& AbilityTag)
 {
 	if (const FGameplayAbilitySpec* Spec = GetSpecFromAbilityTag(AbilityTag))
 	{
@@ -96,13 +96,13 @@ FGameplayTag UMyAbilitySystemComponent::GetStatusFromAbilityTag(const FGameplayT
 	return FGameplayTag();
 }
 
-void UMyAbilitySystemComponent::MulticastActivatePassiveEffect_Implementation(const FGameplayTag& AbilityTag,
+void UCoreAbilitySystemComponent::MulticastActivatePassiveEffect_Implementation(const FGameplayTag& AbilityTag,
 	bool bActivate)
 {
 	ActivatePassiveEffect.Broadcast(AbilityTag, bActivate);
 }
 
-FGameplayAbilitySpec* UMyAbilitySystemComponent::GetSpecFromAbilityTag(const FGameplayTag& AbilityTag)
+FGameplayAbilitySpec* UCoreAbilitySystemComponent::GetSpecFromAbilityTag(const FGameplayTag& AbilityTag)
 {
 	FScopedAbilityListLock ActiveScopeLock(*this);
 	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
@@ -118,7 +118,7 @@ FGameplayAbilitySpec* UMyAbilitySystemComponent::GetSpecFromAbilityTag(const FGa
 	return nullptr;
 }
 
-void UMyAbilitySystemComponent::UpdateAttribute(const FGameplayTag& AttributeTag)
+void UCoreAbilitySystemComponent::UpdateAttribute(const FGameplayTag& AttributeTag)
 {
 	if (GetAvatarActor()->Implements<UPlayerInterface>())
 	{
@@ -129,7 +129,7 @@ void UMyAbilitySystemComponent::UpdateAttribute(const FGameplayTag& AttributeTag
 	}
 }
 
-void UMyAbilitySystemComponent::ServerUpgradeAttribute_Implementation(const FGameplayTag& AttributeTag)
+void UCoreAbilitySystemComponent::ServerUpgradeAttribute_Implementation(const FGameplayTag& AttributeTag)
 {
 	FGameplayEventData Payload;
 	Payload.EventTag = AttributeTag;
@@ -143,7 +143,7 @@ void UMyAbilitySystemComponent::ServerUpgradeAttribute_Implementation(const FGam
 	}
 }
 
-void UMyAbilitySystemComponent::OnRep_ActivateAbilities()
+void UCoreAbilitySystemComponent::OnRep_ActivateAbilities()
 {
 	Super::OnRep_ActivateAbilities();
 
@@ -154,13 +154,13 @@ void UMyAbilitySystemComponent::OnRep_ActivateAbilities()
 	}
 }
 
-void UMyAbilitySystemComponent::ClientUpdateAbilityStatus_Implementation(const FGameplayTag& AbilityTag,
+void UCoreAbilitySystemComponent::ClientUpdateAbilityStatus_Implementation(const FGameplayTag& AbilityTag,
 	const FGameplayTag& StatusTag, int32 AbilityLevel)
 {
 	AbilityStatusChanged.Broadcast(AbilityTag, StatusTag, AbilityLevel);
 }
 
-void UMyAbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySystemComponent* ASC, const FGameplayEffectSpec& EffectSpec,
+void UCoreAbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySystemComponent* ASC, const FGameplayEffectSpec& EffectSpec,
                                                                    FActiveGameplayEffectHandle ActiveEffectHandle)
 {
 	FGameplayTagContainer TagContainer;

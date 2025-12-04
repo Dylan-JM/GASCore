@@ -5,19 +5,19 @@
 #include "CoreMinimal.h"
 #include "AbilitySystem/Data/MyAbilityTypes.h"
 #include "GameFramework/Actor.h"
-#include "MyProjectile.generated.h"
+#include "Projectile.generated.h"
 
 class UNiagaraSystem;
 class UProjectileMovementComponent;
 class USphereComponent;
 
 UCLASS()
-class GASCORE_API AMyProjectile : public AActor
+class GASCORE_API AProjectile : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
-	AMyProjectile();
+	AProjectile();
 	
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovement;

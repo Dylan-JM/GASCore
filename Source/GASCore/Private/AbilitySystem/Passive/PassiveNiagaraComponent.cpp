@@ -3,8 +3,8 @@
 
 #include "AbilitySystem/Passive/PassiveNiagaraComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
-#include "AbilitySystem/MyGameplayTags.h"
-#include "AbilitySystem/MyAbilitySystemComponent.h"
+#include "AbilitySystem/CoreGameplayTags.h"
+#include "AbilitySystem/CoreAbilitySystemComponent.h"
 #include "Interface/CombatInterface.h"
 
 UPassiveNiagaraComponent::UPassiveNiagaraComponent()
@@ -16,7 +16,7 @@ void UPassiveNiagaraComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (UMyAbilitySystemComponent* HDASC = Cast<UMyAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetOwner())))
+	if (UCoreAbilitySystemComponent* HDASC = Cast<UCoreAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetOwner())))
 	{
 		HDASC->ActivatePassiveEffect.AddUObject(this, &UPassiveNiagaraComponent::OnPassiveActivate);
 		ActivateIfEquipped(HDASC);
@@ -25,7 +25,7 @@ void UPassiveNiagaraComponent::BeginPlay()
 	{
 		CombatInterface->GetOnASCRegisteredDelegate().AddLambda([this](UAbilitySystemComponent* ASC)
 		{
-			if (UMyAbilitySystemComponent* HDASC = Cast<UMyAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetOwner())))
+			if (UCoreAbilitySystemComponent* HDASC = Cast<UCoreAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetOwner())))
 			{
 				HDASC->ActivatePassiveEffect.AddUObject(this, &UPassiveNiagaraComponent::OnPassiveActivate);
 				ActivateIfEquipped(HDASC);
@@ -49,7 +49,7 @@ void UPassiveNiagaraComponent::OnPassiveActivate(const FGameplayTag& AbilityTag,
 	}
 }
 
-void UPassiveNiagaraComponent::ActivateIfEquipped(UMyAbilitySystemComponent* HDASC)
+void UPassiveNiagaraComponent::ActivateIfEquipped(UCoreAbilitySystemComponent* HDASC)
 {
 	const bool bStartupAbilitiesGiven = HDASC->bStartupAbilitiesGiven;
 	if (bStartupAbilitiesGiven)

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystem/Data/MyAbilityTypes.h"
-#include "MyGameplayAbility.h"
+#include "CoreGameplayAbility.h"
 #include "Interface/CombatInterface.h"
 #include "DamageGameplayAbility.generated.h"
 
@@ -14,7 +14,7 @@ class ABaseWeapon;
  * 
  */
 UCLASS()
-class GASCORE_API UDamageGameplayAbility : public UMyGameplayAbility
+class GASCORE_API UDamageGameplayAbility : public UCoreGameplayAbility
 {
 	GENERATED_BODY()
 

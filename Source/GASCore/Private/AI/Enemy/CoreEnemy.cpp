@@ -1,24 +1,24 @@
 
-#include "AI/Enemy/BaseEnemy.h"
-#include "AbilitySystem/MyGameplayTags.h"
-#include "AbilitySystem/MyAbilitySystemLibrary.h"
-#include "AbilitySystem/MyAttributeSet.h"
-#include "AbilitySystem/MyAbilitySystemComponent.h"
+#include "AI/Enemy/CoreEnemy.h"
+#include "AbilitySystem/CoreGameplayTags.h"
+#include "AbilitySystem/CoreAbilitySystemLibrary.h"
+#include "AbilitySystem/CoreAttributeSet.h"
+#include "AbilitySystem/CoreAbilitySystemComponent.h"
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Player/BaseCharacter.h"
+#include "Player/CoreCharacter.h"
 #include "UI/Widget/MainWidget.h"
 
 
-ABaseEnemy::ABaseEnemy(const class FObjectInitializer& ObjectInitializer) : ABaseCharacter(ObjectInitializer)
+ACoreEnemy::ACoreEnemy(const class FObjectInitializer& ObjectInitializer) : ACoreCharacter(ObjectInitializer)
 {
 	PrimaryActorTick.bCanEverTick = true;
 	
-	AbilitySystemComponent = CreateDefaultSubobject<UMyAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent = CreateDefaultSubobject<UCoreAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 
-	AttributeSetBase = CreateDefaultSubobject<UMyAttributeSet>("AttributeSet");
+	AttributeSetBase = CreateDefaultSubobject<UCoreAttributeSet>("AttributeSet");
 	
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>("HealthBar");
 	HealthBar->SetupAttachment(GetRootComponent());
@@ -26,12 +26,12 @@ ABaseEnemy::ABaseEnemy(const class FObjectInitializer& ObjectInitializer) : ABas
 	BaseWalkSpeed = 450.f;
 }
 
-void ABaseEnemy::Tick(float DeltaTime)
+void ACoreEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
 
-void ABaseEnemy::BeginPlay()
+void ACoreEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 	
@@ -48,7 +48,7 @@ void ABaseEnemy::BeginPlay()
 		MainHUDWidget->SetWidgetController(this);
 	}
 	
-	if (const UMyAttributeSet* HDAS = Cast<UMyAttributeSet>(AttributeSetBase))
+	if (const UCoreAttributeSet* HDAS = Cast<UCoreAttributeSet>(AttributeSetBase))
 	{
 		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(HDAS->GetHealthAttribute()).AddLambda(
 			[this](const FOnAttributeChangeData& Data)
@@ -66,7 +66,7 @@ void ABaseEnemy::BeginPlay()
 		
 		AbilitySystemComponent->RegisterGameplayTagEvent(GasTag::Effect_HitReact, EGameplayTagEventType::NewOrRemoved).AddUObject(
 			this,
-			&ABaseEnemy::HitReactTagChanged
+			&ACoreEnemy::HitReactTagChanged
 		);
 
 		OnHealthChanged.Broadcast(HDAS->GetHealth());
@@ -74,12 +74,12 @@ void ABaseEnemy::BeginPlay()
 	}
 }
 
-void ABaseEnemy::InitAbilityActorInfo()
+void ACoreEnemy::InitAbilityActorInfo()
 {
 	if (AbilitySystemComponent)
 	{
 		AbilitySystemComponent->InitAbilityActorInfo(this, this);
-		Cast<UMyAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
+		Cast<UCoreAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 
 		if (HasAuthority())
 		{
@@ -94,12 +94,12 @@ void ABaseEnemy::InitAbilityActorInfo()
 
 }
 
-void ABaseEnemy::InitializeDefaultAttributes() const
+void ACoreEnemy::InitializeDefaultAttributes() const
 {
-	UMyAbilitySystemLibrary::InitializeDefaultAttributes(this, Level, AbilitySystemComponent);
+	UCoreAbilitySystemLibrary::InitializeDefaultAttributes(this, Level, AbilitySystemComponent);
 }
 
-int32 ABaseEnemy::GetPlayerLevel_Implementation()
+int32 ACoreEnemy::GetPlayerLevel_Implementation()
 {
 	return Super::GetPlayerLevel_Implementation();
 }

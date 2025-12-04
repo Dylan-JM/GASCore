@@ -7,7 +7,7 @@
 #include "ProjectileAbility.generated.h"
 
 
-class AMyProjectile;
+class AProjectile;
 class UGameplayEffect;
 
 UCLASS()
@@ -29,7 +29,7 @@ protected:
 	FVector TargetLocation;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<AMyProjectile> ProjectileClass;
+	TSubclassOf<AProjectile> ProjectileClass;
 
 	UPROPERTY(EditDefaultsOnly)
 	int32 NumProjectiles = 5;

@@ -4,17 +4,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "BaseCharacter.h"
+#include "CoreCharacter.h"
 #include "Interface/PlayerInterface.h"
 #include "PlayerCharacter.generated.h"
 
 class AHealthCharacter;
-class ABaseEnemy;
+class ACoreEnemy;
 class AEquippableActor;
 class UNiagaraComponent;
 enum class ECharacterAbilityInputID : uint8;
 enum class EActionState : uint8;
-class ABasePlayerController;
+class ACorePlayerController;
 class UTargetSystemComponent;
 class USphereComponent;
 class UCameraComponent;
@@ -27,7 +27,7 @@ class UAbilityInfo;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerRevived);
 
 UCLASS()
-class GASCORE_API APlayerCharacter : public ABaseCharacter, public IPlayerInterface
+class GASCORE_API APlayerCharacter : public ACoreCharacter, public IPlayerInterface
 {
 	GENERATED_BODY()
 
@@ -55,7 +55,7 @@ public:
 	TObjectPtr<UNiagaraComponent> LevelUpNiagaraComponent;
 
 	UPROPERTY(BlueprintReadOnly)
-	TObjectPtr<ABasePlayerController> PlayerCharacterController;
+	TObjectPtr<ACorePlayerController> PlayerCharacterController;
 	
 protected:
 	virtual void BeginPlay() override;

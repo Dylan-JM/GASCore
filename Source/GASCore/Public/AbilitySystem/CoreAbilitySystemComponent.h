@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
-#include "MyAbilitySystemComponent.generated.h"
+#include "CoreAbilitySystemComponent.generated.h"
 
 DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContainer& /*AssetsTags*/);
 DECLARE_MULTICAST_DELEGATE(FAbilitiesGiven);
@@ -17,7 +17,7 @@ DECLARE_MULTICAST_DELEGATE_TwoParams(FActivatePassiveEffect, const FGameplayTag&
 class ULoadScreenSaveGame;
 
 UCLASS()
-class GASCORE_API UMyAbilitySystemComponent : public UAbilitySystemComponent
+class GASCORE_API UCoreAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
 

@@ -3,15 +3,15 @@
 
 #include "AbilitySystem/Abilities/PassiveAbility.h"
 #include "AbilitySystemBlueprintLibrary.h"
-#include "AbilitySystem/MyAbilitySystemComponent.h"
+#include "AbilitySystem/CoreAbilitySystemComponent.h"
 
 void UPassiveAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
-                                        const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo,
-                                        const FGameplayEventData* TriggerEventData)
+                                      const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo,
+                                      const FGameplayEventData* TriggerEventData)
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
-	if (UMyAbilitySystemComponent* HDASC = Cast<UMyAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetAvatarActorFromActorInfo())))
+	if (UCoreAbilitySystemComponent* HDASC = Cast<UCoreAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetAvatarActorFromActorInfo())))
 	{
 		HDASC->DeactivatePassiveAbility.AddUObject(this, &UPassiveAbility::ReceiveDeactivate);
 	}

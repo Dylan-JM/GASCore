@@ -5,17 +5,17 @@
 #include "CoreMinimal.h"
 #include "InputTriggers.h"
 #include "Abilities/GameplayAbility.h"
-#include "MyGameplayAbility.generated.h"
+#include "CoreGameplayAbility.generated.h"
 
 class APlayerCharacter;
 
 UCLASS()
-class GASCORE_API UMyGameplayAbility : public UGameplayAbility
+class GASCORE_API UCoreGameplayAbility : public UGameplayAbility
 {
 	GENERATED_BODY()
 
 public:
-	UMyGameplayAbility();
+	UCoreGameplayAbility();
 	
 	// Tells an ability to activate immediately when it's granted. (Useful for passive abilities and abilities forced on others)
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Custom Gameplay Ability")

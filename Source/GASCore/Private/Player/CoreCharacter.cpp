@@ -1,19 +1,19 @@
 
-#include "Player/BaseCharacter.h"
+#include "Player/CoreCharacter.h"
 #include "Engine.h"
 #include "AbilitySystemBlueprintLibrary.h"
-#include "AbilitySystem/MyGameplayTags.h"
+#include "AbilitySystem/CoreGameplayTags.h"
 #include "AbilitySystem/Data/StartupAbilities.h"
 #include "AbilitySystem/Debuffs/DebuffNiagaraComponent.h"
 #include "AbilitySystem/Passive/PassiveNiagaraComponent.h"
-#include "AbilitySystem/MyAbilitySystemComponent.h"
-#include "AI/Enemy/BaseEnemy.h"
+#include "AbilitySystem/CoreAbilitySystemComponent.h"
+#include "AI/Enemy/CoreEnemy.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GASCore/GASCore.h"
 #include "Net/UnrealNetwork.h"
 
 
-ABaseCharacter::ABaseCharacter(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer.SetDefaultSubobjectClass<UCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
+ACoreCharacter::ACoreCharacter(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer.SetDefaultSubobjectClass<UCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
 
 	PrimaryActorTick.bCanEverTick = true;
@@ -41,20 +41,20 @@ ABaseCharacter::ABaseCharacter(const class FObjectInitializer& ObjectInitializer
 	
 }
 
-void ABaseCharacter::Tick(float DeltaSeconds)
+void ACoreCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 	EffectAttachComponent->SetWorldRotation(FRotator::ZeroRotator);
 }
 
-void ABaseCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+void ACoreCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME(ABaseCharacter, bDeadOnGround);
-	DOREPLIFETIME(ABaseCharacter, bDead);
+	DOREPLIFETIME(ACoreCharacter, bDeadOnGround);
+	DOREPLIFETIME(ACoreCharacter, bDead);
 }
 
-float ABaseCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
+float ACoreCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
 	AActor* DamageCauser)
 {
 	const float DamageTaken = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
@@ -62,9 +62,9 @@ float ABaseCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageE
 	return DamageTaken;
 }
 
-void ABaseCharacter::AddCharacterAbilities()
+void ACoreCharacter::AddCharacterAbilities()
 {
-	UMyAbilitySystemComponent* MASC = Cast<UMyAbilitySystemComponent>(AbilitySystemComponent);
+	UCoreAbilitySystemComponent* MASC = Cast<UCoreAbilitySystemComponent>(AbilitySystemComponent);
 	if (!IsValid(MASC))
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "MASC is null");
@@ -77,7 +77,7 @@ void ABaseCharacter::AddCharacterAbilities()
 	if (StartupPassiveAbilitiesDataAsset) MASC->AddCharacterPassiveAbilities(StartupPassiveAbilitiesDataAsset->StartupAbilities);
 }
 
-void ABaseCharacter::HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCount)
+void ACoreCharacter::HitReactTagChanged(const FGameplayTag CallbackTag, int32 NewCount)
 {
 	bHitReacting = NewCount > 0;
 	// this line makes it so the enemy stand still when hit react happens
@@ -86,19 +86,19 @@ void ABaseCharacter::HitReactTagChanged(const FGameplayTag CallbackTag, int32 Ne
 	//GetCharacterMovement()->MaxWalkSpeed = bHitReacting ? (BaseWalkSpeed/2) : BaseWalkSpeed;
 }
 
-void ABaseCharacter::HandleGameplayEffectRemoved(const FActiveGameplayEffectHandle InGEHandle)
+void ACoreCharacter::HandleGameplayEffectRemoved(const FActiveGameplayEffectHandle InGEHandle)
 {
 	FOnActiveGameplayEffectRemoved_Info* DelPtr = AbilitySystemComponent->OnGameplayEffectRemoved_InfoDelegate(InGEHandle);
 	if (DelPtr)
 	{
-		DelPtr->AddUObject(this, &ABaseCharacter::OnGameplayEffectRemoved);
+		DelPtr->AddUObject(this, &ACoreCharacter::OnGameplayEffectRemoved);
 	}
 }
 
-void ABaseCharacter::OnGameplayEffectRemoved(const FGameplayEffectRemovalInfo& InGERemovalInfo)
+void ACoreCharacter::OnGameplayEffectRemoved(const FGameplayEffectRemovalInfo& InGERemovalInfo)
 {
 	GEngine->AddOnScreenDebugMessage(-1,2.f,FColor::Green, TEXT("OnGERemoved"));
-	UMyAbilitySystemComponent* HDASC = CastChecked<UMyAbilitySystemComponent>(AbilitySystemComponent);
+	UCoreAbilitySystemComponent* HDASC = CastChecked<UCoreAbilitySystemComponent>(AbilitySystemComponent);
 	FGameplayTagContainer EffectTags;
 	InGERemovalInfo.ActiveEffect->Spec.GetAllGrantedTags(EffectTags);
 	TArray<FGameplayTag> GameplayTags;
@@ -106,7 +106,7 @@ void ABaseCharacter::OnGameplayEffectRemoved(const FGameplayEffectRemovalInfo& I
 	HDASC->MulticastActivatePassiveEffect(GameplayTags[0], false);
 }
 
-void ABaseCharacter::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const
+void ACoreCharacter::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const
 {
 	check(IsValid(GetAbilitySystemComponent()));
 	check(GameplayEffectClass)
@@ -116,7 +116,7 @@ void ABaseCharacter::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffe
 	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), GetAbilitySystemComponent());
 }
 
-void ABaseCharacter::InitializeDefaultAttributes() const
+void ACoreCharacter::InitializeDefaultAttributes() const
 {
 	ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
 	ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
@@ -127,17 +127,17 @@ void ABaseCharacter::InitializeDefaultAttributes() const
 	}
 }
 
-void ABaseCharacter::Die(const FVector& DeathImpulse, bool bRagdoll)
+void ACoreCharacter::Die(const FVector& DeathImpulse, bool bRagdoll)
 {
 	MulticastHandleDeath(DeathImpulse, bRagdoll);
 }
 
-FOnDeath& ABaseCharacter::GetOnDeathDelegate()
+FOnDeath& ACoreCharacter::GetOnDeathDelegate()
 {
 	return OnDeathDelegate;
 }
 
-void ABaseCharacter::MulticastHandleDeath_Implementation(const FVector& DeathImpulse, bool bRagdoll)
+void ACoreCharacter::MulticastHandleDeath_Implementation(const FVector& DeathImpulse, bool bRagdoll)
 {
 	UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation(), GetActorRotation());
 	if (bRagdoll)
@@ -165,38 +165,38 @@ void ABaseCharacter::MulticastHandleDeath_Implementation(const FVector& DeathImp
 }
 
 
-void ABaseCharacter::DeathMontageEnded()
+void ACoreCharacter::DeathMontageEnded()
 {
 	bDeadOnGround = true;
 	OnDeathDelegate.Broadcast(this);
 }
 
-bool ABaseCharacter::IsDead_Implementation() const
+bool ACoreCharacter::IsDead_Implementation() const
 {
 	return bDead;
 }
 
-AActor* ABaseCharacter::GetAvatar_Implementation()
+AActor* ACoreCharacter::GetAvatar_Implementation()
 {
 	return this;
 }
 
-FOnDamageSignature& ABaseCharacter::GetOnDamageSignature()
+FOnDamageSignature& ACoreCharacter::GetOnDamageSignature()
 {
 	return OnDamageDelegate;
 }
 
-FOnASCRegistered& ABaseCharacter::GetOnASCRegisteredDelegate()
+FOnASCRegistered& ACoreCharacter::GetOnASCRegisteredDelegate()
 {
 	return OnAscRegistered;
 }
 
-UAbilitySystemComponent* ABaseCharacter::GetAbilitySystemComponent() const
+UAbilitySystemComponent* ACoreCharacter::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent.Get();
 }
 
-void ABaseCharacter::InitAbilityActorInfo()
+void ACoreCharacter::InitAbilityActorInfo()
 {
 	
 }
