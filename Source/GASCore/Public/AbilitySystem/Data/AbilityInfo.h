@@ -10,15 +10,12 @@
 class UGameplayAbility;
 
 USTRUCT(BlueprintType)
-struct FHDAbilityInfo
+struct FCoreAbilityInfo
 {
 	GENERATED_BODY()
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FGameplayTag AbilityTag = FGameplayTag();
-
-	UPROPERTY(BlueprintReadOnly)
-	FGameplayTag InputTag = FGameplayTag();
 
 	UPROPERTY(BlueprintReadOnly)
 	FGameplayTag StatusTag = FGameplayTag();
@@ -29,6 +26,9 @@ struct FHDAbilityInfo
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FGameplayTag AbilityType = FGameplayTag();
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FName InputName = FName();
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TObjectPtr<const UTexture2D> Icon = nullptr;
 
@@ -52,7 +52,7 @@ class GASCORE_API UAbilityInfo : public UDataAsset
 
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="AbilityInformation")
-	TArray<FHDAbilityInfo> AbilityInformation;
+	TArray<FCoreAbilityInfo> AbilityInformation;
 
-	FHDAbilityInfo FindAbilityInfoForTag(const FGameplayTag& AbilityTag, bool bLogNotFound = false) const;
+	FCoreAbilityInfo FindAbilityInfoForTag(const FGameplayTag& AbilityTag, bool bLogNotFound = false) const;
 };

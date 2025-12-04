@@ -3,7 +3,7 @@
 
 #include "AbilitySystem/Passive/PassiveNiagaraComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
-#include "AbilitySystem/CoreGameplayTags.h"
+#include "CoreGameplayTags.h"
 #include "AbilitySystem/CoreAbilitySystemComponent.h"
 #include "Interface/CombatInterface.h"
 
@@ -16,19 +16,19 @@ void UPassiveNiagaraComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (UCoreAbilitySystemComponent* HDASC = Cast<UCoreAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetOwner())))
+	if (UCoreAbilitySystemComponent* CoreASC = Cast<UCoreAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetOwner())))
 	{
-		HDASC->ActivatePassiveEffect.AddUObject(this, &UPassiveNiagaraComponent::OnPassiveActivate);
-		ActivateIfEquipped(HDASC);
+		CoreASC->ActivatePassiveEffect.AddUObject(this, &UPassiveNiagaraComponent::OnPassiveActivate);
+		ActivateIfEquipped(CoreASC);
 	}
 	else if (ICombatInterface* CombatInterface = Cast<ICombatInterface>(GetOwner()))
 	{
 		CombatInterface->GetOnASCRegisteredDelegate().AddLambda([this](UAbilitySystemComponent* ASC)
 		{
-			if (UCoreAbilitySystemComponent* HDASC = Cast<UCoreAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetOwner())))
+			if (UCoreAbilitySystemComponent* CoreASC = Cast<UCoreAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetOwner())))
 			{
-				HDASC->ActivatePassiveEffect.AddUObject(this, &UPassiveNiagaraComponent::OnPassiveActivate);
-				ActivateIfEquipped(HDASC);
+				CoreASC->ActivatePassiveEffect.AddUObject(this, &UPassiveNiagaraComponent::OnPassiveActivate);
+				ActivateIfEquipped(CoreASC);
 			}
 		});
 	}
@@ -49,12 +49,12 @@ void UPassiveNiagaraComponent::OnPassiveActivate(const FGameplayTag& AbilityTag,
 	}
 }
 
-void UPassiveNiagaraComponent::ActivateIfEquipped(UCoreAbilitySystemComponent* HDASC)
+void UPassiveNiagaraComponent::ActivateIfEquipped(UCoreAbilitySystemComponent* CoreASC)
 {
-	const bool bStartupAbilitiesGiven = HDASC->bStartupAbilitiesGiven;
+	const bool bStartupAbilitiesGiven = CoreASC->bStartupAbilitiesGiven;
 	if (bStartupAbilitiesGiven)
 	{
-		if (HDASC->GetStatusFromAbilityTag(PassiveSpellTag) == GasTag::Abilities_Status_Equipped)
+		if (CoreASC->GetStatusFromAbilityTag(PassiveSpellTag) == GasTag::Abilities_Status_Equipped)
 		{
 			Activate();
 		}

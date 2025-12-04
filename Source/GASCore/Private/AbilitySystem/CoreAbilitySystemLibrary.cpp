@@ -3,8 +3,9 @@
 
 #include "AbilitySystem/CoreAbilitySystemLibrary.h"
 #include "AbilitySystemBlueprintLibrary.h"
+#include "CoreGameMode.h"
 #include "AbilitySystem/Data/MyAbilityTypes.h"
-#include "AbilitySystem/CoreGameplayTags.h"
+#include "CoreGameplayTags.h"
 #include "Interface/CombatInterface.h"
 #include "Player/CorePlayerState.h"
 #include "Kismet/GameplayStatics.h"
@@ -65,6 +66,14 @@ void UCoreAbilitySystemLibrary::InitializeDefaultAttributes(const UObject* World
 	VitalAttributesContextHandle.AddSourceObject(AvatarActor);
 	const FGameplayEffectSpecHandle VitalAttributesSpecHandle = ASC->MakeOutgoingSpec(AvatarActor->DefaultVitalAttributes, Level, VitalAttributesContextHandle);
 	ASC->ApplyGameplayEffectSpecToSelf(*VitalAttributesSpecHandle.Data.Get());
+}
+
+UAbilityInfo* UCoreAbilitySystemLibrary::GetAbilityInfo(const UObject* WorldContextObject)
+{
+	const ACoreGameMode* CoreGameMode = Cast<ACoreGameMode>(UGameplayStatics::GetGameMode(WorldContextObject));
+	if (CoreGameMode == nullptr) return nullptr;
+
+	return CoreGameMode->AbilityInfo;
 }
 
 void UCoreAbilitySystemLibrary::SetIsRadialDamageEffectParam(FDamageEffectParams& DamageEffectParams, bool bIsRadial, float InnerRadius, float OuterRadius, FVector Origin)

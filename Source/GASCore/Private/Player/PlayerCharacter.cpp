@@ -2,7 +2,7 @@
 
 
 #include "Player/PlayerCharacter.h"
-#include "AbilitySystem/CoreGameplayTags.h"
+#include "CoreGameplayTags.h"
 #include "NiagaraComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"

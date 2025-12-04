@@ -3,10 +3,10 @@
 
 #include "AbilitySystem/Data/AbilityInfo.h"
 
-FHDAbilityInfo UAbilityInfo::FindAbilityInfoForTag(const FGameplayTag& AbilityTag, bool bLogNotFound) const
+FCoreAbilityInfo UAbilityInfo::FindAbilityInfoForTag(const FGameplayTag& AbilityTag, bool bLogNotFound) const
 {
-	if (!AbilityTag.IsValid()) return FHDAbilityInfo();
-	for (const FHDAbilityInfo Info : AbilityInformation)
+	if (!AbilityTag.IsValid()) return FCoreAbilityInfo();
+	for (const FCoreAbilityInfo Info : AbilityInformation)
 	{
 		if (Info.AbilityTag == AbilityTag)
 		{
@@ -19,5 +19,5 @@ FHDAbilityInfo UAbilityInfo::FindAbilityInfoForTag(const FGameplayTag& AbilityTa
 		UE_LOG(LogTemp, Error, TEXT("Can't find info for AbilityTag [%s] on AbilityInfo [%s]"), *AbilityTag.ToString(), *GetNameSafe(this));
 	}
 
-	return FHDAbilityInfo();
+	return FCoreAbilityInfo();
 }

@@ -2,7 +2,7 @@
 
 
 #include "UI/WidgetController/OverlayWidgetController.h"
-#include "AbilitySystem/CoreGameplayTags.h"
+#include "CoreGameplayTags.h"
 #include "AbilitySystem/CoreAttributeSet.h"
 #include "AbilitySystem/Data/AbilityInfo.h"
 #include "AbilitySystem/Data/LevelUpInfo.h"
@@ -64,19 +64,19 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 		}
 	);
 
-	if (GetHDASC())
+	if (GetCoreASC())
 	{
-		GetHDASC()->AbilityEquipped.AddUObject(this, &UOverlayWidgetController::OnAbilityEquipped);
-		if (GetHDASC()->bStartupAbilitiesGiven)
+		GetCoreASC()->AbilityEquipped.AddUObject(this, &UOverlayWidgetController::OnAbilityEquipped);
+		if (GetCoreASC()->bStartupAbilitiesGiven)
 		{
 			BroadcastAbilityInfo();
 		}
 		else
 		{
-			GetHDASC()->AbilitiesGivenDelegate.AddUObject(this, &UOverlayWidgetController::BroadcastAbilityInfo);
+			GetCoreASC()->AbilitiesGivenDelegate.AddUObject(this, &UOverlayWidgetController::BroadcastAbilityInfo);
 		}
 
-		GetHDASC()->EffectAssetTags.AddLambda(
+		GetCoreASC()->EffectAssetTags.AddLambda(
 			[this](const FGameplayTagContainer& AssetTags)
 			{
 				for (const FGameplayTag& Tag : AssetTags)
@@ -117,19 +117,19 @@ void UOverlayWidgetController::OnXPChanged(int32 NewXP)
 	}
 }
 
-void UOverlayWidgetController::OnAbilityEquipped(const FGameplayTag& AbilityTag, const FGameplayTag& Status, const FGameplayTag& Slot, const FGameplayTag& PreviousSlot) const
+void UOverlayWidgetController::OnAbilityEquipped(const FGameplayTag& AbilityTag, const FGameplayTag& Status, const FName& Slot, const FName& PreviousSlot) const
 {
 	
-	FHDAbilityInfo LastSlotInfo;
+	FCoreAbilityInfo LastSlotInfo;
 	LastSlotInfo.StatusTag = GasTag::Abilities_Status_Unlocked;
-	LastSlotInfo.InputTag = PreviousSlot;
+	LastSlotInfo.InputName = PreviousSlot;
 	LastSlotInfo.AbilityTag = GasTag::Abilities_None;
 	// Broadcast empty info if PreviousSlot is a valid slot. Only if equipping an already-equipped spell.
 	AbilityInfoDelegate.Broadcast(LastSlotInfo);
 	
-	FHDAbilityInfo Info = AbilityInfo->FindAbilityInfoForTag(AbilityTag);
+	FCoreAbilityInfo Info = AbilityInfo->FindAbilityInfoForTag(AbilityTag);
 	Info.StatusTag = Status;
-	Info.InputTag =  Slot;
+	Info.InputName =  Slot;
 	AbilityInfoDelegate.Broadcast(Info);
 	
 }

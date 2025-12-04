@@ -1,7 +1,7 @@
 // Copyright (c) 2025 Dylan Marley, Dylan-JM @ GitHub
 
 #include "AI/Enemy/CoreEnemy.h"
-#include "AbilitySystem/CoreGameplayTags.h"
+#include "CoreGameplayTags.h"
 #include "AbilitySystem/CoreAbilitySystemLibrary.h"
 #include "AbilitySystem/CoreAttributeSet.h"
 #include "AbilitySystem/CoreAbilitySystemComponent.h"

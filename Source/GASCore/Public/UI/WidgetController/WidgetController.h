@@ -8,7 +8,7 @@
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayerStateChangedSignature, int32, NewValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAbilityInfoSignature, const FHDAbilityInfo&, Info);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCoreAbilityInfoSignature, const FCoreAbilityInfo&, Info);
 
 class UCoreAttributeSet;
 class UCoreAbilitySystemComponent;
@@ -54,7 +54,7 @@ public:
 	virtual void BindCallbacksToDependencies();
 
 	UPROPERTY(BlueprintAssignable, Category="GAS|Messages")
-	FAbilityInfoSignature AbilityInfoDelegate;
+	FCoreAbilityInfoSignature AbilityInfoDelegate;
 
 	void BroadcastAbilityInfo();
 
@@ -89,6 +89,6 @@ protected:
 
 	ACorePlayerController* GetBasePC();
 	ACorePlayerState* GetBasePS();
-	UCoreAbilitySystemComponent* GetHDASC();
+	UCoreAbilitySystemComponent* GetCoreASC();
 	UCoreAttributeSet* GetHDAttributeSet();
 };

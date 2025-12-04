@@ -6,7 +6,7 @@
 #include "WidgetController.h"
 #include "OverlayWidgetController.generated.h"
 
-struct FHDAbilityInfo;
+struct FCoreAbilityInfo;
 
 USTRUCT(BlueprintType)
 struct FUIWidgetRow : public FTableRowBase
@@ -83,7 +83,7 @@ protected:
 
 	void OnXPChanged(int32 NewXP);
 
-	void OnAbilityEquipped(const FGameplayTag& AbilityTag, const FGameplayTag& Status, const FGameplayTag& Slot, const FGameplayTag& PreviousSlot) const;
+	void OnAbilityEquipped(const FGameplayTag& AbilityTag, const FGameplayTag& Status, const FName& Slot, const FName& PreviousSlot) const;
 };
 
 template <typename T>

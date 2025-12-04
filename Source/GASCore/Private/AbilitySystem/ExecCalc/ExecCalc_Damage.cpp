@@ -4,7 +4,7 @@
 #include "AbilitySystem/ExecCalc/ExecCalc_Damage.h"
 #include "AbilitySystemComponent.h"
 #include "AbilitySystem/Data/MyAbilityTypes.h"
-#include "AbilitySystem/CoreGameplayTags.h"
+#include "CoreGameplayTags.h"
 #include "AbilitySystem/CoreAbilitySystemLibrary.h"
 #include "AbilitySystem/CoreAttributeSet.h"
 #include "Interface/CombatInterface.h"

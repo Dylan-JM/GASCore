@@ -1,7 +1,7 @@
 // Copyright (c) 2025 Dylan Marley, Dylan-JM @ GitHub
 
 
-#include "AbilitySystem/CoreGameplayTags.h"
+#include "CoreGameplayTags.h"
 
 namespace GasTag
 {
@@ -90,5 +90,11 @@ namespace GasTag
 	/* Ability Tags */
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Abilities_Status_Equipped, "Abilities.Status.Equipped", "Equipped Status Tag.")
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Abilities_Status_Unlocked, "Abilities.Status.Unlocked", "Unlocked Status Tag.")
+	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Abilities_Status_Locked, "Abilities.Status.Locked", "Locked Status Tag.")
+	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Abilities_Status_Eligible, "Abilities.Status.Eligible", "Eligible Status Tag.")
+	
+	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Abilities_Type_Offensive, "Abilities.Type.Offensive", "Offensive Status Tag.")
+	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Abilities_Type_Passive, "Abilities.Type.Passive", "Passive Status Tag.")
+	
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Abilities_None, "Abilities.None", "No Ability Tag.")
 }

@@ -7,6 +7,8 @@
 #include "CoreGameMode.generated.h"
 
 
+class UAbilityInfo;
+
 UCLASS(minimalapi)
 class ACoreGameMode : public AGameModeBase
 {
@@ -16,6 +18,8 @@ public:
 
 	ACoreGameMode();
 
+	UPROPERTY(EditDefaultsOnly, Category= "Ability Info")
+	TObjectPtr<UAbilityInfo> AbilityInfo;
 };
 
 

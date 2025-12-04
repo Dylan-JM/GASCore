@@ -39,6 +39,10 @@ public:
 	ACharacter* GetAvatarCharacter() const { return AvatarCharacter.Get(); }
 
 
+	virtual FString GetDescription(int32 Level);
+	virtual FString GetNextLevelDescription(int32 Level);
+	static FString GetLockedDescription(int32 Level);
+	
 	UFUNCTION(BlueprintCallable)
 	void StoreOwnerVariables();
 

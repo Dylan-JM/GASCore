@@ -37,6 +37,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "MyAbilitySystemLibrary|Attributes")
 	static void InitializeDefaultAttributes(const UObject* WorldContextObject, float Level, UAbilitySystemComponent* ASC);
 	
+	UFUNCTION(BlueprintCallable, Category= "HDAbilitySystemLibrary|CharacterClassDefaults")
+	static UAbilityInfo* GetAbilityInfo(const UObject* WorldContextObject);
+	
 	/* Gameplay Effect Context Getters */ 
 	UFUNCTION(BlueprintPure, Category= "MyAbilitySystemLibrary|GameplayEffects")
 	static bool IsBlockedHit(const FGameplayEffectContextHandle& EffectContextHandle);

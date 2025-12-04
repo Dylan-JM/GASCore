@@ -5,7 +5,7 @@
 #include "AbilitySystemComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "AbilitySystem/CoreGameplayTags.h"
+#include "CoreGameplayTags.h"
 #include "InputActionValue.h"
 #include "AbilitySystem/CoreAbilitySystemComponent.h"
 #include "Player/PlayerCharacter.h"

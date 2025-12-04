@@ -2,7 +2,7 @@
 #include "Player/CoreCharacter.h"
 #include "Engine.h"
 #include "AbilitySystemBlueprintLibrary.h"
-#include "AbilitySystem/CoreGameplayTags.h"
+#include "CoreGameplayTags.h"
 #include "AbilitySystem/Data/StartupAbilities.h"
 #include "AbilitySystem/Debuffs/DebuffNiagaraComponent.h"
 #include "AbilitySystem/Passive/PassiveNiagaraComponent.h"
@@ -98,12 +98,12 @@ void ACoreCharacter::HandleGameplayEffectRemoved(const FActiveGameplayEffectHand
 void ACoreCharacter::OnGameplayEffectRemoved(const FGameplayEffectRemovalInfo& InGERemovalInfo)
 {
 	GEngine->AddOnScreenDebugMessage(-1,2.f,FColor::Green, TEXT("OnGERemoved"));
-	UCoreAbilitySystemComponent* HDASC = CastChecked<UCoreAbilitySystemComponent>(AbilitySystemComponent);
+	UCoreAbilitySystemComponent* CoreASC = CastChecked<UCoreAbilitySystemComponent>(AbilitySystemComponent);
 	FGameplayTagContainer EffectTags;
 	InGERemovalInfo.ActiveEffect->Spec.GetAllGrantedTags(EffectTags);
 	TArray<FGameplayTag> GameplayTags;
 	EffectTags.GetGameplayTagArray(GameplayTags);
-	HDASC->MulticastActivatePassiveEffect(GameplayTags[0], false);
+	CoreASC->MulticastActivatePassiveEffect(GameplayTags[0], false);
 }
 
 void ACoreCharacter::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const

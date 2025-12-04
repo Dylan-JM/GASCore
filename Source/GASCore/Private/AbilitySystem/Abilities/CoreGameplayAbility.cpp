@@ -13,6 +13,21 @@ UCoreGameplayAbility::UCoreGameplayAbility()
 	
 }
 
+FString UCoreGameplayAbility::GetDescription(int32 Level)
+{
+	return FString::Printf(TEXT("<Default>%s, </><Level>%d</>"), L"Default Ability Name - LoremIpsum LoremIpsum LoremIpsum LoremIpsum LoremIpsum LoremIpsum LoremIpsum", Level);
+}
+
+FString UCoreGameplayAbility::GetNextLevelDescription(int32 Level)
+{
+	return FString::Printf(TEXT("<Default>Next Level: </><Level>%d</> \n<Default>Causes much more damage </>"), Level);
+}
+
+FString UCoreGameplayAbility::GetLockedDescription(int32 Level)
+{
+	return FString::Printf(TEXT("<Default>Spell locked until next Level: %d</>"), Level);
+}
+
 void UCoreGameplayAbility::StoreOwnerVariables()
 {
 	if (CurrentActorInfo)

@@ -5,7 +5,7 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "GameplayEffectExtension.h"
 #include "AbilitySystem/Data/MyAbilityTypes.h"
-#include "AbilitySystem/CoreGameplayTags.h"
+#include "CoreGameplayTags.h"
 #include "AbilitySystem/CoreAbilitySystemLibrary.h"
 #include "AbilitySystem/CoreAbilitySystemComponent.h"
 #include "GameplayEffectComponents/TargetTagsGameplayEffectComponent.h"

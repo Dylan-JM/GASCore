@@ -27,16 +27,16 @@ void UWidgetController::BindCallbacksToDependencies()
 
 void UWidgetController::BroadcastAbilityInfo()
 {
-	if (!GetHDASC()->bStartupAbilitiesGiven) return;
+	if (!GetCoreASC()->bStartupAbilitiesGiven) return;
 
 	FForEachAbility BroadcastDelegate;
 	BroadcastDelegate.BindLambda([this](const FGameplayAbilitySpec& AbilitySpec)
 	{
-		FHDAbilityInfo Info = AbilityInfo->FindAbilityInfoForTag(HDAbilitySystemComponent->GetAbilityTagFromSpec(AbilitySpec));
+		FCoreAbilityInfo Info = AbilityInfo->FindAbilityInfoForTag(HDAbilitySystemComponent->GetAbilityTagFromSpec(AbilitySpec));
 		Info.StatusTag = HDAbilitySystemComponent->GetStatusFromSpec(AbilitySpec);
 		AbilityInfoDelegate.Broadcast(Info);
 	});
-	GetHDASC()->ForEachAbility(BroadcastDelegate);
+	GetCoreASC()->ForEachAbility(BroadcastDelegate);
 }
 
 ACorePlayerController* UWidgetController::GetBasePC()
@@ -57,7 +57,7 @@ ACorePlayerState* UWidgetController::GetBasePS()
 	return BasePlayerState;
 }
 
-UCoreAbilitySystemComponent* UWidgetController::GetHDASC()
+UCoreAbilitySystemComponent* UWidgetController::GetCoreASC()
 {
 	if (HDAbilitySystemComponent == nullptr)
 	{
