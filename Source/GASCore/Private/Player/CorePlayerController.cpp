@@ -75,7 +75,6 @@ void ACorePlayerController::Move(const FInputActionValue& Value)
 	{
 		PlayerCharacter->AddMovementInput(ForwardDirection, MovementVector.Y);
 		PlayerCharacter->AddMovementInput(RightDirection, MovementVector.X);
-		PlayerCharacter->MovementDirectionVector = MovementVector;
 	}
 }
 

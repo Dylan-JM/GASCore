@@ -3,54 +3,30 @@
 
 #include "Player/CorePlayerCharacter.h"
 #include "NiagaraComponent.h"
-#include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "GameFramework/SpringArmComponent.h"
 #include "AbilitySystem/CoreAbilitySystemComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Player/CorePlayerController.h"
-#include "Net/UnrealNetwork.h"
 #include "Player/CorePlayerState.h"
 #include "UI/CoreHUD.h"
 
 
 ACorePlayerCharacter::ACorePlayerCharacter(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
-	
 	LevelUpNiagaraComponent = CreateDefaultSubobject<UNiagaraComponent>("LevelUpNiagaraComponent");
 	LevelUpNiagaraComponent->SetupAttachment(GetRootComponent());
 	LevelUpNiagaraComponent->SetAutoActivate(false);
-	
-	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
-	CameraBoom->SetupAttachment(GetMesh());
-	CameraBoom->TargetArmLength = 500.f;
-	CameraBoom->bUsePawnControlRotation = true;
-	
-	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
-	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
-	FollowCamera->bUsePawnControlRotation = false;
-	
-	// Don't rotate when the controller rotates. Let that just affect the camera.
-	bUseControllerRotationPitch = false;
-	bUseControllerRotationYaw = false;
-	bUseControllerRotationRoll = false;
-	
-	GetCharacterMovement()->bOrientRotationToMovement = true;
-	GetCharacterMovement()->RotationRate = FRotator(0.f,540.f,0.f);
-
 }
 
 void ACorePlayerCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 	GetTraceResult(DefaultTraceDistance);
-	
 }
 
 void ACorePlayerCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME(ACorePlayerCharacter, MovementDirectionVector);
 }
 
 void ACorePlayerCharacter::BeginPlay()
@@ -67,7 +43,6 @@ void ACorePlayerCharacter::PossessedBy(AController* NewController)
 	
 	// Init ability actor info for the Server
 	InitAbilityActorInfo();
-
 	
 	InitializeDefaultAttributes();
 	AddCharacterAbilities();

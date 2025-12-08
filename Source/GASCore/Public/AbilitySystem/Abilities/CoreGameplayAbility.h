@@ -47,7 +47,7 @@ public:
 	void StoreOwnerVariables();
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
-	FGameplayTagContainer GetAbilityTags() { return AbilityTags; }
+	FGameplayTagContainer GetAbilityTags() { return GetAssetTags(); }
 	
 protected:
 

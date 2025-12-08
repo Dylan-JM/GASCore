@@ -35,7 +35,6 @@ public:
 	ACorePlayerCharacter(const class FObjectInitializer& ObjectInitializer);
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-	
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void OnRep_PlayerState() override;
 	
@@ -43,13 +42,6 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void TraceUnderCrosshairs(FHitResult& TraceHitResult, float TraceDistance, bool bUseVisibilityChannel = false);
-	
-	/* Movement mechanics*/
-	
-	UPROPERTY(Replicated, BlueprintReadOnly)
-	FVector2D MovementDirectionVector;
-	
-	/* End Movement Mechanics */
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UNiagaraComponent> LevelUpNiagaraComponent;
@@ -65,27 +57,10 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void InitAbilityActorInfo() override;
 
-	UPROPERTY(EditAnywhere, Category = "Camera")
-	TObjectPtr<USpringArmComponent> CameraBoom;
-
 	UPROPERTY(EditDefaultsOnly)
 	float DefaultTraceDistance = 100.f;
-private:
-
-	/* Camera */
-	UPROPERTY(EditAnywhere)
-	float CameraThreshold = 200.f;
-	UPROPERTY(VisibleAnywhere, Category = "Camera")
-	TObjectPtr<UCameraComponent> FollowCamera;
-	
-	/**/
-
 
 public:
-	/* Camera Getters */
-	UFUNCTION(BlueprintCallable)
-	class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
-	/* End Camera Getters */
 	
 	UFUNCTION(BlueprintCallable)
 	FHitResult GetTraceResult(float TraceDistance, bool bUseVisibilityChannel = false);
@@ -97,7 +72,6 @@ public:
 
 	UPROPERTY(Replicated)
 	bool bIsSprinting = false;
-	
 	/* */
 	
 	/* Player Interface */
