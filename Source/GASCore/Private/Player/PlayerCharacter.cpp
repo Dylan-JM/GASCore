@@ -2,7 +2,6 @@
 
 
 #include "Player/PlayerCharacter.h"
-#include "CoreGameplayTags.h"
 #include "NiagaraComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -105,6 +104,8 @@ void APlayerCharacter::InitAbilityActorInfo()
 	}
 }
 
+
+
 void APlayerCharacter::Jump()
 {
 	Super::Jump();
@@ -186,4 +187,66 @@ void APlayerCharacter::ServerSetSprinting_Implementation(bool bInIsSprinting)
 	{
 		GetCharacterMovement()->MaxWalkSpeed = BaseWalkSpeed;
 	}
+}
+
+void APlayerCharacter::AddToXP_Implementation(int32 InXP)
+{
+	IPlayerInterface::AddToXP_Implementation(InXP);
+}
+
+void APlayerCharacter::LevelUp_Implementation()
+{
+	IPlayerInterface::LevelUp_Implementation();
+}
+
+int32 APlayerCharacter::GetXP_Implementation() const
+{
+	return IPlayerInterface::GetXP_Implementation();
+}
+
+int32 APlayerCharacter::FindLevelForXP_Implementation(int32 InXP) const
+{
+	return IPlayerInterface::FindLevelForXP_Implementation(InXP);
+}
+
+int32 APlayerCharacter::GetAttributesPointsReward_Implementation(int32 Level) const
+{
+	return IPlayerInterface::GetAttributesPointsReward_Implementation(Level);
+}
+
+int32 APlayerCharacter::GetSpellPointsReward_Implementation(int32 Level) const
+{
+	return IPlayerInterface::GetSpellPointsReward_Implementation(Level);
+}
+
+void APlayerCharacter::AddToPlayerLevel_Implementation(int32 InPlayerLevel)
+{
+	ACorePlayerState* PS = GetPlayerState<ACorePlayerState>();
+	check(PS);
+	PS->AddToLevel(InPlayerLevel);
+
+	if (UCoreAbilitySystemComponent* CoreASC = Cast<UCoreAbilitySystemComponent>(GetAbilitySystemComponent()))
+	{
+		CoreASC->UpdateAbilityStatuses(PS->GetPlayerLevel());
+	}
+}
+
+void APlayerCharacter::AddToAttributePoints_Implementation(int32 InAttributePoints)
+{
+	IPlayerInterface::AddToAttributePoints_Implementation(InAttributePoints);
+}
+
+void APlayerCharacter::AddToSpellPoints_Implementation(int32 InSpellPoints)
+{
+	IPlayerInterface::AddToSpellPoints_Implementation(InSpellPoints);
+}
+
+int32 APlayerCharacter::GetAttributePoints_Implementation() const
+{
+	return IPlayerInterface::GetAttributePoints_Implementation();
+}
+
+int32 APlayerCharacter::GetSpellPoints_Implementation() const
+{
+	return IPlayerInterface::GetSpellPoints_Implementation();
 }

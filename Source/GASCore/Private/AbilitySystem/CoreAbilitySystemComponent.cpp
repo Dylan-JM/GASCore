@@ -207,6 +207,24 @@ FGameplayAbilitySpec* UCoreAbilitySystemComponent::GetSpecFromAbilityTag(const F
 	return nullptr;
 }
 
+void UCoreAbilitySystemComponent::UpdateAbilityStatuses(int32 Level)
+{
+	UAbilityInfo* AbilityInfo = UCoreAbilitySystemLibrary::GetAbilityInfo(GetAvatarActor());
+	for (const FCoreAbilityInfo& Info : AbilityInfo->AbilityInformation)
+	{
+		if (!Info.AbilityTag.IsValid()) continue;
+		if (Level < Info.LevelRequirement) continue;
+		if (GetSpecFromAbilityTag(Info.AbilityTag) == nullptr)
+		{
+			FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(Info.Ability, 1);
+			AbilitySpec.GetDynamicSpecSourceTags().AddTag(GasTag::Abilities_Status_Eligible);
+			GiveAbility(AbilitySpec);
+			MarkAbilitySpecDirty(AbilitySpec);
+			ClientUpdateAbilityStatus(Info.AbilityTag, GasTag::Abilities_Status_Eligible, 1);
+		}
+	}
+}
+
 void UCoreAbilitySystemComponent::UpdateAttribute(const FGameplayTag& AttributeTag)
 {
 	if (GetAvatarActor()->Implements<UPlayerInterface>())

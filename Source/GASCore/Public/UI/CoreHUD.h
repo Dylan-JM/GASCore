@@ -7,6 +7,7 @@
 #include "CoreHUD.generated.h"
 
 
+class USpellMenuWidgetController;
 class UAttributeSet;
 class UAbilitySystemComponent;
 struct FWidgetControllerParams;
@@ -25,7 +26,7 @@ public:
 	virtual void DrawHUD() override;
 
 	/* Player Overlay */
-	void AddMainHUD();
+	void AddMainWidget();
 	void InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);
 	
 	UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
@@ -35,15 +36,21 @@ protected:
 
 private:
 	UPROPERTY()
-	TObjectPtr<UMainWidget> MainHUDWidget;
+	TObjectPtr<UMainWidget> MainWidget;
 	
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<UUserWidget> MainHUDClass;
+	TSubclassOf<UUserWidget> MainWidgetClass;
 	
 	UPROPERTY()
 	TObjectPtr<UOverlayWidgetController> OverlayWidgetController;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UOverlayWidgetController> OverlayWidgetControllerClass;
+	
+	UPROPERTY()
+	TObjectPtr<USpellMenuWidgetController> SpellMenuWidgetController;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<USpellMenuWidgetController> SpellMenuWidgetControllerClass;
 	
 };

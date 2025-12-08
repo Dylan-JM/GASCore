@@ -47,9 +47,12 @@ public:
 	FGameplayAbilitySpec* GetSpecFromAbilityTag(const FGameplayTag& AbilityTag);
 	// >
 	
+	/* UI */
 	static void AssignSlotToAbility(FGameplayAbilitySpec& Spec, const FName& Slot);
 	static void ClearSlot(FGameplayAbilitySpec* Spec);
+	/**/
 	
+	void UpdateAbilityStatuses(int32 Level);
 	void UpdateAttribute(const FGameplayTag& AttributeTag);
 
 	// Server + Client Functions

@@ -12,27 +12,27 @@ void ACoreHUD::DrawHUD()
 
 void ACoreHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
 {
-	checkf(MainHUDClass, TEXT("MainHUD uninitialized, please fill out BP_BaseHUD"));
-	checkf(OverlayWidgetControllerClass, TEXT("Overlay widget controller class uninitialized, please filll out bp_basehud"));
+	checkf(MainWidgetClass, TEXT("MainWidget uninitialized, please fill out BP_CoreHUD"));
+	checkf(OverlayWidgetControllerClass, TEXT("Overlay widget controller class uninitialized, please fill out BP_CoreHUD"));
 	
-	UUserWidget*  Widget = CreateWidget<UUserWidget>(GetWorld(), MainHUDClass);
-	MainHUDWidget = Cast<UMainWidget>(Widget);
+	UUserWidget*  Widget = CreateWidget<UUserWidget>(GetWorld(), MainWidgetClass);
+	MainWidget = Cast<UMainWidget>(Widget);
 	
 	const FWidgetControllerParams WidgetControllerParams(PC, PS, ASC, AS);
 	UOverlayWidgetController* WidgetController = GetOverlayWidgetController(WidgetControllerParams);
 
-	MainHUDWidget->SetWidgetController(WidgetController);
+	MainWidget->SetWidgetController(WidgetController);
 	WidgetController->BroadcastInitialValues();
 	Widget->AddToViewport();
 }
 
-void ACoreHUD::AddMainHUD()
+void ACoreHUD::AddMainWidget()
 {
 	APlayerController* PlayerController = GetOwningPlayerController();
-	if (PlayerController && MainHUDClass)
+	if (PlayerController && MainWidgetClass)
 	{
-		MainHUDWidget = CreateWidget<UMainWidget>(PlayerController, MainHUDClass);
-		MainHUDWidget->AddToViewport();
+		MainWidget = CreateWidget<UMainWidget>(PlayerController, MainWidgetClass);
+		MainWidget->AddToViewport();
 	}
 }
 

@@ -57,6 +57,10 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<ACorePlayerController> PlayerCharacterController;
 	
+	UPROPERTY(EditDefaultsOnly)
+	float DeathTime = 5.f;
+
+	FTimerHandle DeathTimer;
 protected:
 	virtual void BeginPlay() override;
 	virtual void InitAbilityActorInfo() override;
@@ -78,17 +82,6 @@ private:
 
 
 public:
-	
-	/* Combat Interface */
-	//virtual void Die(const FVector& DeathImpulse, bool bRagdoll = true) override;
-	
-	/* End Combat Interface */
-	
-	UPROPERTY(EditDefaultsOnly)
-	float DeathTime = 5.f;
-
-	FTimerHandle DeathTimer;
-	
 	/* Camera Getters */
 	UFUNCTION(BlueprintCallable)
 	class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
@@ -97,6 +90,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FHitResult GetTraceResult(float TraceDistance, bool bUseVisibilityChannel = false);
 	
+	/* Sprinting GA */
 	void SetSprinting(bool bInIsSprinting);
 	UFUNCTION(Server, Reliable)
 	void ServerSetSprinting(bool bInIsSprinting);
@@ -104,4 +98,24 @@ public:
 	UPROPERTY(Replicated)
 	bool bIsSprinting = false;
 	
+	/* */
+	
+	/* Player Interface */
+	virtual void AddToXP_Implementation(int32 InXP) override;
+	virtual void LevelUp_Implementation() override;
+	virtual int32 GetXP_Implementation() const override;
+	virtual int32 FindLevelForXP_Implementation(int32 InXP) const override;
+	virtual int32 GetAttributesPointsReward_Implementation(int32 Level) const override;
+	virtual int32 GetSpellPointsReward_Implementation(int32 Level) const override;
+	virtual void AddToPlayerLevel_Implementation(int32 InPlayerLevel) override;
+	virtual void AddToAttributePoints_Implementation(int32 InAttributePoints) override;
+	virtual void AddToSpellPoints_Implementation(int32 InSpellPoints) override;
+	virtual int32 GetAttributePoints_Implementation() const override;
+	virtual int32 GetSpellPoints_Implementation() const override;
+	/* End Player Interface */
+	
+	/* Combat Interface */
+	//virtual void Die(const FVector& DeathImpulse, bool bRagdoll = true) override;
+	
+	/* End Combat Interface */
 };
