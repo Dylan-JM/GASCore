@@ -76,3 +76,4 @@ DerivedDataCache/*
 # Ignore JetBrains IDE project settings
 .idea/
 
+/Plugins
