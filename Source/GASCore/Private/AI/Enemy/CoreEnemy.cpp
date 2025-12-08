@@ -8,7 +8,7 @@
 #include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/CoreCharacter.h"
-#include "UI/Widget/MainWidget.h"
+#include "UI/Widget/CoreWidget.h"
 
 
 ACoreEnemy::ACoreEnemy(const class FObjectInitializer& ObjectInitializer) : ACoreCharacter(ObjectInitializer)
@@ -44,7 +44,7 @@ void ACoreEnemy::BeginPlay()
 		AddCharacterAbilities();
 	}
 	
-	if (UMainWidget* MainHUDWidget = Cast<UMainWidget>(HealthBar->GetUserWidgetObject()))
+	if (UCoreWidget* MainHUDWidget = Cast<UCoreWidget>(HealthBar->GetUserWidgetObject()))
 	{
 		MainHUDWidget->SetWidgetController(this);
 	}

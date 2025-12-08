@@ -4,14 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "MainWidget.generated.h"
+#include "CoreWidget.generated.h"
 
 
 class UProgressBar;
 class UImage;
 
 UCLASS()
-class GASCORE_API UMainWidget : public UUserWidget
+class GASCORE_API UCoreWidget : public UUserWidget
 {
 	GENERATED_BODY()
 

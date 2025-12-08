@@ -7,7 +7,7 @@
 #include "Abilities/GameplayAbility.h"
 #include "CoreGameplayAbility.generated.h"
 
-class APlayerCharacter;
+class ACorePlayerCharacter;
 
 UCLASS()
 class GASCORE_API UCoreGameplayAbility : public UGameplayAbility
@@ -74,6 +74,6 @@ protected:
 	TObjectPtr<APlayerController> OwnerPlayerController;
 
 	UPROPERTY(BlueprintReadWrite)
-	TObjectPtr<APlayerCharacter> OwnerCharacter;
+	TObjectPtr<ACorePlayerCharacter> OwnerCharacter;
 };
 

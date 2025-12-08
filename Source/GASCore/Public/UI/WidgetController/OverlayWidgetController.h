@@ -20,14 +20,14 @@ struct FUIWidgetRow : public FTableRowBase
 	FText Message = FText();
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TSubclassOf<class UMainWidget> MessageWidget;
+	TSubclassOf<class UCoreWidget> MessageWidget;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UTexture2D* Image = nullptr;
 	
 };
 
-class UMainWidget;
+class UCoreWidget;
 class UCoreAbilitySystemComponent;
 class UAbilityInfo;
 

@@ -4,7 +4,7 @@
 #include "AbilitySystem/Abilities/DamageGameplayAbility.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
-#include "Player/PlayerCharacter.h"
+#include "Player/CorePlayerCharacter.h"
 
 void UDamageGameplayAbility::CauseDamage(AActor* TargetActor)
 {

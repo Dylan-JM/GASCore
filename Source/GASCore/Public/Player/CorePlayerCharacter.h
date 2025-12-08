@@ -6,7 +6,7 @@
 #include "CoreMinimal.h"
 #include "CoreCharacter.h"
 #include "Interface/PlayerInterface.h"
-#include "PlayerCharacter.generated.h"
+#include "CorePlayerCharacter.generated.h"
 
 class AHealthCharacter;
 class ACoreEnemy;
@@ -27,12 +27,12 @@ class UAbilityInfo;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerRevived);
 
 UCLASS()
-class GASCORE_API APlayerCharacter : public ACoreCharacter, public IPlayerInterface
+class GASCORE_API ACorePlayerCharacter : public ACoreCharacter, public IPlayerInterface
 {
 	GENERATED_BODY()
 
 public:
-	APlayerCharacter(const class FObjectInitializer& ObjectInitializer);
+	ACorePlayerCharacter(const class FObjectInitializer& ObjectInitializer);
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	

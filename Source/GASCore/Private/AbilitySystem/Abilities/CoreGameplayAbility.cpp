@@ -5,7 +5,7 @@
 #include "AbilitySystemComponent.h"
 #include "EnhancedInputComponent.h"
 #include "GameFramework/Character.h"
-#include "Player/PlayerCharacter.h"
+#include "Player/CorePlayerCharacter.h"
 
 UCoreGameplayAbility::UCoreGameplayAbility()
 {
@@ -33,7 +33,7 @@ void UCoreGameplayAbility::StoreOwnerVariables()
 	if (CurrentActorInfo)
 	{
 		OwnerPlayerController = CurrentActorInfo->PlayerController.Get();
-		OwnerCharacter = Cast<APlayerCharacter>(CurrentActorInfo->AvatarActor);
+		OwnerCharacter = Cast<ACorePlayerCharacter>(CurrentActorInfo->AvatarActor);
 	}
 }
 

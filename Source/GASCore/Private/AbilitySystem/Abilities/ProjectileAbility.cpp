@@ -5,13 +5,13 @@
 #include "AbilitySystemComponent.h"
 #include "Actor/Projectile.h"
 #include "Engine/SkeletalMeshSocket.h"
-#include "Player/PlayerCharacter.h"
+#include "Player/CorePlayerCharacter.h"
 #include "Player/CorePlayerController.h"
 
 void UProjectileAbility::SpawnProjectile()
 {
 	
-	if (APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>(GetAvatarActorFromActorInfo()))
+	if (ACorePlayerCharacter* PlayerCharacter = Cast<ACorePlayerCharacter>(GetAvatarActorFromActorInfo()))
 	{
 		FRotator TargetRotation;
 		FTransform OutTransform;

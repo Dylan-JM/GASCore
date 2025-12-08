@@ -2,7 +2,7 @@
 
 #include "UI/CoreHUD.h"
 #include "Blueprint/UserWidget.h"
-#include "UI/Widget/MainWidget.h"
+#include "UI/Widget/CoreWidget.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
 
 void ACoreHUD::DrawHUD()
@@ -16,7 +16,7 @@ void ACoreHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySyst
 	checkf(OverlayWidgetControllerClass, TEXT("Overlay widget controller class uninitialized, please fill out BP_CoreHUD"));
 	
 	UUserWidget*  Widget = CreateWidget<UUserWidget>(GetWorld(), MainWidgetClass);
-	MainWidget = Cast<UMainWidget>(Widget);
+	MainWidget = Cast<UCoreWidget>(Widget);
 	
 	const FWidgetControllerParams WidgetControllerParams(PC, PS, ASC, AS);
 	UOverlayWidgetController* WidgetController = GetOverlayWidgetController(WidgetControllerParams);
@@ -31,7 +31,7 @@ void ACoreHUD::AddMainWidget()
 	APlayerController* PlayerController = GetOwningPlayerController();
 	if (PlayerController && MainWidgetClass)
 	{
-		MainWidget = CreateWidget<UMainWidget>(PlayerController, MainWidgetClass);
+		MainWidget = CreateWidget<UCoreWidget>(PlayerController, MainWidgetClass);
 		MainWidget->AddToViewport();
 	}
 }

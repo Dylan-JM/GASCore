@@ -8,7 +8,7 @@
 #include "CoreGameplayTags.h"
 #include "InputActionValue.h"
 #include "AbilitySystem/CoreAbilitySystemComponent.h"
-#include "Player/PlayerCharacter.h"
+#include "Player/CorePlayerCharacter.h"
 #include "Player/CorePlayerState.h"
 #include "UI/CoreHUD.h"
 #include "UI/Widget/DamageTextComponent.h"
@@ -69,7 +69,7 @@ void ACorePlayerController::Move(const FInputActionValue& Value)
 	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
-	if (PlayerCharacter == nullptr) PlayerCharacter = Cast<APlayerCharacter>(GetPawn());
+	if (PlayerCharacter == nullptr) PlayerCharacter = Cast<ACorePlayerCharacter>(GetPawn());
 	
 	if (PlayerCharacter)
 	{

@@ -12,7 +12,7 @@ class UAttributeSet;
 class UAbilitySystemComponent;
 struct FWidgetControllerParams;
 class UOverlayWidgetController;
-class UMainWidget;
+class UCoreWidget;
 
 UCLASS()
 class GASCORE_API ACoreHUD : public AHUD
@@ -36,7 +36,7 @@ protected:
 
 private:
 	UPROPERTY()
-	TObjectPtr<UMainWidget> MainWidget;
+	TObjectPtr<UCoreWidget> MainWidget;
 	
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> MainWidgetClass;

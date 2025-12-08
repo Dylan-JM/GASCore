@@ -2,7 +2,7 @@
 #include "Player/CorePlayerState.h"
 #include "AbilitySystem/CoreAttributeSet.h"
 #include "AbilitySystem/CoreAbilitySystemComponent.h"
-#include "Player/PlayerCharacter.h"
+#include "Player/CorePlayerCharacter.h"
 #include "Net/UnrealNetwork.h"
 
 ACorePlayerState::ACorePlayerState()

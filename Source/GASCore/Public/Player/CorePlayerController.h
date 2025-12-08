@@ -5,7 +5,7 @@
 #include "GameFramework/PlayerController.h"
 #include "CorePlayerController.generated.h"
 
-class APlayerCharacter;
+class ACorePlayerCharacter;
 class UDamageTextComponent;
 class ACoreHUD;
 struct FInputActionValue;
@@ -37,7 +37,7 @@ public:
 	void ShowDamageNumber(float DamageAmount, ACharacter* TargetCharacter, bool bBlockedHit, bool bCriticalHit);
 	
 	UPROPERTY(BlueprintReadWrite)
-	TObjectPtr<APlayerCharacter> PlayerCharacter;
+	TObjectPtr<ACorePlayerCharacter> PlayerCharacter;
 
 protected:
 	virtual void BeginPlay() override;

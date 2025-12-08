@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Player/PlayerCharacter.h"
+#include "Player/CorePlayerCharacter.h"
 #include "NiagaraComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -14,7 +14,7 @@
 #include "UI/CoreHUD.h"
 
 
-APlayerCharacter::APlayerCharacter(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+ACorePlayerCharacter::ACorePlayerCharacter(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	
 	LevelUpNiagaraComponent = CreateDefaultSubobject<UNiagaraComponent>("LevelUpNiagaraComponent");
@@ -40,27 +40,27 @@ APlayerCharacter::APlayerCharacter(const class FObjectInitializer& ObjectInitial
 
 }
 
-void APlayerCharacter::Tick(float DeltaSeconds)
+void ACorePlayerCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 	GetTraceResult(DefaultTraceDistance);
 	
 }
 
-void APlayerCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+void ACorePlayerCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	DOREPLIFETIME(APlayerCharacter, MovementDirectionVector);
+	DOREPLIFETIME(ACorePlayerCharacter, MovementDirectionVector);
 }
 
-void APlayerCharacter::BeginPlay()
+void ACorePlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	PlayerCharacterController = Cast<ACorePlayerController>(GetController());
 	GetCharacterMovement()->MaxWalkSpeed = BaseWalkSpeed;
 }
 
-void APlayerCharacter::PossessedBy(AController* NewController)
+void ACorePlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 	if (PlayerCharacterController == nullptr) PlayerCharacterController = Cast<ACorePlayerController>(NewController);
@@ -74,14 +74,14 @@ void APlayerCharacter::PossessedBy(AController* NewController)
 	
 }
 
-void APlayerCharacter::OnRep_PlayerState()
+void ACorePlayerCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
 	InitAbilityActorInfo();
 	
 }
 
-void APlayerCharacter::InitAbilityActorInfo()
+void ACorePlayerCharacter::InitAbilityActorInfo()
 {
 	ACorePlayerState* PS = GetPlayerState<ACorePlayerState>();
 	if (!IsValid(PS))
@@ -106,7 +106,7 @@ void APlayerCharacter::InitAbilityActorInfo()
 
 
 
-void APlayerCharacter::Jump()
+void ACorePlayerCharacter::Jump()
 {
 	Super::Jump();
 	if (bIsCrouched)
@@ -119,7 +119,7 @@ void APlayerCharacter::Jump()
 	}
 }
 
-void APlayerCharacter::TraceUnderCrosshairs(FHitResult& TraceHitResult, float TraceDistance, bool bUseVisibilityChannel)
+void ACorePlayerCharacter::TraceUnderCrosshairs(FHitResult& TraceHitResult, float TraceDistance, bool bUseVisibilityChannel)
 {
 	if (!IsValid(PlayerCharacterController)) return;
 	FVector2D ViewportSize;
@@ -154,14 +154,14 @@ void APlayerCharacter::TraceUnderCrosshairs(FHitResult& TraceHitResult, float Tr
 	}
 }
 
-FHitResult APlayerCharacter::GetTraceResult(float TraceDistance, bool bUseVisibilityChannel)
+FHitResult ACorePlayerCharacter::GetTraceResult(float TraceDistance, bool bUseVisibilityChannel)
 {
 	FHitResult HitResult;
 	TraceUnderCrosshairs(HitResult, TraceDistance, bUseVisibilityChannel);
 	return HitResult;
 }
 
-void APlayerCharacter::SetSprinting(bool bInIsSprinting)
+void ACorePlayerCharacter::SetSprinting(bool bInIsSprinting)
 {
 	if (bIsSprinting == bInIsSprinting) return;
 	bIsSprinting = bInIsSprinting;
@@ -176,7 +176,7 @@ void APlayerCharacter::SetSprinting(bool bInIsSprinting)
 	ServerSetSprinting(bInIsSprinting);
 }
 
-void APlayerCharacter::ServerSetSprinting_Implementation(bool bInIsSprinting)
+void ACorePlayerCharacter::ServerSetSprinting_Implementation(bool bInIsSprinting)
 {
 	bIsSprinting = bInIsSprinting;
 	if (bIsSprinting)
@@ -189,37 +189,37 @@ void APlayerCharacter::ServerSetSprinting_Implementation(bool bInIsSprinting)
 	}
 }
 
-void APlayerCharacter::AddToXP_Implementation(int32 InXP)
+void ACorePlayerCharacter::AddToXP_Implementation(int32 InXP)
 {
 	IPlayerInterface::AddToXP_Implementation(InXP);
 }
 
-void APlayerCharacter::LevelUp_Implementation()
+void ACorePlayerCharacter::LevelUp_Implementation()
 {
 	IPlayerInterface::LevelUp_Implementation();
 }
 
-int32 APlayerCharacter::GetXP_Implementation() const
+int32 ACorePlayerCharacter::GetXP_Implementation() const
 {
 	return IPlayerInterface::GetXP_Implementation();
 }
 
-int32 APlayerCharacter::FindLevelForXP_Implementation(int32 InXP) const
+int32 ACorePlayerCharacter::FindLevelForXP_Implementation(int32 InXP) const
 {
 	return IPlayerInterface::FindLevelForXP_Implementation(InXP);
 }
 
-int32 APlayerCharacter::GetAttributesPointsReward_Implementation(int32 Level) const
+int32 ACorePlayerCharacter::GetAttributesPointsReward_Implementation(int32 Level) const
 {
 	return IPlayerInterface::GetAttributesPointsReward_Implementation(Level);
 }
 
-int32 APlayerCharacter::GetSpellPointsReward_Implementation(int32 Level) const
+int32 ACorePlayerCharacter::GetSpellPointsReward_Implementation(int32 Level) const
 {
 	return IPlayerInterface::GetSpellPointsReward_Implementation(Level);
 }
 
-void APlayerCharacter::AddToPlayerLevel_Implementation(int32 InPlayerLevel)
+void ACorePlayerCharacter::AddToPlayerLevel_Implementation(int32 InPlayerLevel)
 {
 	ACorePlayerState* PS = GetPlayerState<ACorePlayerState>();
 	check(PS);
@@ -231,22 +231,22 @@ void APlayerCharacter::AddToPlayerLevel_Implementation(int32 InPlayerLevel)
 	}
 }
 
-void APlayerCharacter::AddToAttributePoints_Implementation(int32 InAttributePoints)
+void ACorePlayerCharacter::AddToAttributePoints_Implementation(int32 InAttributePoints)
 {
 	IPlayerInterface::AddToAttributePoints_Implementation(InAttributePoints);
 }
 
-void APlayerCharacter::AddToSpellPoints_Implementation(int32 InSpellPoints)
+void ACorePlayerCharacter::AddToSpellPoints_Implementation(int32 InSpellPoints)
 {
 	IPlayerInterface::AddToSpellPoints_Implementation(InSpellPoints);
 }
 
-int32 APlayerCharacter::GetAttributePoints_Implementation() const
+int32 ACorePlayerCharacter::GetAttributePoints_Implementation() const
 {
 	return IPlayerInterface::GetAttributePoints_Implementation();
 }
 
-int32 APlayerCharacter::GetSpellPoints_Implementation() const
+int32 ACorePlayerCharacter::GetSpellPoints_Implementation() const
 {
 	return IPlayerInterface::GetSpellPoints_Implementation();
 }
