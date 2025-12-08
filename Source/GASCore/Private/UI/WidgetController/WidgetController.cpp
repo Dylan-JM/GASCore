@@ -32,8 +32,8 @@ void UWidgetController::BroadcastAbilityInfo()
 	FForEachAbility BroadcastDelegate;
 	BroadcastDelegate.BindLambda([this](const FGameplayAbilitySpec& AbilitySpec)
 	{
-		FCoreAbilityInfo Info = AbilityInfo->FindAbilityInfoForTag(HDAbilitySystemComponent->GetAbilityTagFromSpec(AbilitySpec));
-		Info.StatusTag = HDAbilitySystemComponent->GetStatusFromSpec(AbilitySpec);
+		FCoreAbilityInfo Info = AbilityInfo->FindAbilityInfoForTag(CoreAbilitySystemComponent->GetAbilityTagFromSpec(AbilitySpec));
+		Info.StatusTag = CoreAbilitySystemComponent->GetStatusFromSpec(AbilitySpec);
 		AbilityInfoDelegate.Broadcast(Info);
 	});
 	GetCoreASC()->ForEachAbility(BroadcastDelegate);
@@ -59,18 +59,18 @@ ACorePlayerState* UWidgetController::GetBasePS()
 
 UCoreAbilitySystemComponent* UWidgetController::GetCoreASC()
 {
-	if (HDAbilitySystemComponent == nullptr)
+	if (CoreAbilitySystemComponent == nullptr)
 	{
-		HDAbilitySystemComponent = Cast<UCoreAbilitySystemComponent>(AbilitySystemComponent);
+		CoreAbilitySystemComponent = Cast<UCoreAbilitySystemComponent>(AbilitySystemComponent);
 	}
-	return HDAbilitySystemComponent;
+	return CoreAbilitySystemComponent;
 }
 
-UCoreAttributeSet* UWidgetController::GetHDAttributeSet()
+UCoreAttributeSet* UWidgetController::GetCoreAttributeSet()
 {
-	if (HDAttributeSet == nullptr)
+	if (CoreAttributeSet == nullptr)
 	{
-		HDAttributeSet = Cast<UCoreAttributeSet>(AttributeSet);
+		CoreAttributeSet = Cast<UCoreAttributeSet>(AttributeSet);
 	}
-	return HDAttributeSet;
+	return CoreAttributeSet;
 }

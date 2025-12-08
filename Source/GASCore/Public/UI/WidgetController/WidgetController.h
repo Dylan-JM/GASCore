@@ -82,13 +82,13 @@ protected:
 	TObjectPtr<ACorePlayerState> BasePlayerState;
 	
 	UPROPERTY(BlueprintReadOnly, Category="WidgetController")
-	TObjectPtr<UCoreAbilitySystemComponent> HDAbilitySystemComponent;
+	TObjectPtr<UCoreAbilitySystemComponent> CoreAbilitySystemComponent;
 	
 	UPROPERTY(BlueprintReadOnly, Category="WidgetController")
-	TObjectPtr<UCoreAttributeSet> HDAttributeSet;
+	TObjectPtr<UCoreAttributeSet> CoreAttributeSet;
 
 	ACorePlayerController* GetBasePC();
 	ACorePlayerState* GetBasePS();
 	UCoreAbilitySystemComponent* GetCoreASC();
-	UCoreAttributeSet* GetHDAttributeSet();
+	UCoreAttributeSet* GetCoreAttributeSet();
 };
