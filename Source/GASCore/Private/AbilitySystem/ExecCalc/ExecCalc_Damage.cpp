@@ -10,7 +10,7 @@
 #include "Interface/CombatInterface.h"
 #include "Kismet/GameplayStatics.h"
 
-struct HDDamageStatics
+struct CoreDamageStatics
 {
 	DECLARE_ATTRIBUTE_CAPTUREDEF(Armor);
 	DECLARE_ATTRIBUTE_CAPTUREDEF(ArmorPenetration);
@@ -25,7 +25,7 @@ struct HDDamageStatics
 
 
 	
-	HDDamageStatics()
+	CoreDamageStatics()
 	{
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UCoreAttributeSet, Armor, Target, false);
 		DEFINE_ATTRIBUTE_CAPTUREDEF(UCoreAttributeSet, ArmorPenetration, Source, false);
@@ -43,9 +43,9 @@ struct HDDamageStatics
 	}
 };
 
-static const HDDamageStatics& DamageStatics()
+static const CoreDamageStatics& DamageStatics()
 {
-	static HDDamageStatics DStatics;
+	static CoreDamageStatics DStatics;
 	return DStatics;
 }
 

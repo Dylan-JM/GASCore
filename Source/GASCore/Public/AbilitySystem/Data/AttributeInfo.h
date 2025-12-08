@@ -8,7 +8,7 @@
 #include "AttributeInfo.generated.h"
 
 USTRUCT(BlueprintType)
-struct FHDAttributeInfo
+struct FCoreAttributeInfo
 {
 	GENERATED_BODY()
 
@@ -33,10 +33,10 @@ class GASCORE_API UAttributeInfo : public UDataAsset
 	GENERATED_BODY()
 	
 public:
-	FHDAttributeInfo FindAttributeInfoForTag(const FGameplayTag& AttributeTag, bool bLogNotFound = false) const;
+	FCoreAttributeInfo FindAttributeInfoForTag(const FGameplayTag& AttributeTag, bool bLogNotFound = false) const;
 	
 	
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TArray<FHDAttributeInfo> AttributeInformation;
+	TArray<FCoreAttributeInfo> AttributeInformation;
 };

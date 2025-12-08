@@ -2,7 +2,7 @@
 #include "AbilitySystem/Data/MyAbilityTypes.h"
 
 
-bool FHDGameplayEffectContext::NetSerialize(FArchive& Ar, UPackageMap* Map, bool& bOutSuccess)
+bool FCoreGameplayEffectContext::NetSerialize(FArchive& Ar, UPackageMap* Map, bool& bOutSuccess)
 {
 	uint32 RepBits = 0;
 	if (Ar.IsSaving())

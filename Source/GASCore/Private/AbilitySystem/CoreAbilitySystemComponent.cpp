@@ -24,7 +24,7 @@ void UCoreAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf
 		
 		if (const UCoreGameplayAbility* GameplayAbility = Cast<UCoreGameplayAbility>(AbilitySpec.Ability))
 		{
-			//AbilitySpec.DynamicAbilityTags.AddTag(FHDGameplayTags::Get().Abilities_Status_Equipped);
+			//AbilitySpec.DynamicAbilityTags.AddTag(FCoreGameplayTags::Get().Abilities_Status_Equipped);
 			GiveAbility(AbilitySpec);
 		}
 	}
@@ -45,7 +45,7 @@ void UCoreAbilitySystemComponent::AddCharacterPassiveAbilities(const TArray<TSub
 void UCoreAbilitySystemComponent::AddCharacterAbility(const TSubclassOf<UGameplayAbility>& AbilityToAdd)
 {
 	FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityToAdd, 1);
-	if (const UCoreGameplayAbility* HDAbility = Cast<UCoreGameplayAbility>(AbilitySpec.Ability))
+	if (const UCoreGameplayAbility* CoreAbility = Cast<UCoreGameplayAbility>(AbilitySpec.Ability))
 	{
 		AbilitySpec.GetDynamicSpecSourceTags().AddTag(GasTag::Abilities_Status_Equipped);
 		GiveAbility(AbilitySpec);

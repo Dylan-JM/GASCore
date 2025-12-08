@@ -250,9 +250,9 @@ void UCoreAttributeSet::Debuff(const FEffectProperties& Props)
 	ModifierInfo.Attribute = UCoreAttributeSet::GetIncomingDamageAttribute();
 	if (FGameplayEffectSpec* MutableSpec = new FGameplayEffectSpec(Effect, EffectContext, 1.f))
 	{
-		FHDGameplayEffectContext* HDContext = static_cast<FHDGameplayEffectContext*>(MutableSpec->GetContext().Get());
+		FCoreGameplayEffectContext* CoreContext = static_cast<FCoreGameplayEffectContext*>(MutableSpec->GetContext().Get());
 		TSharedPtr<FGameplayTag> DebuffDamageType = MakeShareable(new FGameplayTag(DamageType));
-		HDContext->SetDamageType(DebuffDamageType);
+		CoreContext->SetDamageType(DebuffDamageType);
 
 		Props.TargetASC->ApplyGameplayEffectSpecToSelf(*MutableSpec);
 	}

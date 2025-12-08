@@ -12,11 +12,11 @@
 void UOverlayWidgetController::BroadcastInitialValues()
 {
 	
-	OnHealthChanged.Broadcast(GetHDAttributeSet()->GetHealth());
-	OnMaxHealthChanged.Broadcast(GetHDAttributeSet()->GetMaxHealth());
+	OnHealthChanged.Broadcast(GetCoreAttributeSet()->GetHealth());
+	OnMaxHealthChanged.Broadcast(GetCoreAttributeSet()->GetMaxHealth());
 	
-	OnManaChanged.Broadcast(GetHDAttributeSet()->GetMana());
-	OnMaxManaChanged.Broadcast(GetHDAttributeSet()->GetMaxMana());
+	OnManaChanged.Broadcast(GetCoreAttributeSet()->GetMana());
+	OnMaxManaChanged.Broadcast(GetCoreAttributeSet()->GetMaxMana());
 	
 }
 
@@ -28,37 +28,37 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 		OnPlayerLevelChangedDelegate.Broadcast(NewLevel, bLevelUp);
 	});
 	
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(GetHDAttributeSet()->GetHealthAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(GetCoreAttributeSet()->GetHealthAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
 		{
 			OnHealthChanged.Broadcast(Data.NewValue);
 		}
 	);
 	
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(GetHDAttributeSet()->GetMaxHealthAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(GetCoreAttributeSet()->GetMaxHealthAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
 		{
 			OnMaxHealthChanged.Broadcast(Data.NewValue);
 		}
 	);
 	
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(GetHDAttributeSet()->GetManaAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(GetCoreAttributeSet()->GetManaAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
 		{
 			OnManaChanged.Broadcast(Data.NewValue);
 		}
 	);
 	
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(GetHDAttributeSet()->GetMaxManaAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(GetCoreAttributeSet()->GetMaxManaAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
 		{
 			OnMaxManaChanged.Broadcast(Data.NewValue);
 		}
 	);
 
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(GetHDAttributeSet()->GetStaminaAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(GetCoreAttributeSet()->GetStaminaAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
 	{
 		OnStaminaChanged.Broadcast(Data.NewValue);
 	}
 );
 	
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(GetHDAttributeSet()->GetMaxStaminaAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(GetCoreAttributeSet()->GetMaxStaminaAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
 		{
 			OnMaxStaminaChanged.Broadcast(Data.NewValue);
 		}

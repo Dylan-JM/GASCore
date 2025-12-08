@@ -119,65 +119,65 @@ void UCoreAbilitySystemLibrary::SetTargetEffectParamsASC(FDamageEffectParams& Da
 
 bool UCoreAbilitySystemLibrary::IsBlockedHit(const FGameplayEffectContextHandle& EffectContextHandle)
 {
-	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (const FCoreGameplayEffectContext* CoreEffectContext = static_cast<const FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		return HDEffectContext->IsBlockedHit();
+		return CoreEffectContext->IsBlockedHit();
 	}
 	return false;
 }
 
 bool UCoreAbilitySystemLibrary::IsCriticalHit(const FGameplayEffectContextHandle& EffectContextHandle)
 {
-	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (const FCoreGameplayEffectContext* CoreEffectContext = static_cast<const FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		return HDEffectContext->IsCriticalHit();
+		return CoreEffectContext->IsCriticalHit();
 	}
 	return false;
 }
 
 bool UCoreAbilitySystemLibrary::IsSuccessfulDebuff(const FGameplayEffectContextHandle& EffectContextHandle)
 {
-	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (const FCoreGameplayEffectContext* CoreEffectContext = static_cast<const FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		return HDEffectContext->IsSuccessfulDebuff();
+		return CoreEffectContext->IsSuccessfulDebuff();
 	}
 	return false;
 }
 
 float UCoreAbilitySystemLibrary::GetDebuffDamage(const FGameplayEffectContextHandle& EffectContextHandle)
 {
-	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (const FCoreGameplayEffectContext* CoreEffectContext = static_cast<const FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		return HDEffectContext->GetDebuffDamage();
+		return CoreEffectContext->GetDebuffDamage();
 	}
 	return 0.f;
 }
 
 float UCoreAbilitySystemLibrary::GetDebuffDuration(const FGameplayEffectContextHandle& EffectContextHandle)
 {
-	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (const FCoreGameplayEffectContext* CoreEffectContext = static_cast<const FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		return HDEffectContext->GetDebuffDuration();
+		return CoreEffectContext->GetDebuffDuration();
 	}
 	return 0.f;
 }
 
 float UCoreAbilitySystemLibrary::GetDebuffFrequency(const FGameplayEffectContextHandle& EffectContextHandle)
 {
-	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (const FCoreGameplayEffectContext* CoreEffectContext = static_cast<const FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		return HDEffectContext->GetDebuffFrequency();
+		return CoreEffectContext->GetDebuffFrequency();
 	}
 	return 0.f;
 }
 
 FGameplayTag UCoreAbilitySystemLibrary::GetDamageType(const FGameplayEffectContextHandle& EffectContextHandle)
 {
-	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (const FCoreGameplayEffectContext* CoreEffectContext = static_cast<const FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		if (HDEffectContext->GetDamageType().IsValid())
+		if (CoreEffectContext->GetDamageType().IsValid())
 		{
-			return *HDEffectContext->GetDamageType();
+			return *CoreEffectContext->GetDamageType();
 		}
 	}
 	return FGameplayTag();
@@ -185,63 +185,63 @@ FGameplayTag UCoreAbilitySystemLibrary::GetDamageType(const FGameplayEffectConte
 
 FVector UCoreAbilitySystemLibrary::GetDeathImpulse(const FGameplayEffectContextHandle& EffectContextHandle)
 {
-	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (const FCoreGameplayEffectContext* CoreEffectContext = static_cast<const FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		return HDEffectContext->GetDeathImpulse();
+		return CoreEffectContext->GetDeathImpulse();
 	}
 	return FVector::ZeroVector;
 }
 
 FVector UCoreAbilitySystemLibrary::GetKnockbackForce(const FGameplayEffectContextHandle& EffectContextHandle)
 {
-	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (const FCoreGameplayEffectContext* CoreEffectContext = static_cast<const FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		return HDEffectContext->GetKnockbackForce();
+		return CoreEffectContext->GetKnockbackForce();
 	}
 	return FVector::ZeroVector;
 }
 
 bool UCoreAbilitySystemLibrary::IsRadialDamage(const FGameplayEffectContextHandle& EffectContextHandle)
 {
-	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (const FCoreGameplayEffectContext* CoreEffectContext = static_cast<const FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		return HDEffectContext->IsRadialDamage();
+		return CoreEffectContext->IsRadialDamage();
 	}
 	return false;
 }
 
 float UCoreAbilitySystemLibrary::GetRadialDamageInnerRadius(const FGameplayEffectContextHandle& EffectContextHandle)
 {
-	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (const FCoreGameplayEffectContext* CoreEffectContext = static_cast<const FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		return HDEffectContext->GetRadialDamageInnerRadius();
+		return CoreEffectContext->GetRadialDamageInnerRadius();
 	}
 	return 0.f;
 }
 
 float UCoreAbilitySystemLibrary::GetRadialDamageOuterRadius(const FGameplayEffectContextHandle& EffectContextHandle)
 {
-	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (const FCoreGameplayEffectContext* CoreEffectContext = static_cast<const FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		return HDEffectContext->GetRadialDamageOuterRadius();
+		return CoreEffectContext->GetRadialDamageOuterRadius();
 	}
 	return 0.f;
 }
 
 FVector UCoreAbilitySystemLibrary::GetRadialDamageOrigin(const FGameplayEffectContextHandle& EffectContextHandle)
 {
-	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (const FCoreGameplayEffectContext* CoreEffectContext = static_cast<const FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		return HDEffectContext->GetRadialDamageOrigin();
+		return CoreEffectContext->GetRadialDamageOrigin();
 	}
 	return FVector::ZeroVector;
 }
 
 bool UCoreAbilitySystemLibrary::IsBlockable(const FGameplayEffectContextHandle& EffectContextHandle)
 {
-	if (const FHDGameplayEffectContext* HDEffectContext = static_cast<const FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (const FCoreGameplayEffectContext* CoreEffectContext = static_cast<const FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		return HDEffectContext->IsBlockable();
+		return CoreEffectContext->IsBlockable();
 	}
 	return false;
 }
@@ -254,123 +254,123 @@ UCurveTable* UCoreAbilitySystemLibrary::GetDamageCalculationCoefficients(AActor*
 
 void UCoreAbilitySystemLibrary::SetIsBlockedHit(FGameplayEffectContextHandle& EffectContextHandle, bool bInIsBlockedHit)
 {
-	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (FCoreGameplayEffectContext* CoreEffectContext = static_cast<FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		HDEffectContext->SetIsBlockedHit(bInIsBlockedHit);
+		CoreEffectContext->SetIsBlockedHit(bInIsBlockedHit);
 	}
 }
 
 void UCoreAbilitySystemLibrary::SetIsCriticalHit(FGameplayEffectContextHandle& EffectContextHandle, bool bInIsCriticalHit)
 {
-	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (FCoreGameplayEffectContext* CoreEffectContext = static_cast<FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		HDEffectContext->SetIsCriticalHit(bInIsCriticalHit);
+		CoreEffectContext->SetIsCriticalHit(bInIsCriticalHit);
 	}
 }
 
 void UCoreAbilitySystemLibrary::SetIsSuccessfulDebuff(FGameplayEffectContextHandle& EffectContextHandle,
 	bool bInSuccessfulDebuff)
 {
-	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (FCoreGameplayEffectContext* CoreEffectContext = static_cast<FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		HDEffectContext->SetIsSuccessfulDebuff(bInSuccessfulDebuff);
+		CoreEffectContext->SetIsSuccessfulDebuff(bInSuccessfulDebuff);
 	}
 }
 
 void UCoreAbilitySystemLibrary::SetDebuffDamage(FGameplayEffectContextHandle& EffectContextHandle, float bInDamage)
 {
-	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (FCoreGameplayEffectContext* CoreEffectContext = static_cast<FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		HDEffectContext->SetDebuffDamage(bInDamage);
+		CoreEffectContext->SetDebuffDamage(bInDamage);
 	}
 }
 
 void UCoreAbilitySystemLibrary::SetDebuffDuration(FGameplayEffectContextHandle& EffectContextHandle, float bInDuration)
 {
-	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (FCoreGameplayEffectContext* CoreEffectContext = static_cast<FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		HDEffectContext->SetDebuffDuration(bInDuration);
+		CoreEffectContext->SetDebuffDuration(bInDuration);
 	}
 }
 
 void UCoreAbilitySystemLibrary::SetDebuffFrequency(FGameplayEffectContextHandle& EffectContextHandle, float bInFrequency)
 {
-	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (FCoreGameplayEffectContext* CoreEffectContext = static_cast<FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		HDEffectContext->SetDebuffFrequency(bInFrequency);
+		CoreEffectContext->SetDebuffFrequency(bInFrequency);
 	}
 }
 
 void UCoreAbilitySystemLibrary::SetDamageType(FGameplayEffectContextHandle& EffectContextHandle,
 	const FGameplayTag& InDamageType)
 {
-	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (FCoreGameplayEffectContext* CoreEffectContext = static_cast<FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
 		const TSharedPtr<FGameplayTag> DamageType = MakeShared<FGameplayTag>(InDamageType);
-		HDEffectContext->SetDamageType(DamageType);
+		CoreEffectContext->SetDamageType(DamageType);
 	}
 }
 
 void UCoreAbilitySystemLibrary::SetDeathImpulse(FGameplayEffectContextHandle& EffectContextHandle,
 	const FVector& InImpulse)
 {
-	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (FCoreGameplayEffectContext* CoreEffectContext = static_cast<FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		HDEffectContext->SetDeathImpulse(InImpulse);
+		CoreEffectContext->SetDeathImpulse(InImpulse);
 	}
 }
 
 void UCoreAbilitySystemLibrary::SetKnockbackForce(FGameplayEffectContextHandle& EffectContextHandle,
 	const FVector& InForce)
 {
-	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (FCoreGameplayEffectContext* CoreEffectContext = static_cast<FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		HDEffectContext->SetKnockbackForce(InForce);
+		CoreEffectContext->SetKnockbackForce(InForce);
 	}
 }
 
 void UCoreAbilitySystemLibrary::SetIsRadialDamage(FGameplayEffectContextHandle& EffectContextHandle,
 	bool bInIsRadialDamage)
 {
-	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (FCoreGameplayEffectContext* CoreEffectContext = static_cast<FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		HDEffectContext->SetIsRadialDamage(bInIsRadialDamage);
+		CoreEffectContext->SetIsRadialDamage(bInIsRadialDamage);
 	}
 }
 
 void UCoreAbilitySystemLibrary::SetRadialDamageInnerRadius(FGameplayEffectContextHandle& EffectContextHandle,
 	float InInnerRadius)
 {
-	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (FCoreGameplayEffectContext* CoreEffectContext = static_cast<FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		HDEffectContext->SetRadialDamageInnerRadius(InInnerRadius);
+		CoreEffectContext->SetRadialDamageInnerRadius(InInnerRadius);
 	}
 }
 
 void UCoreAbilitySystemLibrary::SetRadialDamageOuterRadius(FGameplayEffectContextHandle& EffectContextHandle,
 	float InOuterRadius)
 {
-	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (FCoreGameplayEffectContext* CoreEffectContext = static_cast<FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		HDEffectContext->SetRadialDamageOuterRadius(InOuterRadius);
+		CoreEffectContext->SetRadialDamageOuterRadius(InOuterRadius);
 	}
 }
 
 void UCoreAbilitySystemLibrary::SetRadialDamageOrigin(FGameplayEffectContextHandle& EffectContextHandle,
 	const FVector& InOrigin)
 {
-	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (FCoreGameplayEffectContext* CoreEffectContext = static_cast<FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		HDEffectContext->SetRadialDamageOrigin(InOrigin);
+		CoreEffectContext->SetRadialDamageOrigin(InOrigin);
 	}
 }
 
 void UCoreAbilitySystemLibrary::SetIsBlockable(FGameplayEffectContextHandle& EffectContextHandle,
 	bool bInIsBlockable)
 {
-	if (FHDGameplayEffectContext* HDEffectContext = static_cast<FHDGameplayEffectContext*>(EffectContextHandle.Get()))
+	if (FCoreGameplayEffectContext* CoreEffectContext = static_cast<FCoreGameplayEffectContext*>(EffectContextHandle.Get()))
 	{
-		HDEffectContext->SetIsBlockable(bInIsBlockable);
+		CoreEffectContext->SetIsBlockable(bInIsBlockable);
 	}
 }
 

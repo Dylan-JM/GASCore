@@ -63,7 +63,7 @@ private:
 	UCoreAbilitySystemComponent* GetASC();
 	
 	UPROPERTY()
-	TObjectPtr<UCoreAbilitySystemComponent> HDAbilitySystemComponent;
+	TObjectPtr<UCoreAbilitySystemComponent> CoreAbilitySystemComponent;
 	
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UDamageTextComponent> DamageTextComponentClass;

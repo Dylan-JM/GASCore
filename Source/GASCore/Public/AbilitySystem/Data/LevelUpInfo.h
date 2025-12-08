@@ -7,7 +7,7 @@
 #include "LevelUpInfo.generated.h"
 
 USTRUCT(BlueprintType)
-struct FHDLevelUpInfo
+struct FCoreLevelUpInfo
 {
 	GENERATED_BODY()
 
@@ -31,7 +31,7 @@ class GASCORE_API ULevelUpInfo : public UDataAsset
 public:
 
 	UPROPERTY(EditDefaultsOnly)
-	TArray<FHDLevelUpInfo> LevelUpInformation;
+	TArray<FCoreLevelUpInfo> LevelUpInformation;
 
 	int32 FindLevelForXP(int32 XP) const;
 };

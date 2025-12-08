@@ -50,9 +50,9 @@ void ACorePlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 	
-	UEnhancedInputComponent* HDInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
-	HDInputComponent->BindAction(MovementAction, ETriggerEvent::Triggered, this, &ACorePlayerController::Move);
-	HDInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ACorePlayerController::Look);
+	UEnhancedInputComponent* CoreInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
+	CoreInputComponent->BindAction(MovementAction, ETriggerEvent::Triggered, this, &ACorePlayerController::Move);
+	CoreInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ACorePlayerController::Look);
 	
 }
 
@@ -124,9 +124,9 @@ void ACorePlayerController::ShowDamageNumber_Implementation(float DamageAmount, 
 
 UCoreAbilitySystemComponent* ACorePlayerController::GetASC()
 {
-	if (HDAbilitySystemComponent == nullptr)
+	if (CoreAbilitySystemComponent == nullptr)
 	{
-		HDAbilitySystemComponent = Cast<UCoreAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
+		CoreAbilitySystemComponent = Cast<UCoreAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
 	}
-	return HDAbilitySystemComponent;
+	return CoreAbilitySystemComponent;
 }

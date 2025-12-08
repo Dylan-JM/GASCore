@@ -10,7 +10,7 @@ class UAttributeInfo;
 struct FCoreAttributeInfo;
 struct FGameplayTag;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAttributeInfoSignature, const FHDAttributeInfo&, Info);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAttributeInfoSignature, const FCoreAttributeInfo&, Info);
 
 /**
  * 

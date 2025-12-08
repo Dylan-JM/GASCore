@@ -6,5 +6,5 @@
 
 FGameplayEffectContext* UCoreAbilitySystemGlobals::AllocGameplayEffectContext() const
 {
-	return new FHDGameplayEffectContext();
+	return new FCoreGameplayEffectContext();
 }

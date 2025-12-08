@@ -78,7 +78,7 @@ struct FDamageEffectParams
 };
 
 USTRUCT(BlueprintType)
-struct FHDGameplayEffectContext : public FGameplayEffectContext
+struct FCoreGameplayEffectContext : public FGameplayEffectContext
 {
 	GENERATED_BODY()
 
@@ -115,9 +115,9 @@ public:
 	void SetIsBlockable(bool bInBlockable) { bBlockable = bInBlockable; }
 	
 	/** Creates a copy of this context, used to duplicate for later modifications */
-	virtual FHDGameplayEffectContext* Duplicate() const
+	virtual FCoreGameplayEffectContext* Duplicate() const
 	{
-		FHDGameplayEffectContext* NewContext = new FHDGameplayEffectContext();
+		FCoreGameplayEffectContext* NewContext = new FCoreGameplayEffectContext();
 		*NewContext = *this;
 		if (GetHitResult())
 		{
@@ -131,7 +131,7 @@ public:
 	
 	virtual UScriptStruct* GetScriptStruct() const override
 	{
-		return FHDGameplayEffectContext::StaticStruct();
+		return FCoreGameplayEffectContext::StaticStruct();
 	}
 
 	
@@ -183,7 +183,7 @@ protected:
 };
 
 template<>
-struct TStructOpsTypeTraits<FHDGameplayEffectContext> : TStructOpsTypeTraitsBase2<FHDGameplayEffectContext>
+struct TStructOpsTypeTraits<FCoreGameplayEffectContext> : TStructOpsTypeTraitsBase2<FCoreGameplayEffectContext>
 {
 	enum
 	{

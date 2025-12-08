@@ -7,8 +7,8 @@
 UCoreAssetManager& UCoreAssetManager::Get()
 {
 	check(GEngine);
-	UCoreAssetManager* HDAssetManager = Cast<UCoreAssetManager>(GEngine->AssetManager);
-	return *HDAssetManager;
+	UCoreAssetManager* CoreAssetManager = Cast<UCoreAssetManager>(GEngine->AssetManager);
+	return *CoreAssetManager;
 }
 
 void UCoreAssetManager::StartInitialLoading()

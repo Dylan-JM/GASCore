@@ -10,7 +10,7 @@
 void UAttributeMenuWidgetController::BindCallbacksToDependencies()
 {
 	check(AttributeInfo);
-	for (auto& Pair: GetHDAttributeSet()->TagsToAttributes)
+	for (auto& Pair: GetCoreAttributeSet()->TagsToAttributes)
 	{
 		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(Pair.Value()).AddLambda(
 	[this, Pair](const FOnAttributeChangeData& Data)
@@ -48,7 +48,7 @@ void UAttributeMenuWidgetController::UpdateAttribute(const FGameplayTag& Attribu
 void UAttributeMenuWidgetController::BroadCastAttributeInfo(const FGameplayTag& AttributeTag,
                                                             const FGameplayAttribute& Attribute) const
 {
-	FHDAttributeInfo Info = AttributeInfo->FindAttributeInfoForTag(AttributeTag);
+	FCoreAttributeInfo Info = AttributeInfo->FindAttributeInfoForTag(AttributeTag);
 	Info.AttributeValue = Attribute.GetNumericValue(AttributeSet);
 	AttributeInfoDelegate.Broadcast(Info);
 }

@@ -49,16 +49,16 @@ void ACoreEnemy::BeginPlay()
 		MainHUDWidget->SetWidgetController(this);
 	}
 	
-	if (const UCoreAttributeSet* HDAS = Cast<UCoreAttributeSet>(AttributeSetBase))
+	if (const UCoreAttributeSet* CoreAS = Cast<UCoreAttributeSet>(AttributeSetBase))
 	{
-		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(HDAS->GetHealthAttribute()).AddLambda(
+		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CoreAS->GetHealthAttribute()).AddLambda(
 			[this](const FOnAttributeChangeData& Data)
 			{
 				OnHealthChanged.Broadcast(Data.NewValue);
 			}
 		);
 		
-		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(HDAS->GetMaxHealthAttribute()).AddLambda(
+		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(CoreAS->GetMaxHealthAttribute()).AddLambda(
 	[this](const FOnAttributeChangeData& Data)
 			{
 				OnMaxHealthChanged.Broadcast(Data.NewValue);
@@ -70,8 +70,8 @@ void ACoreEnemy::BeginPlay()
 			&ACoreEnemy::HitReactTagChanged
 		);
 
-		OnHealthChanged.Broadcast(HDAS->GetHealth());
-		OnMaxHealthChanged.Broadcast(HDAS->GetMaxHealth());
+		OnHealthChanged.Broadcast(CoreAS->GetHealth());
+		OnMaxHealthChanged.Broadcast(CoreAS->GetMaxHealth());
 	}
 }
 
