@@ -47,8 +47,33 @@ UOverlayWidgetController* UCoreAbilitySystemLibrary::GetOverlayWidgetController(
 	return nullptr;
 }
 
+UAttributeMenuWidgetController* UCoreAbilitySystemLibrary::GetAttributeMenuWidgetController(
+	const UObject* WorldContextObject)
+{
+	FWidgetControllerParams WCParams;
+	ACoreHUD* CoreHUD = nullptr;
+
+	if (MakeWidgetControllerParams(WorldContextObject, WCParams, CoreHUD))
+	{
+		//return CoreHUD->GetAttributeMenuWidgetController(WCParams);
+	}
+	return nullptr;
+}
+
+USpellMenuWidgetController* UCoreAbilitySystemLibrary::GetSpellMenuWidgetController(const UObject* WorldContextObject)
+{
+	FWidgetControllerParams WCParams;
+	ACoreHUD* CoreHUD = nullptr;
+
+	if (MakeWidgetControllerParams(WorldContextObject, WCParams, CoreHUD))
+	{
+		return CoreHUD->GetSpellMenuWidgetController(WCParams);
+	}
+	return nullptr;
+}
+
 void UCoreAbilitySystemLibrary::InitializeDefaultAttributes(const UObject* WorldContextObject, float Level,
-	UAbilitySystemComponent* ASC)
+                                                            UAbilitySystemComponent* ASC)
 {
 	ACoreCharacter* AvatarActor = Cast<ACoreCharacter>(ASC->GetAvatarActor());
 	
