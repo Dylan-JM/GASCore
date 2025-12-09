@@ -25,7 +25,7 @@ FString UCoreGameplayAbility::GetNextLevelDescription(int32 Level)
 
 FString UCoreGameplayAbility::GetLockedDescription(int32 Level)
 {
-	return FString::Printf(TEXT("<Default>Spell locked until next Level: %d</>"), Level);
+	return FString::Printf(TEXT("<Default>Ability locked until next Level: %d</>"), Level);
 }
 
 void UCoreGameplayAbility::StoreOwnerVariables()

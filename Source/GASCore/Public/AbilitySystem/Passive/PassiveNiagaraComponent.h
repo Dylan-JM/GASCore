@@ -20,7 +20,7 @@ public:
 	UPassiveNiagaraComponent();
 	
 	UPROPERTY(EditDefaultsOnly)
-	FGameplayTag PassiveSpellTag;
+	FGameplayTag PassiveAbilityTag;
 
 protected:
 

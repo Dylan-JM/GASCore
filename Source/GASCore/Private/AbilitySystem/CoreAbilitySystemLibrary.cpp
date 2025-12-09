@@ -60,14 +60,14 @@ UAttributeMenuWidgetController* UCoreAbilitySystemLibrary::GetAttributeMenuWidge
 	return nullptr;
 }
 
-USpellMenuWidgetController* UCoreAbilitySystemLibrary::GetSpellMenuWidgetController(const UObject* WorldContextObject)
+UAbilityMenuWidgetController* UCoreAbilitySystemLibrary::GetAbilityMenuWidgetController(const UObject* WorldContextObject)
 {
 	FWidgetControllerParams WCParams;
 	ACoreHUD* CoreHUD = nullptr;
 
 	if (MakeWidgetControllerParams(WorldContextObject, WCParams, CoreHUD))
 	{
-		return CoreHUD->GetSpellMenuWidgetController(WCParams);
+		return CoreHUD->GetAbilityMenuWidgetController(WCParams);
 	}
 	return nullptr;
 }

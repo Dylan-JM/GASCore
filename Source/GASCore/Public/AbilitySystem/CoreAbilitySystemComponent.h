@@ -63,7 +63,7 @@ public:
 	void ServerUpgradeAttribute(const FGameplayTag& AttributeTag);
 
 	UFUNCTION(Server, Reliable)
-	void ServerSpendSpellPoint(const FGameplayTag& AbilityTag);
+	void ServerSpendAbilityPoint(const FGameplayTag& AbilityTag);
 
 	UFUNCTION(Server, Reliable)
 	void ServerEquipAbility(const FGameplayTag& AbilityTag, const FName& Slot);

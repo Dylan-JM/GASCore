@@ -190,9 +190,9 @@ int32 ACorePlayerCharacter::GetAttributesPointsReward_Implementation(int32 Level
 	return IPlayerInterface::GetAttributesPointsReward_Implementation(Level);
 }
 
-int32 ACorePlayerCharacter::GetSpellPointsReward_Implementation(int32 Level) const
+int32 ACorePlayerCharacter::GetAbilityPointsReward_Implementation(int32 Level) const
 {
-	return IPlayerInterface::GetSpellPointsReward_Implementation(Level);
+	return IPlayerInterface::GetAbilityPointsReward_Implementation(Level);
 }
 
 void ACorePlayerCharacter::AddToPlayerLevel_Implementation(int32 InPlayerLevel)
@@ -212,9 +212,9 @@ void ACorePlayerCharacter::AddToAttributePoints_Implementation(int32 InAttribute
 	IPlayerInterface::AddToAttributePoints_Implementation(InAttributePoints);
 }
 
-void ACorePlayerCharacter::AddToSpellPoints_Implementation(int32 InSpellPoints)
+void ACorePlayerCharacter::AddToAbilityPoints_Implementation(int32 InAbilityPoints)
 {
-	IPlayerInterface::AddToSpellPoints_Implementation(InSpellPoints);
+	IPlayerInterface::AddToAbilityPoints_Implementation(InAbilityPoints);
 }
 
 int32 ACorePlayerCharacter::GetAttributePoints_Implementation() const
@@ -222,7 +222,7 @@ int32 ACorePlayerCharacter::GetAttributePoints_Implementation() const
 	return IPlayerInterface::GetAttributePoints_Implementation();
 }
 
-int32 ACorePlayerCharacter::GetSpellPoints_Implementation() const
+int32 ACorePlayerCharacter::GetAbilityPoints_Implementation() const
 {
-	return IPlayerInterface::GetSpellPoints_Implementation();
+	return IPlayerInterface::GetAbilityPoints_Implementation();
 }

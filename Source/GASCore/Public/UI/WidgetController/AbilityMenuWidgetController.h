@@ -6,12 +6,12 @@
 #include "WidgetController.h"
 #include "GameplayTagContainer.h"
 #include "CoreGameplayTags.h"
-#include "SpellMenuWidgetController.generated.h"
+#include "AbilityMenuWidgetController.generated.h"
 
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FSpellGlobeSelectedSignature, bool, bSpendPointsButtonEnabled, bool, bEquipButtonEnabled, FString, DescriptionString, FString, NextLevelDescriptionString);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FAbilityGlobeSelectedSignature, bool, bSpendPointsButtonEnabled, bool, bEquipButtonEnabled, FString, DescriptionString, FString, NextLevelDescriptionString);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FWaitForEquipSelectionSignature, const FGameplayTag&, AbilityType);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSpellGlobeReassignedSignature, const FGameplayTag&, AbilityTag);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FAbilityGlobeReassignedSignature, const FGameplayTag&, AbilityTag);
 
 struct FSelectedAbility
 {
@@ -22,7 +22,7 @@ struct FSelectedAbility
  * 
  */
 UCLASS(BlueprintType, Blueprintable)
-class GASCORE_API USpellMenuWidgetController : public UWidgetController
+class GASCORE_API UAbilityMenuWidgetController : public UWidgetController
 {
 	GENERATED_BODY()
 public:
@@ -30,10 +30,10 @@ public:
 	virtual void BindCallbacksToDependencies() override;
 
 	UPROPERTY(BlueprintAssignable)
-	FOnPlayerStateChangedSignature SpellPointsChanged;
+	FOnPlayerStateChangedSignature AbilityPointsChanged;
 
 	UPROPERTY(BlueprintAssignable)
-	FSpellGlobeSelectedSignature SpellGlobeSelectedDelegate;
+	FAbilityGlobeSelectedSignature AbilityGlobeSelectedDelegate;
 
 	UPROPERTY(BlueprintAssignable)
 	FWaitForEquipSelectionSignature WaitForEquipDelegate;
@@ -42,10 +42,10 @@ public:
 	FWaitForEquipSelectionSignature StopWaitingForEquipDelegate;
 
 	UPROPERTY(BlueprintAssignable)
-	FSpellGlobeReassignedSignature SpellGlobeReassignedDelegate;
+	FAbilityGlobeReassignedSignature AbilityGlobeReassignedDelegate;
 	
 	UFUNCTION(BlueprintCallable)
-	void SpellGlobeSelected(const FGameplayTag& AbilityTag);
+	void AbilityGlobeSelected(const FGameplayTag& AbilityTag);
 
 	UFUNCTION(BlueprintCallable)
 	void SpendPointButtonPressed();
@@ -57,16 +57,16 @@ public:
 	void EquipButtonPressed();
 
 	UFUNCTION(BlueprintCallable)
-	void SpellRowGlobePressed(const FName& SlotTag, const FGameplayTag& AbilityType);
+	void AbilityRowGlobePressed(const FName& SlotTag, const FGameplayTag& AbilityType);
 
 	void OnAbilityEquipped(const FGameplayTag& AbilityTag, const FGameplayTag& Status, const FName& Slot, const FName& PreviousSlot);
 	
 
 private:
 	
-	static void ShouldEnableButtons(const FGameplayTag& AbilityStatus, int32 SpellPoints, bool& bShouldEnableSpellPointsButton, bool& bShouldEnableEquipButton);
+	static void ShouldEnableButtons(const FGameplayTag& AbilityStatus, int32 AbilityPoints, bool& bShouldEnableAbilityPointsButton, bool& bShouldEnableEquipButton);
 	FSelectedAbility SelectedAbility = { GasTag::Abilities_None, GasTag::Abilities_Status_Locked };
-	int32 CurrentSpellPoints = 0;
+	int32 CurrentAbilityPoints = 0;
 	bool bWaitingForEquipSelection = false;
 	FName SelectedSlot;
 };

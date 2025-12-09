@@ -10,7 +10,7 @@
 class UStartupAbilities;
 class ULoadScreenSaveGame;
 class UAbilityInfo;
-class USpellMenuWidgetController;
+class UAbilityMenuWidgetController;
 struct FGameplayEffectContextHandle;
 class UAbilitySystemComponent;
 class UAttributeMenuWidgetController;
@@ -36,7 +36,7 @@ public:
 	static UAttributeMenuWidgetController* GetAttributeMenuWidgetController(const UObject* WorldContextObject);
 
 	UFUNCTION(BlueprintPure, Category= "CoreAbilitySystemLibrary|WidgetController", meta = (DefaultToSelf = "WorldContextObject"))
-	static USpellMenuWidgetController* GetSpellMenuWidgetController(const UObject* WorldContextObject);
+	static UAbilityMenuWidgetController* GetAbilityMenuWidgetController(const UObject* WorldContextObject);
 	
 	/* Ability System Class Defaults */
 

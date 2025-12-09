@@ -36,7 +36,7 @@ void UPassiveNiagaraComponent::BeginPlay()
 
 void UPassiveNiagaraComponent::OnPassiveActivate(const FGameplayTag& AbilityTag, bool bActivate)
 {
-	if (AbilityTag.MatchesTagExact(PassiveSpellTag))
+	if (AbilityTag.MatchesTagExact(PassiveAbilityTag))
 	{
 		if (bActivate && !IsActive())
 		{
@@ -54,7 +54,7 @@ void UPassiveNiagaraComponent::ActivateIfEquipped(UCoreAbilitySystemComponent* C
 	const bool bStartupAbilitiesGiven = CoreASC->bStartupAbilitiesGiven;
 	if (bStartupAbilitiesGiven)
 	{
-		if (CoreASC->GetStatusFromAbilityTag(PassiveSpellTag) == GasTag::Abilities_Status_Equipped)
+		if (CoreASC->GetStatusFromAbilityTag(PassiveAbilityTag) == GasTag::Abilities_Status_Equipped)
 		{
 			Activate();
 		}

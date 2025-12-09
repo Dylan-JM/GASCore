@@ -5,7 +5,7 @@
 #include "UI/Widget/CoreWidget.h"
 #include "UI/WidgetController/AttributeMenuWidgetController.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
-#include "UI/WidgetController/SpellMenuWidgetController.h"
+#include "UI/WidgetController/AbilityMenuWidgetController.h"
 
 void ACoreHUD::DrawHUD()
 {
@@ -61,13 +61,13 @@ UAttributeMenuWidgetController* ACoreHUD::GetAttributeMenuWidgetController(const
 	return AttributeMenuWidgetController;
 }
 
-USpellMenuWidgetController* ACoreHUD::GetSpellMenuWidgetController(const FWidgetControllerParams& WCParams)
+UAbilityMenuWidgetController* ACoreHUD::GetAbilityMenuWidgetController(const FWidgetControllerParams& WCParams)
 {
-	if (SpellMenuWidgetController == nullptr)
+	if (AbilityMenuWidgetController == nullptr)
 	{
-		SpellMenuWidgetController = NewObject<USpellMenuWidgetController>(this, SpellMenuWidgetControllerClass);
-		SpellMenuWidgetController->SetWidgetControllerParams(WCParams);
-		SpellMenuWidgetController->BindCallbacksToDependencies();
+		AbilityMenuWidgetController = NewObject<UAbilityMenuWidgetController>(this, AbilityMenuWidgetControllerClass);
+		AbilityMenuWidgetController->SetWidgetControllerParams(WCParams);
+		AbilityMenuWidgetController->BindCallbacksToDependencies();
 	}
-	return SpellMenuWidgetController;
+	return AbilityMenuWidgetController;
 }

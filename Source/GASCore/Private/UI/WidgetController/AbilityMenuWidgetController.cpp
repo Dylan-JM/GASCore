@@ -1,19 +1,19 @@
 // Copyright DM
 
 
-#include "UI/WidgetController/SpellMenuWidgetController.h"
+#include "UI/WidgetController/AbilityMenuWidgetController.h"
 #include "CoreGameplayTags.h"
 #include "AbilitySystem/Data/AbilityInfo.h"
 #include "AbilitySystem/CoreAbilitySystemComponent.h"
 #include "Player/CorePlayerState.h"
 
-void USpellMenuWidgetController::BroadcastInitialValues()
+void UAbilityMenuWidgetController::BroadcastInitialValues()
 {
 	BroadcastAbilityInfo();
-	SpellPointsChanged.Broadcast(GetBasePS()->GetSpellPoints());
+	AbilityPointsChanged.Broadcast(GetBasePS()->GetAbilityPoints());
 }
 
-void USpellMenuWidgetController::BindCallbacksToDependencies()
+void UAbilityMenuWidgetController::BindCallbacksToDependencies()
 {
 	GetCoreASC()->AbilityStatusChanged.AddLambda([this](const FGameplayTag& AbilityTag, const FGameplayTag& StatusTag, int32 NewLevel)
 	{
@@ -22,11 +22,11 @@ void USpellMenuWidgetController::BindCallbacksToDependencies()
 			SelectedAbility.Status = StatusTag;
 			bool bEnableSpendPoints = false;
 			bool bEnableEquip = false;
-			ShouldEnableButtons(StatusTag, CurrentSpellPoints, bEnableSpendPoints, bEnableEquip);
+			ShouldEnableButtons(StatusTag, CurrentAbilityPoints, bEnableSpendPoints, bEnableEquip);
 			FString Description;
 			FString NextLevelDescription;
 			GetCoreASC()->GetDescriptionsByAbilityTag(AbilityTag, Description, NextLevelDescription);
-			SpellGlobeSelectedDelegate.Broadcast(bEnableSpendPoints, bEnableEquip, Description, NextLevelDescription);
+			AbilityGlobeSelectedDelegate.Broadcast(bEnableSpendPoints, bEnableEquip, Description, NextLevelDescription);
 		}
 		
 		if (AbilityInfo)
@@ -37,23 +37,23 @@ void USpellMenuWidgetController::BindCallbacksToDependencies()
 		}
 	});
 
-	GetCoreASC()->AbilityEquipped.AddUObject(this, &USpellMenuWidgetController::OnAbilityEquipped);
+	GetCoreASC()->AbilityEquipped.AddUObject(this, &UAbilityMenuWidgetController::OnAbilityEquipped);
 
-	GetBasePS()->OnSpellPointsChangedDelegate.AddLambda([this](int32 SpellPoints)
+	GetBasePS()->OnAbilityPointsChangedDelegate.AddLambda([this](int32 AbilityPoints)
 	{
-		SpellPointsChanged.Broadcast(SpellPoints);
-		CurrentSpellPoints = SpellPoints;
+		AbilityPointsChanged.Broadcast(AbilityPoints);
+		CurrentAbilityPoints = AbilityPoints;
 		bool bEnableSpendPoints = false;
 		bool bEnableEquip = false;
-		ShouldEnableButtons(SelectedAbility.Status, CurrentSpellPoints, bEnableSpendPoints, bEnableEquip);
+		ShouldEnableButtons(SelectedAbility.Status, CurrentAbilityPoints, bEnableSpendPoints, bEnableEquip);
 		FString Description;
 		FString NextLevelDescription;
 		GetCoreASC()->GetDescriptionsByAbilityTag(SelectedAbility.Ability, Description, NextLevelDescription);
-		SpellGlobeSelectedDelegate.Broadcast(bEnableSpendPoints, bEnableEquip, Description, NextLevelDescription);
+		AbilityGlobeSelectedDelegate.Broadcast(bEnableSpendPoints, bEnableEquip, Description, NextLevelDescription);
 	});
 }
 
-void USpellMenuWidgetController::SpellGlobeSelected(const FGameplayTag& AbilityTag)
+void UAbilityMenuWidgetController::AbilityGlobeSelected(const FGameplayTag& AbilityTag)
 {
 	if (bWaitingForEquipSelection)
 	{
@@ -62,7 +62,7 @@ void USpellMenuWidgetController::SpellGlobeSelected(const FGameplayTag& AbilityT
 		bWaitingForEquipSelection = false;
 	}
 	
-	const int32 SpellPoints = GetBasePS()->GetSpellPoints();
+	const int32 AbilityPoints = GetBasePS()->GetAbilityPoints();
 	FGameplayTag AbilityStatus;
 
 	const bool bTagValid = AbilityTag.IsValid();
@@ -83,23 +83,23 @@ void USpellMenuWidgetController::SpellGlobeSelected(const FGameplayTag& AbilityT
 	SelectedAbility.Status = AbilityStatus;
 	bool bEnableSpendPoints = false;
 	bool bEnableEquip = false;
-	ShouldEnableButtons(AbilityStatus, SpellPoints, bEnableSpendPoints, bEnableEquip);
+	ShouldEnableButtons(AbilityStatus, AbilityPoints, bEnableSpendPoints, bEnableEquip);
 	FString Description;
 	FString NextLevelDescription;
 	GetCoreASC()->GetDescriptionsByAbilityTag(AbilityTag, Description, NextLevelDescription);
-	SpellGlobeSelectedDelegate.Broadcast(bEnableSpendPoints, bEnableEquip, Description, NextLevelDescription);
+	AbilityGlobeSelectedDelegate.Broadcast(bEnableSpendPoints, bEnableEquip, Description, NextLevelDescription);
 	
 }
 
-void USpellMenuWidgetController::SpendPointButtonPressed()
+void UAbilityMenuWidgetController::SpendPointButtonPressed()
 {
 	if (GetCoreASC())
 	{
-		GetCoreASC()->ServerSpendSpellPoint(SelectedAbility.Ability);
+		GetCoreASC()->ServerSpendAbilityPoint(SelectedAbility.Ability);
 	}
 }
 
-void USpellMenuWidgetController::GlobeDeselect()
+void UAbilityMenuWidgetController::GlobeDeselect()
 {
 	if (bWaitingForEquipSelection)
 	{
@@ -111,10 +111,10 @@ void USpellMenuWidgetController::GlobeDeselect()
 	SelectedAbility.Ability = GasTag::Abilities_None;
 	SelectedAbility.Status = GasTag::Abilities_Status_Locked;
 
-	SpellGlobeSelectedDelegate.Broadcast(false, false, FString(), FString());
+	AbilityGlobeSelectedDelegate.Broadcast(false, false, FString(), FString());
 }
 
-void USpellMenuWidgetController::EquipButtonPressed()
+void UAbilityMenuWidgetController::EquipButtonPressed()
 {
 	const FGameplayTag AbilityType = AbilityInfo->FindAbilityInfoForTag(SelectedAbility.Ability).AbilityType;
 	WaitForEquipDelegate.Broadcast(AbilityType);
@@ -127,7 +127,7 @@ void USpellMenuWidgetController::EquipButtonPressed()
 	}
 }
 
-void USpellMenuWidgetController::SpellRowGlobePressed(const FName& SlotName, const FGameplayTag& AbilityType)
+void UAbilityMenuWidgetController::AbilityRowGlobePressed(const FName& SlotName, const FGameplayTag& AbilityType)
 {
 	if (!bWaitingForEquipSelection) return;
 	// Check selected ability against the slots ability type.
@@ -138,7 +138,7 @@ void USpellMenuWidgetController::SpellRowGlobePressed(const FName& SlotName, con
 	GetCoreASC()->ServerEquipAbility(SelectedAbility.Ability, SlotName);
 }
 
-void USpellMenuWidgetController::OnAbilityEquipped(const FGameplayTag& AbilityTag, const FGameplayTag& Status, const FName& Slot, const FName& PreviousSlot)
+void UAbilityMenuWidgetController::OnAbilityEquipped(const FGameplayTag& AbilityTag, const FGameplayTag& Status, const FName& Slot, const FName& PreviousSlot)
 {
 	bWaitingForEquipSelection = false;
 	
@@ -155,39 +155,39 @@ void USpellMenuWidgetController::OnAbilityEquipped(const FGameplayTag& AbilityTa
 	AbilityInfoDelegate.Broadcast(Info);
 
 	StopWaitingForEquipDelegate.Broadcast(AbilityInfo->FindAbilityInfoForTag(AbilityTag).AbilityType);
-	SpellGlobeReassignedDelegate.Broadcast(AbilityTag);
+	AbilityGlobeReassignedDelegate.Broadcast(AbilityTag);
 	GlobeDeselect();
 	
 }
 
-void USpellMenuWidgetController::ShouldEnableButtons(const FGameplayTag& AbilityStatus, int32 SpellPoints,
-                                                     bool& bShouldEnableSpellPointsButton, bool& bShouldEnableEquipButton)
+void UAbilityMenuWidgetController::ShouldEnableButtons(const FGameplayTag& AbilityStatus, int32 AbilityPoints,
+                                                     bool& bShouldEnableAbilityPointsButton, bool& bShouldEnableEquipButton)
 {
 
-	bShouldEnableSpellPointsButton = false;
+	bShouldEnableAbilityPointsButton = false;
 	bShouldEnableEquipButton = false;
 	
 	if (AbilityStatus.MatchesTagExact(GasTag::Abilities_Status_Equipped))
 	{
 		bShouldEnableEquipButton = true;
-		if (SpellPoints > 0)
+		if (AbilityPoints > 0)
 		{
-			bShouldEnableSpellPointsButton = true;
+			bShouldEnableAbilityPointsButton = true;
 		}
 	}
 	else if (AbilityStatus.MatchesTagExact(GasTag::Abilities_Status_Eligible))
 	{
-		if (SpellPoints > 0)
+		if (AbilityPoints > 0)
 		{
-			bShouldEnableSpellPointsButton = true;
+			bShouldEnableAbilityPointsButton = true;
 		}
 	}
 	else if (AbilityStatus.MatchesTagExact(GasTag::Abilities_Status_Unlocked))
 	{
 		bShouldEnableEquipButton = true;
-		if (SpellPoints > 0)
+		if (AbilityPoints > 0)
 		{
-			bShouldEnableSpellPointsButton = true;
+			bShouldEnableAbilityPointsButton = true;
 		}
 	}
 }

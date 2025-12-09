@@ -236,13 +236,13 @@ void UCoreAbilitySystemComponent::UpdateAttribute(const FGameplayTag& AttributeT
 	}
 }
 
-void UCoreAbilitySystemComponent::ServerSpendSpellPoint_Implementation(const FGameplayTag& AbilityTag)
+void UCoreAbilitySystemComponent::ServerSpendAbilityPoint_Implementation(const FGameplayTag& AbilityTag)
 {
 	if (FGameplayAbilitySpec* AbilitySpec = GetSpecFromAbilityTag(AbilityTag))
 	{
 		if (GetAvatarActor()->Implements<UPlayerInterface>())
 		{
-			IPlayerInterface::Execute_AddToSpellPoints(GetAvatarActor(), -1);
+			IPlayerInterface::Execute_AddToAbilityPoints(GetAvatarActor(), -1);
 		}
 		
 		FGameplayTag Status = GetStatusFromSpec(*AbilitySpec);

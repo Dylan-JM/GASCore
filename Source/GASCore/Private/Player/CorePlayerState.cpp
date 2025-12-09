@@ -23,7 +23,7 @@ void ACorePlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	DOREPLIFETIME(ACorePlayerState, Level);
 	DOREPLIFETIME(ACorePlayerState, XP);
 	DOREPLIFETIME(ACorePlayerState, AttributePoints);
-	DOREPLIFETIME(ACorePlayerState, SpellPoints);
+	DOREPLIFETIME(ACorePlayerState, AbilityPoints);
 }
 
 UAbilitySystemComponent* ACorePlayerState::GetAbilitySystemComponent() const
@@ -49,10 +49,10 @@ void ACorePlayerState::AddToAttributePoints(int32 InPoints)
 	OnAttributePointsChangedDelegate.Broadcast(AttributePoints);
 }
 
-void ACorePlayerState::AddToSpellPoints(int32 InPoints)
+void ACorePlayerState::AddToAbilityPoints(int32 InPoints)
 {
-	SpellPoints += InPoints;
-	OnSpellPointsChangedDelegate.Broadcast(SpellPoints);
+	AbilityPoints += InPoints;
+	OnAbilityPointsChangedDelegate.Broadcast(AbilityPoints);
 }
 
 void ACorePlayerState::SetLevel(int32 InLevel)
@@ -67,10 +67,10 @@ void ACorePlayerState::SetToAttributePoints(int32 InPoints)
 	OnAttributePointsChangedDelegate.Broadcast(AttributePoints);
 }
 
-void ACorePlayerState::SetToSpellPoints(int32 InPoints)
+void ACorePlayerState::SetToAbilityPoints(int32 InPoints)
 {
-	SpellPoints = InPoints;
-	OnSpellPointsChangedDelegate.Broadcast(SpellPoints);
+	AbilityPoints = InPoints;
+	OnAbilityPointsChangedDelegate.Broadcast(AbilityPoints);
 }
 
 void ACorePlayerState::SetXP(int32 InXP)
@@ -94,7 +94,7 @@ void ACorePlayerState::OnRep_AttributePoints(int32 OldAttributePoints)
 	OnAttributePointsChangedDelegate.Broadcast(AttributePoints);
 }
 
-void ACorePlayerState::OnRep_SpellPoints(int32 OldSpellPoints)
+void ACorePlayerState::OnRep_AbilityPoints(int32 OldAbilityPoints)
 {
-	OnSpellPointsChangedDelegate.Broadcast(SpellPoints);
+	OnAbilityPointsChangedDelegate.Broadcast(AbilityPoints);
 }
