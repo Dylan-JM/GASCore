@@ -66,6 +66,7 @@ void ACorePlayerCharacter::InitAbilityActorInfo()
 	}
 	PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS, this);
 	Cast<UCoreAbilitySystemComponent>(PS->GetAbilitySystemComponent())->AbilityActorInfoSet();
+	Cast<UCoreAbilitySystemComponent>(PS->GetAbilitySystemComponent())->UpdateAbilityStatuses(PS->GetPlayerLevel());
 	AbilitySystemComponent = PS->GetAbilitySystemComponent();
 	AttributeSetBase = PS->GetAttributeSetBase();
 	OnAscRegistered.Broadcast(AbilitySystemComponent);

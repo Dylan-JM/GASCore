@@ -24,7 +24,7 @@ void UCoreAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf
 		
 		if (const UCoreGameplayAbility* GameplayAbility = Cast<UCoreGameplayAbility>(AbilitySpec.Ability))
 		{
-			//AbilitySpec.DynamicAbilityTags.AddTag(FCoreGameplayTags::Get().Abilities_Status_Equipped);
+			AbilitySpec.GetDynamicSpecSourceTags().AddTag(GasTag::Abilities_Status_Equipped);
 			GiveAbility(AbilitySpec);
 		}
 	}
@@ -218,7 +218,7 @@ void UCoreAbilitySystemComponent::UpdateAbilityStatuses(int32 Level)
 		{
 			FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(Info.Ability, 1);
 			AbilitySpec.GetDynamicSpecSourceTags().AddTag(GasTag::Abilities_Status_Eligible);
-			GiveAbility(AbilitySpec);
+			//GiveAbility(AbilitySpec); TODO: may need to add this line back if there's issues, currently it gives all abilities at the players level requirements which isn't good
 			MarkAbilitySpecDirty(AbilitySpec);
 			ClientUpdateAbilityStatus(Info.AbilityTag, GasTag::Abilities_Status_Eligible, 1);
 		}

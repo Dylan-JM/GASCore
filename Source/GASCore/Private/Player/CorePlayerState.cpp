@@ -13,7 +13,7 @@ ACorePlayerState::ACorePlayerState()
 
 	AttributeSetBase = CreateDefaultSubobject<UCoreAttributeSet>(TEXT("AttributeSetBase"));
 
-	NetUpdateFrequency = 100.f;
+	SetNetUpdateFrequency(100.f);
 	
 }
 
