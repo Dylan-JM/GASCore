@@ -102,7 +102,7 @@ void ACoreEnemy::InitializeDefaultAttributes() const
 
 int32 ACoreEnemy::GetPlayerLevel_Implementation()
 {
-	return Super::GetPlayerLevel_Implementation();
+	return Level;
 }
 
 

@@ -167,6 +167,11 @@ void UCoreAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 	{
 		HandleIncomingDamage(Props);
 	}
+ 	
+ 	if (Data.EvaluatedData.Attribute == GetIncomingXPAttribute())
+ 	{
+ 		HandleIncomingXP(Props);
+ 	}
 }
 
 void UCoreAttributeSet::HandleIncomingDamage(const FEffectProperties& Props)
@@ -186,6 +191,7 @@ void UCoreAttributeSet::HandleIncomingDamage(const FEffectProperties& Props)
 			{
 				CombatInterface->Die(UCoreAbilitySystemLibrary::GetDeathImpulse(Props.EffectContextHandle));
 			}
+			SendXPEvent(Props);
 		}
 		else
 		{
