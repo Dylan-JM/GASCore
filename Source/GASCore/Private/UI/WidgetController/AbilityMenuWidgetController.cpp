@@ -2,7 +2,6 @@
 
 
 #include "UI/WidgetController/AbilityMenuWidgetController.h"
-#include "CoreGameplayTags.h"
 #include "AbilitySystem/Data/AbilityInfo.h"
 #include "AbilitySystem/CoreAbilitySystemComponent.h"
 #include "Player/CorePlayerState.h"
@@ -11,6 +10,7 @@ void UAbilityMenuWidgetController::BroadcastInitialValues()
 {
 	BroadcastAbilityInfo();
 	AbilityPointsChanged.Broadcast(GetCorePS()->GetAbilityPoints());
+	
 }
 
 void UAbilityMenuWidgetController::BindCallbacksToDependencies()
@@ -45,6 +45,7 @@ void UAbilityMenuWidgetController::BindCallbacksToDependencies()
 		CurrentAbilityPoints = AbilityPoints;
 		bool bEnableSpendPoints = false;
 		bool bEnableEquip = false;
+		
 		ShouldEnableButtons(SelectedAbility.Status, CurrentAbilityPoints, bEnableSpendPoints, bEnableEquip);
 		FString Description;
 		FString NextLevelDescription;
@@ -72,6 +73,9 @@ void UAbilityMenuWidgetController::AbilityGlobeSelected(const FGameplayTag& Abil
 	
 	if (!bTagValid || bTagNone || !bSpecValid)
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("bTagValid: %d"), bTagValid));
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("bTagNone: %d"), bTagNone));
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("bSpecValid: %d"), bSpecValid));
 		AbilityStatus = GasTag::Abilities_Status_Locked;
 	}
 	else
@@ -84,7 +88,6 @@ void UAbilityMenuWidgetController::AbilityGlobeSelected(const FGameplayTag& Abil
 	bool bEnableSpendPoints = false;
 	bool bEnableEquip = false;
 	ShouldEnableButtons(AbilityStatus, AbilityPoints, bEnableSpendPoints, bEnableEquip);
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString("attempt shuld enable buttons Text"));
 	FString Description;
 	FString NextLevelDescription;
 	GetCoreASC()->GetDescriptionsByAbilityTag(AbilityTag, Description, NextLevelDescription);
@@ -132,7 +135,7 @@ void UAbilityMenuWidgetController::AbilityRowGlobePressed(const FName& SlotName,
 {
 	if (!bWaitingForEquipSelection) return;
 	// Check selected ability against the slots ability type.
-	// (Don't equip an offensive spell in a passive slot and vice versa)
+	// (Don't equip an offensive Ability in a passive slot and vice versa)
 	const FGameplayTag& SelectedAbilityType = AbilityInfo->FindAbilityInfoForTag(SelectedAbility.Ability).AbilityType;
 	if (!SelectedAbilityType.MatchesTagExact(AbilityType)) return;
 
@@ -147,7 +150,7 @@ void UAbilityMenuWidgetController::OnAbilityEquipped(const FGameplayTag& Ability
 	LastSlotInfo.StatusTag = GasTag::Abilities_Status_Unlocked;
 	LastSlotInfo.InputName = PreviousSlot;
 	LastSlotInfo.AbilityTag = GasTag::Abilities_None;
-	// Broadcast empty info if PreviousSlot is a valid slot. Only if equipping an already-equipped spell.
+	// Broadcast empty info if PreviousSlot is a valid slot. Only if equipping an already-equipped Ability.
 	AbilityInfoDelegate.Broadcast(LastSlotInfo);
 	
 	FCoreAbilityInfo Info = AbilityInfo->FindAbilityInfoForTag(AbilityTag);
@@ -164,7 +167,7 @@ void UAbilityMenuWidgetController::OnAbilityEquipped(const FGameplayTag& Ability
 void UAbilityMenuWidgetController::ShouldEnableButtons(const FGameplayTag& AbilityStatus, int32 AbilityPoints,
                                                      bool& bShouldEnableAbilityPointsButton, bool& bShouldEnableEquipButton)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString("Basic Text"));
+
 	bShouldEnableAbilityPointsButton = false;
 	bShouldEnableEquipButton = false;
 	

@@ -26,7 +26,7 @@ struct FCoreAbilityInfo
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FGameplayTag AbilityType = FGameplayTag();
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly)
 	FName InputName = FName();
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)

@@ -81,7 +81,7 @@ FGameplayTag UCoreAbilitySystemComponent::GetAbilityTagFromSpec(const FGameplayA
 
 FGameplayTag UCoreAbilitySystemComponent::GetStatusFromSpec(const FGameplayAbilitySpec& AbilitySpec)
 {
-	for (FGameplayTag StatusTag : AbilitySpec.GetDynamicSpecSourceTags())
+	for (FGameplayTag StatusTag : AbilitySpec.DynamicAbilityTags)
 	{
 		if (StatusTag.MatchesTag(FGameplayTag::RequestGameplayTag(FName("Abilities.Status"))))
 		{
@@ -196,7 +196,8 @@ FGameplayAbilitySpec* UCoreAbilitySystemComponent::GetSpecFromAbilityTag(const F
 	FScopedAbilityListLock ActiveScopeLock(*this);
 	for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
 	{
-		for (FGameplayTag Tag : AbilitySpec.Ability.Get()->GetAssetTags())
+		UE_LOG(LogTemp, Warning, TEXT("%ls"), *AbilitySpec.Ability.Get()->AbilityTags.ToString());
+		for (FGameplayTag Tag : AbilitySpec.Ability.Get()->AbilityTags)
 		{
 			if (Tag.MatchesTag(AbilityTag))
 			{
