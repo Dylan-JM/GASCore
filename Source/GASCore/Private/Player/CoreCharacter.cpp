@@ -186,6 +186,11 @@ FOnDamageSignature& ACoreCharacter::GetOnDamageSignature()
 	return OnDamageDelegate;
 }
 
+ECharacterClass ACoreCharacter::GetCharacterClass_Implementation()
+{
+	return CharacterClass;
+}
+
 FOnASCRegistered& ACoreCharacter::GetOnASCRegisteredDelegate()
 {
 	return OnAscRegistered;

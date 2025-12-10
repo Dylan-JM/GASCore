@@ -76,10 +76,10 @@ protected:
 	TObjectPtr<UAttributeSet> AttributeSet;
 
 	UPROPERTY(BlueprintReadOnly, Category="WidgetController")
-	TObjectPtr<ACorePlayerController> BasePlayerController;
+	TObjectPtr<ACorePlayerController> CorePlayerController;
 	
 	UPROPERTY(BlueprintReadOnly, Category="WidgetController")
-	TObjectPtr<ACorePlayerState> BasePlayerState;
+	TObjectPtr<ACorePlayerState> CorePlayerState;
 	
 	UPROPERTY(BlueprintReadOnly, Category="WidgetController")
 	TObjectPtr<UCoreAbilitySystemComponent> CoreAbilitySystemComponent;
@@ -87,8 +87,10 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category="WidgetController")
 	TObjectPtr<UCoreAttributeSet> CoreAttributeSet;
 
-	ACorePlayerController* GetBasePC();
-	ACorePlayerState* GetBasePS();
+	ACorePlayerController* GetCorePC();
+	ACorePlayerState* GetCorePS();
 	UCoreAbilitySystemComponent* GetCoreASC();
 	UCoreAttributeSet* GetCoreAttributeSet();
+	UFUNCTION(BlueprintCallable, Category = "WidgetController", BlueprintPure)
+	int32 GetPlayerLevel();
 };

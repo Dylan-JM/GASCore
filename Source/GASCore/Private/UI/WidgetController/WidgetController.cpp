@@ -39,22 +39,22 @@ void UWidgetController::BroadcastAbilityInfo()
 	GetCoreASC()->ForEachAbility(BroadcastDelegate);
 }
 
-ACorePlayerController* UWidgetController::GetBasePC()
+ACorePlayerController* UWidgetController::GetCorePC()
 {
-	if (BasePlayerController == nullptr)
+	if (CorePlayerController == nullptr)
 	{
-		BasePlayerController = Cast<ACorePlayerController>(PlayerController);
+		CorePlayerController = Cast<ACorePlayerController>(PlayerController);
 	}
-	return BasePlayerController;
+	return CorePlayerController;
 }
 
-ACorePlayerState* UWidgetController::GetBasePS()
+ACorePlayerState* UWidgetController::GetCorePS()
 {
-	if (BasePlayerState == nullptr)
+	if (CorePlayerState == nullptr)
 	{
-		BasePlayerState = Cast<ACorePlayerState>(PlayerState);
+		CorePlayerState = Cast<ACorePlayerState>(PlayerState);
 	}
-	return BasePlayerState;
+	return CorePlayerState;
 }
 
 UCoreAbilitySystemComponent* UWidgetController::GetCoreASC()
@@ -73,4 +73,14 @@ UCoreAttributeSet* UWidgetController::GetCoreAttributeSet()
 		CoreAttributeSet = Cast<UCoreAttributeSet>(AttributeSet);
 	}
 	return CoreAttributeSet;
+}
+
+int32 UWidgetController::GetPlayerLevel()
+{
+	ACorePlayerState* PS = GetCorePS();
+	if (PS)
+	{
+		return PS->GetPlayerLevel();
+	}
+	return 0;
 }

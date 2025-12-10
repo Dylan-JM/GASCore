@@ -19,7 +19,7 @@ void UAttributeMenuWidgetController::BindCallbacksToDependencies()
 	});
 	}
 	
-	GetBasePS()->OnAttributePointsChangedDelegate.AddLambda(
+	GetCorePS()->OnAttributePointsChangedDelegate.AddLambda(
 		[this](int32 Points)
 		{
 			AttributePointsChangedDelegate.Broadcast(Points);
@@ -36,7 +36,7 @@ void UAttributeMenuWidgetController::BroadcastInitialValues()
 		BroadCastAttributeInfo(Pair.Key, Pair.Value());
 	}
 	
-	AttributePointsChangedDelegate.Broadcast(GetBasePS()->GetAttributePoints());
+	AttributePointsChangedDelegate.Broadcast(GetCorePS()->GetAttributePoints());
 }
 
 void UAttributeMenuWidgetController::UpdateAttribute(const FGameplayTag& AttributeTag)

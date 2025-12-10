@@ -52,6 +52,7 @@ public:
 	static void ClearSlot(FGameplayAbilitySpec* Spec);
 	/**/
 	
+	UFUNCTION(BlueprintCallable)
 	void UpdateAbilityStatuses(int32 Level);
 	void UpdateAttribute(const FGameplayTag& AttributeTag);
 

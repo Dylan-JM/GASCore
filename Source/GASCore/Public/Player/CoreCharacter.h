@@ -40,9 +40,6 @@ public:
 	UFUNCTION()
 	void OnGameplayEffectRemoved(const FGameplayEffectRemovalInfo& InGERemovalInfo);
 
-	
-
-
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Attributes")
 	TSubclassOf<UGameplayEffect> DefaultVitalAttributes;
 	
@@ -57,12 +54,14 @@ public:
 	
 	UPROPERTY(BlueprintAssignable, Category= "Abilities")
 	FCharacterDiedDelegate OnCharacterDied;
-
 	
 	FOnASCRegistered OnAscRegistered;
 	UPROPERTY(BlueprintAssignable)
 	FOnDeath OnDeathDelegate;
 	FOnDamageSignature OnDamageDelegate;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Character Class Defaults")
+	ECharacterClass CharacterClass = ECharacterClass::Warrior;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Attributes")
 	TObjectPtr<UCurveTable> DamageCalculationCoefficients;
@@ -157,5 +156,7 @@ public:
 	virtual AActor* GetAvatar_Implementation() override;
 	virtual FOnDamageSignature& GetOnDamageSignature() override;
 	virtual FOnASCRegistered& GetOnASCRegisteredDelegate() override;
+	virtual ECharacterClass GetCharacterClass_Implementation() override;
+	/* End Combat Interface */
 };
 

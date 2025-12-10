@@ -55,7 +55,7 @@ UAttributeMenuWidgetController* UCoreAbilitySystemLibrary::GetAttributeMenuWidge
 
 	if (MakeWidgetControllerParams(WorldContextObject, WCParams, CoreHUD))
 	{
-		//return CoreHUD->GetAttributeMenuWidgetController(WCParams);
+		return CoreHUD->GetAttributeMenuWidgetController(WCParams);
 	}
 	return nullptr;
 }
@@ -100,6 +100,26 @@ UAbilityInfo* UCoreAbilitySystemLibrary::GetAbilityInfo(const UObject* WorldCont
 
 	return CoreGameMode->AbilityInfo;
 }
+
+UCharacterClassInfo* UCoreAbilitySystemLibrary::GetCharacterClassInfo(const UObject* WorldContextObject)
+{
+	const ACoreGameMode* CoreGameMode = Cast<ACoreGameMode>(UGameplayStatics::GetGameMode(WorldContextObject));
+	if (CoreGameMode == nullptr) return nullptr;
+
+	return CoreGameMode->CharacterClassInfo;
+}
+
+int32 UCoreAbilitySystemLibrary::GetXPRewardForClassAndLevel(const UObject* WorldContextObject, ECharacterClass CharacterClass, int32 CharacterLevel)
+{
+	UCharacterClassInfo* CharacterClassInfo = GetCharacterClassInfo(WorldContextObject);
+	if (CharacterClassInfo == nullptr) return 0;
+
+	const FCharacterClassDefaultInfo& Info = CharacterClassInfo->GetClassDefaultInfo(CharacterClass);
+	const float XPReward = Info.XPReward.GetValueAtLevel(CharacterLevel);
+
+	return static_cast<int32>(XPReward);
+}
+
 
 void UCoreAbilitySystemLibrary::SetIsRadialDamageEffectParam(FDamageEffectParams& DamageEffectParams, bool bIsRadial, float InnerRadius, float OuterRadius, FVector Origin)
 {

@@ -41,7 +41,7 @@ namespace GasTag
 
 
 	/* Meta Attributes */
-	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Meta_IncomingXP, "Attributes.Meta.IncomingXP", "A Gameplay Tag for Incoming XP.")
+	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attributes_Meta_IncomingXP, "Attributes.Meta.IncomingXP", "A Gameplay Tag for Incoming XP.")
 
 	/* Damage Tags */
 	UE_DEFINE_GAMEPLAY_TAG_COMMENT(Damage, "Damage", "A Gameplay Tag for damage.")

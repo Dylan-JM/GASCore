@@ -5,6 +5,7 @@
 #include "NiagaraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "AbilitySystem/CoreAbilitySystemComponent.h"
+#include "AbilitySystem/Data/LevelUpInfo.h"
 #include "Kismet/GameplayStatics.h"
 #include "Player/CorePlayerController.h"
 #include "Player/CorePlayerState.h"
@@ -167,32 +168,42 @@ void ACorePlayerCharacter::ServerSetSprinting_Implementation(bool bInIsSprinting
 
 void ACorePlayerCharacter::AddToXP_Implementation(int32 InXP)
 {
-	IPlayerInterface::AddToXP_Implementation(InXP);
+	ACorePlayerState* PS = GetPlayerState<ACorePlayerState>();
+	check(PS);
+	return PS->AddToXP(InXP);
 }
 
 void ACorePlayerCharacter::LevelUp_Implementation()
 {
-	IPlayerInterface::LevelUp_Implementation();
+	//MultiCastLevelUpParticles();
 }
 
 int32 ACorePlayerCharacter::GetXP_Implementation() const
 {
-	return IPlayerInterface::GetXP_Implementation();
+	const ACorePlayerState* PS = GetPlayerState<ACorePlayerState>();
+	check(PS);
+	return PS->GetXP();
 }
 
 int32 ACorePlayerCharacter::FindLevelForXP_Implementation(int32 InXP) const
 {
-	return IPlayerInterface::FindLevelForXP_Implementation(InXP);
+	const ACorePlayerState* PS = GetPlayerState<ACorePlayerState>();
+	check(PS);
+	return PS->LevelUpInfo->FindLevelForXP(InXP);
 }
 
 int32 ACorePlayerCharacter::GetAttributesPointsReward_Implementation(int32 Level) const
 {
-	return IPlayerInterface::GetAttributesPointsReward_Implementation(Level);
+	const ACorePlayerState* PS = GetPlayerState<ACorePlayerState>();
+	check(PS);
+	return PS->LevelUpInfo->LevelUpInformation[Level].AttributePointAward;
 }
 
 int32 ACorePlayerCharacter::GetAbilityPointsReward_Implementation(int32 Level) const
 {
-	return IPlayerInterface::GetAbilityPointsReward_Implementation(Level);
+	const ACorePlayerState* PS = GetPlayerState<ACorePlayerState>();
+	check(PS);
+	return PS->LevelUpInfo->LevelUpInformation[Level].AbilityPointAward;
 }
 
 void ACorePlayerCharacter::AddToPlayerLevel_Implementation(int32 InPlayerLevel)
@@ -209,20 +220,28 @@ void ACorePlayerCharacter::AddToPlayerLevel_Implementation(int32 InPlayerLevel)
 
 void ACorePlayerCharacter::AddToAttributePoints_Implementation(int32 InAttributePoints)
 {
-	IPlayerInterface::AddToAttributePoints_Implementation(InAttributePoints);
+	ACorePlayerState* PS = GetPlayerState<ACorePlayerState>();
+	check(PS);
+	PS->AddToAttributePoints(InAttributePoints);
 }
 
 void ACorePlayerCharacter::AddToAbilityPoints_Implementation(int32 InAbilityPoints)
 {
-	IPlayerInterface::AddToAbilityPoints_Implementation(InAbilityPoints);
+	ACorePlayerState* PS = GetPlayerState<ACorePlayerState>();
+	check(PS);
+	PS->AddToAbilityPoints(InAbilityPoints);
 }
 
 int32 ACorePlayerCharacter::GetAttributePoints_Implementation() const
 {
-	return IPlayerInterface::GetAttributePoints_Implementation();
+	ACorePlayerState* PS = GetPlayerState<ACorePlayerState>();
+	check(PS);
+	return PS->GetAttributePoints();
 }
 
 int32 ACorePlayerCharacter::GetAbilityPoints_Implementation() const
 {
-	return IPlayerInterface::GetAbilityPoints_Implementation();
+	ACorePlayerState* PS = GetPlayerState<ACorePlayerState>();
+	check(PS);
+	return PS->GetAbilityPoints();
 }

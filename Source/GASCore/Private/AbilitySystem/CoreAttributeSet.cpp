@@ -9,6 +9,7 @@
 #include "AbilitySystem/CoreAbilitySystemLibrary.h"
 #include "AbilitySystem/CoreAbilitySystemComponent.h"
 #include "GameplayEffectComponents/TargetTagsGameplayEffectComponent.h"
+#include "Interface/PlayerInterface.h"
 #include "Player/CoreCharacter.h"
 #include "Net/UnrealNetwork.h"
 #include "Player/CorePlayerController.h"
@@ -205,7 +206,46 @@ void UCoreAttributeSet::HandleIncomingDamage(const FEffectProperties& Props)
 	}
 }
 
-void UCoreAttributeSet::Debuff(const FEffectProperties& Props)
+ void UCoreAttributeSet::HandleIncomingXP(const FEffectProperties& Props)
+ {
+ 	const float LocalIncomingXP = GetIncomingXP();
+ 	SetIncomingXP(0.f);
+
+ 	// Source character is the owner since GA_ListenForEvents applies GE_EventBasedEffect, adding to IncomingXP
+ 	if (Props.SourceCharacter->Implements<UPlayerInterface>() && Props.SourceCharacter->Implements<UCombatInterface>())
+ 	{
+ 		const int32 CurrentLevel = ICombatInterface::Execute_GetPlayerLevel(Props.SourceCharacter);
+ 		const int32 CurrentXP = IPlayerInterface::Execute_GetXP(Props.SourceCharacter);
+
+ 		const int32 NewLevel = IPlayerInterface::Execute_FindLevelForXP(Props.SourceCharacter, CurrentXP + LocalIncomingXP);
+ 		const int32 NumLevelUps = NewLevel - CurrentLevel;
+ 		if (NumLevelUps > 0)
+ 		{
+ 			IPlayerInterface::Execute_AddToPlayerLevel(Props.SourceCharacter, NumLevelUps);
+
+ 			int32 AttributePointsReward = 0;
+ 			int32 SpellPointsReward = 0;
+
+ 			for (int32 i = 0; i < NumLevelUps; i++)
+ 			{
+ 				SpellPointsReward += IPlayerInterface::Execute_GetAbilityPointsReward(Props.SourceCharacter, CurrentLevel + i);
+ 				AttributePointsReward += IPlayerInterface::Execute_GetAttributesPointsReward(Props.SourceCharacter, CurrentLevel + i);
+ 			}
+			
+ 			IPlayerInterface::Execute_AddToAttributePoints(Props.SourceCharacter, AttributePointsReward);
+ 			IPlayerInterface::Execute_AddToAbilityPoints(Props.SourceCharacter, SpellPointsReward);
+
+ 			bTopOffHealth = true;
+ 			bTopOffMana = true;
+				
+ 			IPlayerInterface::Execute_LevelUp(Props.SourceCharacter);
+ 		}
+			
+ 		IPlayerInterface::Execute_AddToXP(Props.SourceCharacter, LocalIncomingXP);
+ 	}
+ }
+
+ void UCoreAttributeSet::Debuff(const FEffectProperties& Props)
 {
 	FGameplayEffectContextHandle EffectContext = Props.SourceASC->MakeEffectContext();
 	EffectContext.AddSourceObject(Props.SourceAvatarActor);
@@ -291,6 +331,21 @@ void UCoreAttributeSet::ShowFloatingText(const FEffectProperties& Props, float D
 		}
 	}
 }
+
+void UCoreAttributeSet::SendXPEvent(const FEffectProperties& Props)
+ {
+ 	if (Props.TargetCharacter->Implements<UCombatInterface>())
+ 	{
+ 		const int32 TargetLevel = ICombatInterface::Execute_GetPlayerLevel(Props.TargetCharacter);
+ 		const ECharacterClass TargetClass = ICombatInterface::Execute_GetCharacterClass(Props.TargetCharacter);
+ 		const int32 XPReward = UCoreAbilitySystemLibrary::GetXPRewardForClassAndLevel(Props.TargetCharacter, TargetClass, TargetLevel);
+ 		
+ 		FGameplayEventData Payload;
+ 		Payload.EventTag = GasTag::Attributes_Meta_IncomingXP;
+ 		Payload.EventMagnitude = XPReward;
+ 		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Props.SourceCharacter, GasTag::Attributes_Meta_IncomingXP, Payload);
+ 	}
+ }
 
 void UCoreAttributeSet::OnRep_Strength(const FGameplayAttributeData& OldStrength)
 {

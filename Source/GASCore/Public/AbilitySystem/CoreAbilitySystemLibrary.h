@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "Data/CharacterClassInfo.h"
 #include "CoreAbilitySystemLibrary.generated.h"
 
 
@@ -45,6 +46,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category= "CoreAbilitySystemLibrary|CharacterClassDefaults")
 	static UAbilityInfo* GetAbilityInfo(const UObject* WorldContextObject);
+	
+	UFUNCTION(BlueprintCallable, Category= "CoreAbilitySystemLibrary|CharacterClassDefaults")
+	static UCharacterClassInfo* GetCharacterClassInfo(const UObject* WorldContextObject);
 	
 	/* Gameplay Effect Context Getters */ 
 	UFUNCTION(BlueprintPure, Category= "CoreAbilitySystemLibrary|GameplayEffects")
@@ -159,6 +163,8 @@ public:
 	UFUNCTION(BlueprintPure, BlueprintCallable, Category= "CoreAbilitySystemLibrary|GameplayMechanics")
 	static TArray<FVector> EvenlySpacedVectors(const FVector& Start, const FVector& End, float Spread, int32 NumVectors);
 	
+	static int32 GetXPRewardForClassAndLevel(const UObject* WorldContextObject, ECharacterClass CharacterClass, int32 CharacterLevel);
+
 	/* Damage Effect Params */
 
 	UFUNCTION(BlueprintCallable, Category= "CoreAbilitySystemLibrary|DamageEffect")

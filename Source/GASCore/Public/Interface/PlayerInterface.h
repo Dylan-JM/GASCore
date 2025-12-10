@@ -35,13 +35,13 @@ public:
 	UFUNCTION(BlueprintNativeEvent)
 	int32 GetAbilityPointsReward(int32 Level) const;
 	
-	UFUNCTION(BlueprintNativeEvent)
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void AddToXP(int32 InXP);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void AddToPlayerLevel(int32 InPlayerLevel);
 
-	UFUNCTION(BlueprintNativeEvent)
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void AddToAttributePoints(int32 InAttributePoints);
 
 	UFUNCTION(BlueprintNativeEvent)
@@ -50,7 +50,7 @@ public:
 	UFUNCTION(BlueprintNativeEvent)
 	int32 GetAbilityPoints() const;
 	
-	UFUNCTION(BlueprintNativeEvent)
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void AddToAbilityPoints(int32 InAbilityPoints);
 	
 	UFUNCTION(BlueprintNativeEvent)

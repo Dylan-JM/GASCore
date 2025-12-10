@@ -22,8 +22,8 @@ void UOverlayWidgetController::BroadcastInitialValues()
 
 void UOverlayWidgetController::BindCallbacksToDependencies()
 {
-	GetBasePS()->OnXPChangedDelegate.AddUObject(this, &UOverlayWidgetController::OnXPChanged);
-	GetBasePS()->OnLevelChangedDelegate.AddLambda([this](int32 NewLevel, bool bLevelUp)
+	GetCorePS()->OnXPChangedDelegate.AddUObject(this, &UOverlayWidgetController::OnXPChanged);
+	GetCorePS()->OnLevelChangedDelegate.AddLambda([this](int32 NewLevel, bool bLevelUp)
 	{
 		OnPlayerLevelChangedDelegate.Broadcast(NewLevel, bLevelUp);
 	});
@@ -97,8 +97,8 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 
 void UOverlayWidgetController::OnXPChanged(int32 NewXP)
 {
-	const ULevelUpInfo* LevelUpInfo = GetBasePS()->LevelUpInfo;
-	checkf(LevelUpInfo, TEXT("Unable to find LevelUpInfo. Please fill out BasePlayerState Blueprint"));
+	const ULevelUpInfo* LevelUpInfo = GetCorePS()->LevelUpInfo;
+	checkf(LevelUpInfo, TEXT("Unable to find LevelUpInfo. Please fill out CorePlayerState Blueprint"));
 
 	const int32 Level = LevelUpInfo->FindLevelForXP(NewXP);
 	const int32 MaxLevel = LevelUpInfo->LevelUpInformation.Num();

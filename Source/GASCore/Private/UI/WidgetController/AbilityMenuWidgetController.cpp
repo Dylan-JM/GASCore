@@ -10,7 +10,7 @@
 void UAbilityMenuWidgetController::BroadcastInitialValues()
 {
 	BroadcastAbilityInfo();
-	AbilityPointsChanged.Broadcast(GetBasePS()->GetAbilityPoints());
+	AbilityPointsChanged.Broadcast(GetCorePS()->GetAbilityPoints());
 }
 
 void UAbilityMenuWidgetController::BindCallbacksToDependencies()
@@ -39,7 +39,7 @@ void UAbilityMenuWidgetController::BindCallbacksToDependencies()
 
 	GetCoreASC()->AbilityEquipped.AddUObject(this, &UAbilityMenuWidgetController::OnAbilityEquipped);
 
-	GetBasePS()->OnAbilityPointsChangedDelegate.AddLambda([this](int32 AbilityPoints)
+	GetCorePS()->OnAbilityPointsChangedDelegate.AddLambda([this](int32 AbilityPoints)
 	{
 		AbilityPointsChanged.Broadcast(AbilityPoints);
 		CurrentAbilityPoints = AbilityPoints;
@@ -62,7 +62,7 @@ void UAbilityMenuWidgetController::AbilityGlobeSelected(const FGameplayTag& Abil
 		bWaitingForEquipSelection = false;
 	}
 	
-	const int32 AbilityPoints = GetBasePS()->GetAbilityPoints();
+	const int32 AbilityPoints = GetCorePS()->GetAbilityPoints();
 	FGameplayTag AbilityStatus;
 
 	const bool bTagValid = AbilityTag.IsValid();
