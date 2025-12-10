@@ -218,7 +218,7 @@ void UCoreAbilitySystemComponent::UpdateAbilityStatuses(int32 Level)
 		{
 			FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(Info.Ability, 1);
 			AbilitySpec.GetDynamicSpecSourceTags().AddTag(GasTag::Abilities_Status_Eligible);
-			//GiveAbility(AbilitySpec); TODO: may need to add this line back if there's issues, currently it gives all abilities at the players level requirements which isn't good
+			GiveAbility(AbilitySpec); 
 			MarkAbilitySpecDirty(AbilitySpec);
 			ClientUpdateAbilityStatus(Info.AbilityTag, GasTag::Abilities_Status_Eligible, 1);
 		}

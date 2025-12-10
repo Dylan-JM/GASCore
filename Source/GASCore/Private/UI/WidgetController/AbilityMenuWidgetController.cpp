@@ -84,6 +84,7 @@ void UAbilityMenuWidgetController::AbilityGlobeSelected(const FGameplayTag& Abil
 	bool bEnableSpendPoints = false;
 	bool bEnableEquip = false;
 	ShouldEnableButtons(AbilityStatus, AbilityPoints, bEnableSpendPoints, bEnableEquip);
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString("attempt shuld enable buttons Text"));
 	FString Description;
 	FString NextLevelDescription;
 	GetCoreASC()->GetDescriptionsByAbilityTag(AbilityTag, Description, NextLevelDescription);
@@ -163,7 +164,7 @@ void UAbilityMenuWidgetController::OnAbilityEquipped(const FGameplayTag& Ability
 void UAbilityMenuWidgetController::ShouldEnableButtons(const FGameplayTag& AbilityStatus, int32 AbilityPoints,
                                                      bool& bShouldEnableAbilityPointsButton, bool& bShouldEnableEquipButton)
 {
-
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString("Basic Text"));
 	bShouldEnableAbilityPointsButton = false;
 	bShouldEnableEquipButton = false;
 	
